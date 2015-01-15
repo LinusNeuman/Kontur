@@ -19,7 +19,7 @@ namespace NeonShooter
 
         public JoystickManager()
         {
-            joystick = new Joystick(30, 30);
+            joystick = new Joystick(60, 60);
             joystick.init();
         }
 

@@ -50,6 +50,7 @@ namespace NeonShooter
 
 
             joystickMgr.Draw(spriteBatch);
+            base.Draw(spriteBatch);
         }
     }
 }
