@@ -77,18 +77,35 @@ namespace NeonShooter
                         //offsetY = (int)gesture.Position.Y;
 
                         // temporary solution
-                        knob.x = (int)gesture.Position.X;
-                        knob.y = (int)gesture.Position.Y;
+                        
                     //}
 
-                //knob.x = knob.originX; // to reset..
-                //knob.y = knob.originY;
+                //if(gesture.Position.X - this.x >= -160 && gesture.Position.X - (int)this.texture.Width <= 160
+                //    && gesture.Position.Y - this.y >= -160 && gesture.Position.Y - (int)this.texture.Height >= 160)
+                //{
+                //    
+                //}
 
+                double final = Convert.ToDouble((gesture.Position.X - this.x) + (gesture.Position.Y - this.y));
+
+                double distance = Math.Sqrt(final);
+
+                if (distance <= 16)
+                {
+                    knob.x = (int)gesture.Position.X;
+                    knob.y = (int)gesture.Position.Y;
+                    
+
+                }
+
+
+               // knob.x = knob.originX; // to reset..
+               // knob.y = knob.originY;
                 //offsetX = 0;
                 //offsetY = 0;
-
                 
             }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
