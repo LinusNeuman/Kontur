@@ -73,6 +73,8 @@ namespace NeonShooter
                 Exit();
             }
 
+            Input.Update();
+
             // TODO: Add your update logic here
 
             EntityManager.Update();

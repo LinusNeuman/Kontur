@@ -70,6 +70,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="GameRoot.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="Joystick.cs" />
     <Compile Include="JoystickKnob.cs" />
     <Compile Include="JoystickManager.cs" />

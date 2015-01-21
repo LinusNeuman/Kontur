@@ -15,12 +15,16 @@ namespace NeonShooter
 {
     public class JoystickManager
     {
-        Joystick joystick;
+        public Joystick joystick;
+
+        public static JoystickManager instance;
 
         public JoystickManager()
         {
             joystick = new Joystick(60, 60);
             joystick.init();
+
+            instance = this;
         }
 
         public void Update()

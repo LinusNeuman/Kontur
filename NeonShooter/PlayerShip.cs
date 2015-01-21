@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace NeonShooter
 {
@@ -40,7 +41,14 @@ namespace NeonShooter
 
         public override void Update()
         {
-            // ship logic
+            const float speed = 8;
+            Velocity = speed * Input.GetMovementDirection();
+            Position += Velocity;
+            Position = Vector2.Clamp(Position, Size / 2, GameRoot.ScreenSize - Size / 2);
+
+            if (Velocity.LengthSquared() > 0)
+                Orientation = Velocity.ToAngle();
+
 
             joystickMgr.Update();
         }

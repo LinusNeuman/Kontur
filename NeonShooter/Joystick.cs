@@ -30,6 +30,8 @@ namespace NeonShooter
                              // Will make the knob follow the finger, and be used for calculations.
         private int offsetY;
 
+        public Vector2 direction;
+
         public Joystick(int margin_left, int margin_bottom)
         {
             my_x = margin_left;
@@ -85,6 +87,9 @@ namespace NeonShooter
                 {
                     knob.x = (int)gesture.Position.X;
                     knob.y = (int)gesture.Position.Y;
+
+                    direction.X = knob.x - this.x;
+                    direction.Y = knob.y - this.y;
                 }
 
                 //double final = Convert.ToDouble((gesture.Position.X - this.x) + (gesture.Position.Y - this.y));
