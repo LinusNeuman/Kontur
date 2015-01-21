@@ -67,12 +67,15 @@
   <ItemGroup>
     <Compile Include="Activity1.cs" />
     <Compile Include="Art.cs" />
+    <Compile Include="Bullet.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityManager.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="GameRoot.cs" />
     <Compile Include="Joystick.cs" />
     <Compile Include="JoystickKnob.cs" />
     <Compile Include="JoystickManager.cs" />
+    <Compile Include="MathUtil.cs" />
     <Compile Include="PlayerShip.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
