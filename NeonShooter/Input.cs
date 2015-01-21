@@ -28,7 +28,10 @@ namespace NeonShooter
 
             Vector2 direction = JoystickManager.instance.joystick.direction;
             // for movement left joystick (joystick)
-            direction.Y *= -1;
+            //direction.Y *= -1;
+
+
+
 
             if (direction.LengthSquared() > 1)
                 direction.Normalize();

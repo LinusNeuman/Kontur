@@ -17,6 +17,8 @@ namespace NeonShooter
 {
     public class Joystick
     {
+        private bool fingerIsDown;
+
         private int my_x;
         private int my_y;
 
@@ -64,31 +66,29 @@ namespace NeonShooter
 
         private void HandleTouchInput()
         {
+            if (fingerIsDown == false)
+            {
+                knob.x = knob.originX;
+                knob.y = knob.originY;
+
+                direction = Vector2.Zero;
+            }
 
             while (TouchPanel.IsGestureAvailable)
             {
+                
+
                 GestureSample gesture = TouchPanel.ReadGesture();
-
-
-                    //if (gesture.Position.X >= this.x &&
-                    //    gesture.Position.X <= this.texture.Width &&
-                    //    gesture.Position.Y >= this.y &&
-                    //    gesture.Position.Y <= this.texture.Height)
-                    //{
-                        //offsetX = (int)gesture.Position.X;
-                        //offsetY = (int)gesture.Position.Y;
-
-                        // temporary solution
-                        
-                    //}
 
                 if (gesture.Position.X - this.x >= -160 && gesture.Position.X - (int)this.texture.Width <= 160
                     && gesture.Position.Y - this.y >= -160 && gesture.Position.Y - (int)this.texture.Height >= 160)
                 {
+                    fingerIsDown = true;
+
                     knob.x = (int)gesture.Position.X;
                     knob.y = (int)gesture.Position.Y;
 
-                    direction.X = knob.x - this.x;
+                    direction.X = knob.x - this.x; // To calculate we need the position _relative_ to the centre of the joystick. 
                     direction.Y = knob.y - this.y;
                 }
 
@@ -103,12 +103,7 @@ namespace NeonShooter
 
                 //}
 
-
-               // knob.x = knob.originX; // to reset..
-               // knob.y = knob.originY;
-                //offsetX = 0;
-                //offsetY = 0;
-                
+                fingerIsDown = false;
             }
 
         }
