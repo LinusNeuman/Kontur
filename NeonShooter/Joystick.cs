@@ -17,16 +17,16 @@ namespace NeonShooter
 {
     public class Joystick
     {
-        private bool fingerIsDown;
+        public bool fingerIsDown;
 
         private int my_x;
         private int my_y;
 
-        private JoystickKnob knob; // import and represent the joystickKnob.
+        public JoystickKnob knob; // import and represent the joystickKnob.
 
-        private Texture2D texture;
-        private int x;
-        private int y;
+        public Texture2D texture;
+        public int x;
+        public int y;
 
         private int offsetX; // To be used together with the usual X and Y variables, but they have the coordinates equal to the center of the joystick, this will be 0 +- the finger location. 
                              // Will make the knob follow the finger, and be used for calculations.
@@ -73,39 +73,6 @@ namespace NeonShooter
 
                 direction = Vector2.Zero;
             }
-
-            while (TouchPanel.IsGestureAvailable)
-            {
-                
-
-                GestureSample gesture = TouchPanel.ReadGesture();
-
-                if (gesture.Position.X - this.x >= -160 && gesture.Position.X - (int)this.texture.Width <= 160
-                    && gesture.Position.Y - this.y >= -160 && gesture.Position.Y - (int)this.texture.Height >= 160)
-                {
-                    fingerIsDown = true;
-
-                    knob.x = (int)gesture.Position.X;
-                    knob.y = (int)gesture.Position.Y;
-
-                    direction.X = knob.x - this.x; // To calculate we need the position _relative_ to the centre of the joystick. 
-                    direction.Y = knob.y - this.y;
-                }
-
-                //double final = Convert.ToDouble((gesture.Position.X - this.x) + (gesture.Position.Y - this.y));
-
-                //double distance = Math.Sqrt(final);
-
-                //if (distance <= 16)
-                //{
-                    
-                    
-
-                //}
-
-                fingerIsDown = false;
-            }
-
         }
 
         public void Draw(SpriteBatch spriteBatch)

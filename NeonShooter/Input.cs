@@ -26,8 +26,7 @@ namespace NeonShooter
         public static Vector2 GetMovementDirection()
         {
 
-            Vector2 direction = JoystickManager.instance.joystick.direction;
-            // for movement left joystick (joystick)
+            Vector2 direction = JoystickManager.instance.moveJoystick.direction;
             //direction.Y *= -1;
 
 
@@ -41,10 +40,14 @@ namespace NeonShooter
 
         public static Vector2 GetAimDirection()
         {
-            
-            Vector2 direction = Joy
+            Vector2 direction = JoystickManager.instance.aimJoystick.direction;
+            //direction.Y *= -1;
 
-            return Vector2.Zero;
+            // if there is no input return zero, else normalize the direction to have a length of 1
+            if (direction == Vector2.Zero)
+                return Vector2.Zero;
+            else
+                return Vector2.Normalize(direction);
         }
     }
 }

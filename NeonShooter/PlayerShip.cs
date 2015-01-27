@@ -18,7 +18,7 @@ namespace NeonShooter
     class PlayerShip : Entity
     {
         const int cooldownFrames = 6;
-        int cooldownRemaining = 0;
+        public int cooldownRemaining = 0;
         static Random rand = new Random();
 
         private static PlayerShip instance;
@@ -58,7 +58,7 @@ namespace NeonShooter
             joystickMgr.Update();
 
             var aim = Input.GetAimDirection(); // get aim
-            if (aim.LengthSquared() > 0 && cooldownFrames <=0)
+            if (aim.LengthSquared() > 0 && cooldownRemaining <= 0)
             {
                 cooldownRemaining = cooldownFrames;
                 float aimAngle = aim.ToAngle();
