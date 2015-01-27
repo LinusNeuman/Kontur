@@ -57,7 +57,7 @@ namespace NeonShooter
 
             joystickMgr.Update();
 
-            var aim = Input.GetAimDirection();
+            var aim = Input.GetAimDirection(); // get aim
             if (aim.LengthSquared() > 0 && cooldownFrames <=0)
             {
                 cooldownRemaining = cooldownFrames;

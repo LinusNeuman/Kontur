@@ -41,7 +41,8 @@ namespace NeonShooter
 
         public static Vector2 GetAimDirection()
         {
-            // for aim right joystick
+            
+            Vector2 direction = Joy
 
             return Vector2.Zero;
         }
