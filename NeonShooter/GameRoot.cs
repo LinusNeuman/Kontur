@@ -29,6 +29,8 @@ namespace NeonShooter
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft; // | DisplayOrientation.LandscapeRight;
 
             Instance = this;
+
+            this.IsFixedTimeStep = true;
         }
 
         /// <summary>
