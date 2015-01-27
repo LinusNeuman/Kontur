@@ -11,10 +11,6 @@ using Android.Views;
 using Android.Widget;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-<<<<<<< HEAD
-=======
-using Microsoft.Xna.Framework.Input.Touch;
->>>>>>> origin/master
 
 namespace NeonShooter
 {
