@@ -16,5 +16,22 @@ namespace NeonShooter
     {
         static Random rand = new Random();
         static float inverseSpawnChance = 60;
+
+        public static void Update()
+        {
+            if (!PlayerShip.Instance.IsDead && EntityManager.Count < 200)
+            {
+                if (rand.Next((int)inverseSpawnChance) == 0)
+                    EntityManager.Add(Enemy.CreateSeeker(GetSpawnPosition()));
+                if (rand.Next((int)inverseSpawnChance) == 0)
+                    EntityManager.Add(Enemy.CreateWanderer(GetSpawnPosition()));
+            }
+
+            // increase spawn rate
+            if (inverseSpawnChance > 20)
+                inverseSpawnChance -= 0.005f;
+        }
+
+        private 
     }
 }
