@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Microsoft.Xna.Framework;
 
 namespace NeonShooter
 {
@@ -32,6 +33,21 @@ namespace NeonShooter
                 inverseSpawnChance -= 0.005f;
         }
 
-        private 
+        private static Vector2 GetSpawnPosition()
+        {
+            Vector2 pos;
+            do
+            {
+                pos = new Vector2(rand.Next((int)GameRoot.ScreenSize.X), rand.Next((int)GameRoot.ScreenSize.Y));
+            }
+            while (Vector2.DistanceSquared(pos, PlayerShip.Instance.Position) < 250 * 250);
+
+            return pos;
+        }
+
+        public static void Reset()
+        {
+            inverseSpawnChance = 60;
+        }
     }
 }

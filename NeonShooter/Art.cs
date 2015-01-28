@@ -24,6 +24,7 @@ namespace NeonShooter
         public static Texture2D TitleScreenBg { get; private set; }
         public static Texture2D Joystick { get; private set; }
         public static Texture2D Knob { get; private set; }
+        public static SpriteFont Font { get; private set; }
 
         public static void Load(ContentManager content)
         {
@@ -35,6 +36,7 @@ namespace NeonShooter
             TitleScreenBg = content.Load<Texture2D>("TitleScreenBg");
             Joystick = content.Load<Texture2D>("Joystick");
             Knob = content.Load<Texture2D>("Knob");
+            Font = content.Load<SpriteFont>("Font");
         }
     }
 }

@@ -18,6 +18,7 @@ namespace NeonShooter
         public static GameRoot Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
+        public static GameTime GameTime { get; private set; }
 
         public GameRoot()
         {
@@ -85,7 +86,9 @@ namespace NeonShooter
 
             Input.Update();
 
-            // TODO: Add your update logic here
+            EnemySpawner.Update();
+
+            PlayerStatus.Update(); // do not update when paused
 
             EntityManager.Update();
 
@@ -103,11 +106,18 @@ namespace NeonShooter
                 null, null, null, null, SpriteScale);
             //spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
             spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
-            spriteBatch.DrawString(font, "Hello from MonoGame!", new Vector2(16, 16), Color.White);
             EntityManager.Draw(spriteBatch);
+            spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
+            DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private void DrawRightAlignedString(string text, float y)
+        {
+            var textWidth = Art.Font.MeasureString(text).X;
+            spriteBatch.DrawString(Art.Font, text, new Vector2(ScreenSize.X - textWidth - 5, y), Color.White);
         }
     }
 }
