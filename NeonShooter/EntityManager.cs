@@ -47,7 +47,7 @@ namespace NeonShooter
         static void HandleCollisions()
         {
             //handles collision between enemies
-            for (int i = 0; i <enemies.Count; i++)
+            for (int i = 0; i < enemies.Count; i++)
                 for (int j = i + 1; j < enemies.Count; j++)
                 {
                     if (IsColliding(enemies[i], enemies[j]))

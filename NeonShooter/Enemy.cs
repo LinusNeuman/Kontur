@@ -17,10 +17,13 @@ namespace NeonShooter
 {
     class Enemy : Entity
     {
+        public static Random rand = new Random();
         private int timeUntilStart = 60;
         public bool IsActive { get { return timeUntilStart <= 0; } }
 
         private List<IEnumerator<int>> behaviours = new List<IEnumerator<int>>();
+
+        public int PointValue { get; private set; }
 
         public Enemy(Texture2D image, Vector2 position)
         {
@@ -57,6 +60,9 @@ namespace NeonShooter
         public void WasShot()
         {
             IsExpired = true;
+
+            PlayerStatus.AddPoints(PointValue);
+            PlayerStatus.IncreaseMultiplier();
         }
 
         public static Enemy CreateSeeker(Vector2 position)

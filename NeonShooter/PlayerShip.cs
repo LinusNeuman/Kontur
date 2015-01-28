@@ -50,6 +50,7 @@ namespace NeonShooter
         public void Kill()
         {
             framesUntilRespawn = 60;
+            PlayerStatus.RemoveLife();
         }
 
         public override void Update()
