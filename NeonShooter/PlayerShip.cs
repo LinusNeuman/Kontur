@@ -21,6 +21,9 @@ namespace NeonShooter
         public int cooldownRemaining = 0;
         static Random rand = new Random();
 
+        int framesUntilRespawn = 0;
+        public bool IsDead { get { return framesUntilRespawn > 0; } }
+
         private static PlayerShip instance;
         public static PlayerShip Instance
         {
@@ -44,8 +47,19 @@ namespace NeonShooter
             joystickMgr = new JoystickManager();
         }
 
+        public void Kill()
+        {
+            framesUntilRespawn = 60;
+        }
+
         public override void Update()
         {
+            if (IsDead)
+            {
+                framesUntilRespawn--;
+                return;
+            }
+
             const float speed = 8;
             Velocity = speed * Input.GetMovementDirection();
             Position += Velocity;
@@ -82,7 +96,9 @@ namespace NeonShooter
 
 
             joystickMgr.Draw(spriteBatch);
-            base.Draw(spriteBatch);
+
+            if(!IsDead)
+                base.Draw(spriteBatch);
         }
     }
 }
