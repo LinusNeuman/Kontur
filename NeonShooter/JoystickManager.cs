@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework;
 
 namespace NeonShooter
 {
@@ -49,9 +50,14 @@ namespace NeonShooter
                 GestureSample gesture = TouchPanel.ReadGesture();
 
                 #region MoveJoy
-                if (gesture.Position.X - moveJoystick.x >= -160 && gesture.Position.X - (int)moveJoystick.texture.Width <= 160
-                    && gesture.Position.Y - moveJoystick.y >= -160 && gesture.Position.Y - (int)moveJoystick.texture.Height >= 160)
+
+                if((gesture.Position - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < 160)
                 {
+                
+
+                //if (gesture.Position.X - moveJoystick.x >= -160 && gesture.Position.X - (int)moveJoystick.texture.Width <= 160
+                //    && gesture.Position.Y - moveJoystick.y >= -160 && gesture.Position.Y - (int)moveJoystick.texture.Height >= 160)
+                //{
                     moveJoystick.fingerIsDown = true;
 
                     moveJoystick.knob.x = (int)gesture.Position.X;
@@ -71,8 +77,9 @@ namespace NeonShooter
                 #endregion
 
                 #region AimJoy
-                if (gesture.Position.X - aimJoystick.x + GameRoot.ScreenSize.X - Art.Joystick.Width >= -160 && gesture.Position.X - GameRoot.ScreenSize.X - (int)aimJoystick.texture.Width <= 160
-                    && gesture.Position.Y - aimJoystick.y >= -160 && gesture.Position.Y - (int)aimJoystick.texture.Height >= 160)
+                //if (gesture.Position.X - aimJoystick.x + GameRoot.ScreenSize.X - Art.Joystick.Width >= -160 && gesture.Position.X - GameRoot.ScreenSize.X - (int)aimJoystick.texture.Width <= 160
+                //    && gesture.Position.Y - aimJoystick.y >= -160 && gesture.Position.Y - (int)aimJoystick.texture.Height >= 160)
+                if ((gesture.Position - new Vector2(aimJoystick.x, aimJoystick.y)).Length() < 160)
                 {
                     aimJoystick.fingerIsDown = true;
 

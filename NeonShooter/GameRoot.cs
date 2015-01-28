@@ -13,6 +13,8 @@ namespace NeonShooter
         SpriteBatch spriteBatch;
         SpriteFont font;
 
+        Matrix SpriteScale;
+
         public static GameRoot Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
@@ -24,8 +26,6 @@ namespace NeonShooter
             Content.RootDirectory = "Content";
 
             graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft; // | DisplayOrientation.LandscapeRight;
 
             Instance = this;
@@ -46,6 +46,14 @@ namespace NeonShooter
             base.Initialize();
 
             EntityManager.Add(PlayerShip.Instance);
+
+
+
+            float screenscaleX =
+                (((float)graphics.PreferredBackBufferWidth / 1920));
+            float screenscaleY =
+                (((float)graphics.PreferredBackBufferHeight / 1080));
+            SpriteScale = Matrix.CreateScale(screenscaleX, screenscaleY, 1);
         }
 
         /// <summary>
@@ -91,8 +99,9 @@ namespace NeonShooter
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.Black);
-
-            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, 
+                null, null, null, null, SpriteScale);
+            //spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
             spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
             spriteBatch.DrawString(font, "Hello from MonoGame!", new Vector2(16, 16), Color.White);
             EntityManager.Draw(spriteBatch);
