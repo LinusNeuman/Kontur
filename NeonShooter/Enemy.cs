@@ -30,6 +30,12 @@ namespace NeonShooter
             color = Color.Transparent;
         }
 
+        public void HandleCollision(Enemy other)
+        {
+            var d = Position - other.Position;
+            Velocity += 10 * d / (d.LengthSquared() + 1);
+        }
+
         public override void Update()
         {
             if (timeUntilStart <= 0)
