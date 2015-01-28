@@ -44,9 +44,37 @@ namespace NeonShooter
                 enemies.Add(entity as Enemy);
         }
 
+        static void HandleCollisions()
+        {
+            //handles collision between enemies
+            for (int i = 0; i <enemies.Count; i++)
+                for (int j = i + 1; j < enemies.Count; j++)
+                {
+                    if (IsColliding(enemies[i], enemies[j]))
+                    {
+                        enemies[i].WasShot();
+                        bullets[j].IsExpired = true;
+                    }
+                    
+                }
+
+            //handle collision between the player and enemies
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (enemies[i].IsActive && IsColliding(PlayerShip.Instance, enemies[i]))
+                {
+                    PlayerShip.Instance.Kill();
+                    enemies.ForEach(x => x.WasShot());
+                    break;
+                }
+            }
+        }
+
         public static void Update()
         {
             isUpdating = true;
+
+            HandleCollisions();
 
             foreach (var entity in entities)
                 entity.Update();
