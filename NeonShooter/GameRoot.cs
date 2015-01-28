@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System;
 
 namespace NeonShooter
 {
@@ -55,6 +57,10 @@ namespace NeonShooter
             float screenscaleY =
                 (((float)graphics.PreferredBackBufferHeight / 1080));
             SpriteScale = Matrix.CreateScale(screenscaleX, screenscaleY, 1);
+
+
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(Sound.Music);
         }
 
         /// <summary>
@@ -70,6 +76,7 @@ namespace NeonShooter
             font = Content.Load<SpriteFont>("spriteFont1");
 
             Art.Load(Content);
+            Sound.Load(Content);
         }
 
         /// <summary>
@@ -79,10 +86,7 @@ namespace NeonShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-            {
-                Exit();
-            }
+            GameTime = gameTime;
 
             Input.Update();
 
@@ -109,6 +113,18 @@ namespace NeonShooter
             EntityManager.Draw(spriteBatch);
             spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
             DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
+            DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35);
+
+            if(PlayerStatus.IsGameOver)
+            {
+                string text = "Game Over\n" +
+                    "Your Score: " + PlayerStatus.Score + "\n" +
+                    "High Score: " + PlayerStatus.HighScore;
+
+                Vector2 textSize = Art.Font.MeasureString(text);
+                spriteBatch.DrawString(Art.Font, text, ScreenSize / 2 - textSize / 2, Color.White);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

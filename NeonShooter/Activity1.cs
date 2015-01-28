@@ -1,6 +1,8 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using System;
+using Android.Widget;
 
 namespace NeonShooter
 {

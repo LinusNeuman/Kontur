@@ -84,6 +84,7 @@
     <Compile Include="PlayerStatus.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sound.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Content\spriteFont1.xnb" />
@@ -96,6 +97,27 @@
     <AndroidAsset Include="Assets\Content\Pointer.xnb" />
     <AndroidAsset Include="Assets\Content\Seeker.xnb" />
     <AndroidAsset Include="Assets\Content\Font.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\Music.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\spawn-08.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\explosion-01.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\explosion-02.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\explosion-03.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\explosion-04.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\explosion-05.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\explosion-06.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\explosion-07.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\explosion-08.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\spawn-01.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\spawn-02.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\spawn-03.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\spawn-04.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\spawn-05.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\spawn-06.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\spawn-07.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\shoot-03.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\shoot-04.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\shoot-01.xnb" />
+    <AndroidAsset Include="Assets\Content\Sound\shoot-02.xnb" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
@@ -115,6 +137,7 @@
     <AndroidResource Include="Resources\Values\Styles.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\Content\Sound\Music.wma" />
     <Content Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

@@ -49,17 +49,25 @@ namespace NeonShooter
 
         public void Kill()
         {
-            framesUntilRespawn = 60;
             PlayerStatus.RemoveLife();
+            framesUntilRespawn = PlayerStatus.IsGameOver ? 300 : 120;
         }
 
         public override void Update()
         {
             if (IsDead)
             {
-                framesUntilRespawn--;
+                if (--framesUntilRespawn == 0)
+                {
+                    if (PlayerStatus.Lives == 0)
+                    {
+                        PlayerStatus.Reset();
+                        Position = GameRoot.ScreenSize / 2;
+                    }
+                }
                 return;
             }
+
 
             const float speed = 8;
             Velocity = speed * Input.GetMovementDirection();
@@ -87,6 +95,8 @@ namespace NeonShooter
 
                 offset= Vector2.Transform(new Vector2(25, 8), aimQuat);
                 EntityManager.Add(new Bullet(Position + offset, vel));
+
+                Sound.Shot.Play(0.2f, rand.NextFloat(-0.2f, 0.2f), 0); // change pitch
             }
             if (cooldownRemaining > 0)
                 cooldownRemaining--;

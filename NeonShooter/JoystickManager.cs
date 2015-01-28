@@ -43,7 +43,6 @@ namespace NeonShooter
 
         public void HandleTouchInput()
         {
-            System.Console.WriteLine("Direction: " + aimJoystick.direction);
 
             while (TouchPanel.IsGestureAvailable)
             {
@@ -51,7 +50,7 @@ namespace NeonShooter
 
                 #region MoveJoy
 
-                if((gesture.Position - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < 160)
+                if((gesture.Position - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < 170) // 160
                 {
                 
 
@@ -79,7 +78,7 @@ namespace NeonShooter
                 #region AimJoy
                 //if (gesture.Position.X - aimJoystick.x + GameRoot.ScreenSize.X - Art.Joystick.Width >= -160 && gesture.Position.X - GameRoot.ScreenSize.X - (int)aimJoystick.texture.Width <= 160
                 //    && gesture.Position.Y - aimJoystick.y >= -160 && gesture.Position.Y - (int)aimJoystick.texture.Height >= 160)
-                if ((gesture.Position - new Vector2(aimJoystick.x, aimJoystick.y)).Length() < 160)
+                if ((gesture.Position - new Vector2(aimJoystick.x, aimJoystick.y)).Length() < 170)
                 {
                     aimJoystick.fingerIsDown = true;
 

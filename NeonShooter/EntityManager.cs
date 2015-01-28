@@ -50,7 +50,18 @@ namespace NeonShooter
             for (int i = 0; i < enemies.Count; i++)
                 for (int j = i + 1; j < enemies.Count; j++)
                 {
-                    if (IsColliding(enemies[i], enemies[j]))
+                    if(IsColliding(enemies[i], enemies[j]))
+                    {
+                        enemies[i].HandleCollision(enemies[j]);
+                        enemies[j].HandleCollision(enemies[i]);
+                    }
+                }
+
+            
+            for (int i = 0; i < enemies.Count; i++)
+                for (int j = 0; j < bullets.Count; j++)
+                {
+                    if (IsColliding(enemies[i], bullets[j]))
                     {
                         enemies[i].WasShot();
                         bullets[j].IsExpired = true;
