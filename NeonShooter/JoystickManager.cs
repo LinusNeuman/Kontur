@@ -33,6 +33,12 @@ namespace NeonShooter
             instance = this;
         }
 
+        public void Reset()
+        {
+            moveJoystick.Reset();
+            aimJoystick.Reset();
+        }
+
         public void Update()
         {
             HandleTouchInput();
@@ -43,20 +49,15 @@ namespace NeonShooter
 
         public void HandleTouchInput()
         {
-
             while (TouchPanel.IsGestureAvailable)
             {
                 GestureSample gesture = TouchPanel.ReadGesture();
 
                 #region MoveJoy
 
-                if((gesture.Position - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < 170) // 160
+                if ((gesture.Position - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < 180) // 160
                 {
-                
 
-                //if (gesture.Position.X - moveJoystick.x >= -160 && gesture.Position.X - (int)moveJoystick.texture.Width <= 160
-                //    && gesture.Position.Y - moveJoystick.y >= -160 && gesture.Position.Y - (int)moveJoystick.texture.Height >= 160)
-                //{
                     moveJoystick.fingerIsDown = true;
 
                     moveJoystick.knob.x = (int)gesture.Position.X;
@@ -68,17 +69,12 @@ namespace NeonShooter
                 else
                     moveJoystick.fingerIsDown = false;
 
-                //double final = Convert.ToDouble((gesture.Position.X - this.x) + (gesture.Position.Y - this.y));
-                //double distance = Math.Sqrt(final);
-                //if (distance <= 16)
-                //{
-                //}
                 #endregion
 
                 #region AimJoy
                 //if (gesture.Position.X - aimJoystick.x + GameRoot.ScreenSize.X - Art.Joystick.Width >= -160 && gesture.Position.X - GameRoot.ScreenSize.X - (int)aimJoystick.texture.Width <= 160
                 //    && gesture.Position.Y - aimJoystick.y >= -160 && gesture.Position.Y - (int)aimJoystick.texture.Height >= 160)
-                if ((gesture.Position - new Vector2(aimJoystick.x, aimJoystick.y)).Length() < 170)
+                if ((gesture.Position - new Vector2(aimJoystick.x, aimJoystick.y)).Length() < 180)
                 {
                     aimJoystick.fingerIsDown = true;
 

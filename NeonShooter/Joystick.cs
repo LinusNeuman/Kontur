@@ -64,6 +64,15 @@ namespace NeonShooter
             HandleTouchInput();
         }
 
+        public void Reset()
+        {
+            fingerIsDown = false;
+            knob.x = knob.originX;
+            knob.y = knob.originY;
+
+            direction = Vector2.Zero;
+        }
+
         private void HandleTouchInput()
         {
             if (fingerIsDown == false)
@@ -72,6 +81,30 @@ namespace NeonShooter
                 knob.y = knob.originY;
 
                 direction = Vector2.Zero;
+            }
+
+            while (TouchPanel.IsGestureAvailable)
+            {
+                GestureSample gesture = TouchPanel.ReadGesture();
+
+                //if ((gesture.Position - new Vector2(x, y)).Length() < 180) // 160
+                //{
+
+
+                //    //if (gesture.Position.X - moveJoystick.x >= -160 && gesture.Position.X - (int)moveJoystick.texture.Width <= 160
+                //    //    && gesture.Position.Y - moveJoystick.y >= -160 && gesture.Position.Y - (int)moveJoystick.texture.Height >= 160)
+                //    //{
+                //    fingerIsDown = true;
+
+                //    knob.x = (int)gesture.Position.X;
+                //    knob.y = (int)gesture.Position.Y;
+
+                //    direction.X = knob.x - x; // To calculate we need the position _relative_ to the centre of the joystick. 
+                //    direction.Y = knob.y - y;
+                //}
+                //else
+                //    fingerIsDown = false;
+
             }
         }
 

@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
 
+using BloomPostprocess;
+
 namespace NeonShooter
 {
     /// <summary>
@@ -16,6 +18,8 @@ namespace NeonShooter
         SpriteFont font;
 
         Matrix SpriteScale;
+
+        BloomComponent bloom;
 
         public static GameRoot Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
@@ -34,6 +38,10 @@ namespace NeonShooter
             Instance = this;
 
             this.IsFixedTimeStep = true;
+
+            bloom = new BloomComponent(this);
+            Components.Add(bloom);
+            bloom.Settings = new BloomSettings(null, 0.25f, 4, 2, 1, 1.5f, 1);
         }
 
         /// <summary>
@@ -59,8 +67,8 @@ namespace NeonShooter
             SpriteScale = Matrix.CreateScale(screenscaleX, screenscaleY, 1);
 
 
-            MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(Sound.Music);
+            MediaPlayer.IsRepeating = true;
         }
 
         /// <summary>
@@ -105,6 +113,8 @@ namespace NeonShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            bloom.BeginDraw();
+
             graphics.GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, 
                 null, null, null, null, SpriteScale);
@@ -113,7 +123,7 @@ namespace NeonShooter
             EntityManager.Draw(spriteBatch);
             spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
             DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
-            DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35);
+            DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
 
             if(PlayerStatus.IsGameOver)
             {
