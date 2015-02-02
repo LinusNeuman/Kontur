@@ -19,7 +19,7 @@ namespace NeonShooter
     {
         public Bullet(Vector2 position, Vector2 velocity)
         {
-            image = Art.Bullet;
+            image = Art.BulletLvl1;
             Position = position;
             Velocity = velocity;
             Orientation = Velocity.ToAngle();

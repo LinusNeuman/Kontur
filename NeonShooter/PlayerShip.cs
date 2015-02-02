@@ -17,7 +17,7 @@ namespace NeonShooter
 {
     class PlayerShip : Entity
     {
-        const int cooldownFrames = 6;
+        const int cooldownFrames = 8;
         public int cooldownRemaining = 0;
         static Random rand = new Random();
 
@@ -40,7 +40,7 @@ namespace NeonShooter
 
         private PlayerShip()
         {
-            image = Art.Player;
+            image = Art.PlayerStndShip;
             Position = GameRoot.ScreenSize / 2;
             Radius = 10;
 
@@ -91,10 +91,10 @@ namespace NeonShooter
                 float randomSpread = rand.NextFloat(-0.04f, 0.04f) + rand.NextFloat(-0.04f, 0.04f);
                 Vector2 vel = MathUtil.FromPolar(aimAngle + randomSpread, 11f);
 
-                Vector2 offset = Vector2.Transform(new Vector2(25, -8), aimQuat);
+                Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
                 EntityManager.Add(new Bullet(Position + offset, vel));
 
-                offset= Vector2.Transform(new Vector2(25, 8), aimQuat);
+                offset= Vector2.Transform(new Vector2(25, 16), aimQuat);
                 EntityManager.Add(new Bullet(Position + offset, vel));
 
                 Sound.Shot.Play(0.2f, rand.NextFloat(-0.2f, 0.2f), 0); // change pitch

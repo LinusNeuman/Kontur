@@ -83,14 +83,14 @@ namespace BloomPostprocess
 
             try
             {
-                bloomExtractEffect = Game.Content.Load<Effect>("BloomExtract");
+                bloomExtractEffect = Game.Content.Load<Effect>("FX/BloomExtract");
             }
             catch (Exception e)
             {
                 System.Console.WriteLine("Fx Error: " + e.ToString());
             }
-            bloomCombineEffect = Game.Content.Load<Effect>("BloomCombine");
-            gaussianBlurEffect = Game.Content.Load<Effect>("GaussianBlur");
+            bloomCombineEffect = Game.Content.Load<Effect>("FX/BloomCombine");
+            gaussianBlurEffect = Game.Content.Load<Effect>("FX/GaussianBlur");
 
             // Look up the resolution and format of our main backbuffer.
             PresentationParameters pp = GraphicsDevice.PresentationParameters;

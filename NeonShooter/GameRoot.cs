@@ -81,7 +81,7 @@ namespace NeonShooter
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            font = Content.Load<SpriteFont>("spriteFont1");
+            font = Content.Load<SpriteFont>("Fonts/spriteFont1");
 
             Art.Load(Content);
             Sound.Load(Content);
