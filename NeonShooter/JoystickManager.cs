@@ -43,7 +43,7 @@ namespace NeonShooter
         {
             HandleTouchInput();
 
-            moveJoystick.Update();
+            //moveJoystick.Update();
             aimJoystick.Update();
         }
 
@@ -72,8 +72,7 @@ namespace NeonShooter
                 #endregion
 
                 #region AimJoy
-                //if (gesture.Position.X - aimJoystick.x + GameRoot.ScreenSize.X - Art.Joystick.Width >= -160 && gesture.Position.X - GameRoot.ScreenSize.X - (int)aimJoystick.texture.Width <= 160
-                //    && gesture.Position.Y - aimJoystick.y >= -160 && gesture.Position.Y - (int)aimJoystick.texture.Height >= 160)
+
                 if ((gesture.Position - new Vector2(aimJoystick.x, aimJoystick.y)).Length() < 180)
                 {
                     aimJoystick.fingerIsDown = true;

@@ -83,9 +83,9 @@ namespace NeonShooter
                 direction = Vector2.Zero;
             }
 
-            while (TouchPanel.IsGestureAvailable)
-            {
-                GestureSample gesture = TouchPanel.ReadGesture();
+            //while (TouchPanel.IsGestureAvailable)
+            //{
+            //    GestureSample gesture = TouchPanel.ReadGesture();
 
                 //if ((gesture.Position - new Vector2(x, y)).Length() < 180) // 160
                 //{
@@ -105,7 +105,7 @@ namespace NeonShooter
                 //else
                 //    fingerIsDown = false;
 
-            }
+            //}
         }
 
         public void Draw(SpriteBatch spriteBatch)
