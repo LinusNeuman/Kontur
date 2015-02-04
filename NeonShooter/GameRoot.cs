@@ -24,6 +24,7 @@ namespace NeonShooter
         public static GameRoot Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
+        public static Vector2 VirtualScreenSize { get { return new Vector2(1920, 1080); } }
         public static GameTime GameTime { get; private set; }
 
         public GameRoot()
@@ -41,7 +42,9 @@ namespace NeonShooter
 
             bloom = new BloomComponent(this);
             Components.Add(bloom);
-            bloom.Settings = new BloomSettings(null, 0.25f, 4, 2, 1, 1.5f, 1);
+            //bloom.Settings = new BloomSettings(null, 0.25f, 4, 2, 1, 1.5f, 1);
+            int i = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Default");
+            bloom.Settings = BloomSettings.PresetSettings[i];
         }
 
         /// <summary>
@@ -143,7 +146,7 @@ namespace NeonShooter
         private void DrawRightAlignedString(string text, float y)
         {
             var textWidth = Art.Font.MeasureString(text).X;
-            spriteBatch.DrawString(Art.Font, text, new Vector2(ScreenSize.X - textWidth - 5, y), Color.White);
+            spriteBatch.DrawString(Art.Font, text, new Vector2(1920 - textWidth - 5, y), Color.White);
         }
     }
 }

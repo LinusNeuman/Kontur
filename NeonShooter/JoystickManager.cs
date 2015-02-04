@@ -27,7 +27,7 @@ namespace NeonShooter
             moveJoystick = new Joystick(60, 60);
             moveJoystick.init();
 
-            aimJoystick = new Joystick((int)(GameRoot.ScreenSize.X - Art.Joystick.Width - 60), 60);
+            aimJoystick = new Joystick((int)(1920 - Art.Joystick.Width - 60), 60);
             aimJoystick.init();
 
             instance = this;
@@ -55,7 +55,7 @@ namespace NeonShooter
 
                 #region MoveJoy
 
-                if ((gesture.Position - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < 180) // 160
+                if ((gesture.Position - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < Art.Joystick.Width/2) // 160
                 {
 
                     moveJoystick.fingerIsDown = true;
