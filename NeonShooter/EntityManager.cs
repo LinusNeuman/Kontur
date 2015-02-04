@@ -101,7 +101,7 @@ namespace NeonShooter
             //handle collision with black holes
             for (int i = 0; i < blackHoles.Count; i++)
             {
-                for (int j = 0; j < bullets.Count; j++)
+                for (int j = 0; j < enemies.Count; j++)
                     if (enemies[j].IsActive && IsColliding(blackHoles[i], enemies[j]))
                         enemies[j].WasShot();
 
