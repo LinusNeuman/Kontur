@@ -50,6 +50,8 @@ namespace NeonShooter
                 bullets.Add(entity as Bullet);
             else if (entity is Enemy)
                 enemies.Add(entity as Enemy);
+            else if (entity is BlackHole)
+                blackHoles.Add(entity as BlackHole);
         }
 
         private static void KillPlayer()
