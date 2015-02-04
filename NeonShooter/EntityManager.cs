@@ -90,7 +90,7 @@ namespace NeonShooter
             {
                 if (enemies[i].IsActive && IsColliding(PlayerShip.Instance, enemies[i]))
                 {
-                    PlayerShip.Instance.Kill();
+                    EntityManager.KillPlayer();
                     enemies.ForEach(x => x.WasShot());
                     break;
                 }
@@ -113,7 +113,7 @@ namespace NeonShooter
                 }
                 if (IsColliding(PlayerShip.Instance, blackHoles[i]))
                 {
-                    PlayerShip.Instance.Kill();
+                    EntityManager.KillPlayer();
                     break;
                 }
             }

@@ -49,7 +49,7 @@ namespace NeonShooter
             Wanderer_Part1 = content.Load<Texture2D>("Enemies/WandererLvl1");
             Wanderer_Part2 = content.Load<Texture2D>("Enemies/WandererLvl1Small");
 
-            BlackHole = content.Load<Texture2D>("BlackHole");
+            BlackHole = content.Load<Texture2D>("Enemies/BlackHole");
 
             BulletLvl1 = content.Load<Texture2D>("Bullets/BulletLvl1");
             BulletLvl2 = content.Load<Texture2D>("Bullets/BulletLvl2");
