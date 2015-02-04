@@ -17,6 +17,7 @@ namespace NeonShooter
     {
         static Random rand = new Random();
         static float inverseSpawnChance = 60;
+        static float inverseBlackHoleChance = 600;
 
         public static void Update()
         {
@@ -26,11 +27,16 @@ namespace NeonShooter
                     EntityManager.Add(Enemy.CreateSeeker(GetSpawnPosition()));
                 if (rand.Next((int)inverseSpawnChance) == 0)
                     EntityManager.Add(Enemy.CreateWanderer(GetSpawnPosition()));
+
+                if (EntityManager.BlackHoleCount < 2 && rand.Next((int)inverseBlackHoleChance) == 0)
+                    EntityManager.Add(new BlackHole(GetSpawnPosition()));
             }
 
             // increase spawn rate
             if (inverseSpawnChance > 20)
                 inverseSpawnChance -= 0.005f;
+
+            
         }
 
         private static Vector2 GetSpawnPosition()
