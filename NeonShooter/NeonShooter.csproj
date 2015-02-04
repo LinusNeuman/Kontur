@@ -91,7 +91,6 @@
     <AndroidAsset Include="Assets\Content\Graphics\TitleScreenBg.xnb" />
     <AndroidAsset Include="Assets\Content\Joystick\Joystick.xnb" />
     <AndroidAsset Include="Assets\Content\Joystick\Knob.xnb" />
-    <AndroidAsset Include="Assets\Content\Enemies\Seeker.xnb" />
     <AndroidAsset Include="Assets\Content\Fonts\Font.xnb" />
     <AndroidAsset Include="Assets\Content\Sound\Music.xnb" />
     <AndroidAsset Include="Assets\Content\FX\GaussianBlur.xnb" />
@@ -106,7 +105,11 @@
     <AndroidAsset Include="Assets\Content\Player\DamageShip.xnb" />
     <AndroidAsset Include="Assets\Content\Player\SpeedShip.xnb" />
     <AndroidAsset Include="Assets\Content\Player\StandardShip.xnb" />
+<<<<<<< HEAD
+    <AndroidAsset Include="Assets\Content\Enemies\Seeker.xnb" />
+=======
     <AndroidAsset Include="Assets\Content\Enemies\BlackHole.xnb" />
+>>>>>>> ab859f462df07ba6d1c170ccb6941e1b0b39678b
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

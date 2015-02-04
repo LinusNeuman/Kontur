@@ -48,7 +48,7 @@ namespace NeonShooter
         public void init()
         {
             this.x = my_x + this.texture.Width / 2;
-            this.y = (int)GameRoot.ScreenSize.Y - my_y - this.texture.Height / 2;
+            this.y = (int)1080 - my_y - this.texture.Height / 2;
 
             knob = new JoystickKnob();
 

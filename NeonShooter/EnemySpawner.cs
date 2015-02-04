@@ -44,7 +44,7 @@ namespace NeonShooter
             Vector2 pos;
             do
             {
-                pos = new Vector2(rand.Next((int)GameRoot.ScreenSize.X), rand.Next((int)GameRoot.ScreenSize.Y));
+                pos = new Vector2(rand.Next((int)1920), rand.Next((int)1080));
             }
             while (Vector2.DistanceSquared(pos, PlayerShip.Instance.Position) < 250 * 250);
 
