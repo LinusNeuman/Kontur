@@ -140,7 +140,7 @@ namespace NeonShooter
 
             bullets = bullets.Where(x => !x.IsExpired).ToList();
             enemies = enemies.Where(x => !x.IsExpired).ToList();
-            //blackHole = blackHole.Where(x => !x.IsExpired).ToList();
+            blackHoles = blackHoles.Where(x => !x.IsExpired).ToList();
 
 
         }
