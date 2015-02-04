@@ -38,6 +38,8 @@ namespace NeonShooter
 
         public static SpriteFont Font { get; private set; }
 
+        public static Texture2D LineParticle { get; private set; }
+
         public static void Load(ContentManager content)
         {
             PlayerDmgShip = content.Load<Texture2D>("Player/DamageShip");
@@ -61,6 +63,8 @@ namespace NeonShooter
             Knob = content.Load<Texture2D>("Joystick/Knob");
             
             Font = content.Load<SpriteFont>("Fonts/Font");
+
+            LineParticle = content.Load<Texture2D>("Particles/Laser");
         }
     }
 }

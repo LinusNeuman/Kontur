@@ -21,6 +21,8 @@ namespace NeonShooter
 
         BloomComponent bloom;
 
+        public static ParticleManager<ParticleState> ParticleManager { get; private set; }
+
         public static GameRoot Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
@@ -72,6 +74,8 @@ namespace NeonShooter
 
             MediaPlayer.Play(Sound.Music);
             MediaPlayer.IsRepeating = true;
+
+            ParticleManager = new ParticleManager<ParticleState>(1024 * 20, ParticleState.UpdateParticle);
         }
 
         /// <summary>
@@ -107,6 +111,8 @@ namespace NeonShooter
 
             EntityManager.Update();
 
+            ParticleManager.Update();
+
             base.Update(gameTime);
         }
 
@@ -124,6 +130,7 @@ namespace NeonShooter
             //spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
             spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
             EntityManager.Draw(spriteBatch);
+            ParticleManager.Draw(spriteBatch);
             spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
             DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
             DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);

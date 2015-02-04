@@ -80,6 +80,8 @@
     <Compile Include="JoystickKnob.cs" />
     <Compile Include="JoystickManager.cs" />
     <Compile Include="MathUtil.cs" />
+    <Compile Include="ParticleManager.cs" />
+    <Compile Include="ParticleState.cs" />
     <Compile Include="PlayerShip.cs" />
     <Compile Include="PlayerStatus.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -107,6 +109,7 @@
     <AndroidAsset Include="Assets\Content\Player\StandardShip.xnb" />
     <AndroidAsset Include="Assets\Content\Enemies\Seeker.xnb" />
     <AndroidAsset Include="Assets\Content\Enemies\BlackHole.xnb" />
+    <AndroidAsset Include="Assets\Content\Particles\Laser.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

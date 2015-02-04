@@ -61,6 +61,19 @@ namespace NeonShooter
         {
             IsExpired = true;
 
+            for (int i = 0; i < 120; i++)
+            {
+                float speed = 18f * (1f - 1 / rand.NextFloat(1f, 10f));
+                var state = new ParticleState()
+                {
+                    Velocity = rand.NextVector2(speed,speed),
+                    Type = ParticleType.Enemy,
+                    LengthMultiplier = 1f
+                };
+
+                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, Position, Color.LightGreen, 190, 1.5f, state);
+            }
+
             PlayerStatus.AddPoints(PointValue);
             PlayerStatus.IncreaseMultiplier();
 
