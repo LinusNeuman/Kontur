@@ -25,6 +25,8 @@ namespace NeonShooter
         public static Texture2D Wanderer_Part1 { get; private set; }
         public static Texture2D Wanderer_Part2 { get; private set; }
 
+        public static Texture2D BlackHole { get; private set; }
+
         public static Texture2D BulletLvl1 { get; private set; }
         public static Texture2D BulletLvl2 { get; private set; }
         public static Texture2D BulletLvl3 { get; private set; }
@@ -46,7 +48,9 @@ namespace NeonShooter
             Seeker = content.Load<Texture2D>("Enemies/Seeker");
             Wanderer_Part1 = content.Load<Texture2D>("Enemies/WandererLvl1");
             Wanderer_Part2 = content.Load<Texture2D>("Enemies/WandererLvl1Small");
-            
+
+            BlackHole = content.Load<Texture2D>("BlackHole");
+
             BulletLvl1 = content.Load<Texture2D>("Bullets/BulletLvl1");
             BulletLvl2 = content.Load<Texture2D>("Bullets/BulletLvl2");
             BulletLvl3 = content.Load<Texture2D>("Bullets/BulletLvl3");

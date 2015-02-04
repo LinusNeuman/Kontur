@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Activity1.cs" />
     <Compile Include="Art.cs" />
+    <Compile Include="BlackHole.cs" />
     <Compile Include="BloomComponent.cs" />
     <Compile Include="BloomSettings.cs" />
     <Compile Include="Bullet.cs" />
@@ -105,6 +106,7 @@
     <AndroidAsset Include="Assets\Content\Player\DamageShip.xnb" />
     <AndroidAsset Include="Assets\Content\Player\SpeedShip.xnb" />
     <AndroidAsset Include="Assets\Content\Player\StandardShip.xnb" />
+    <AndroidAsset Include="Assets\Content\Enemies\BlackHole.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

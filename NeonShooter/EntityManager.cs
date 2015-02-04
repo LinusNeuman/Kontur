@@ -22,10 +22,13 @@ namespace NeonShooter
         static List<Enemy> enemies = new List<Enemy>();
         static List<Bullet> bullets = new List<Bullet>();
 
+        static List<BlackHole> blackHoles = new List<BlackHole>();
+
         static bool isUpdating;
         static List<Entity> addedEntities = new List<Entity>();
 
         public static int Count { get { return entities.Count; } }
+        public static int BlackHoleCount { get { return blackHoles.Count; } }
 
         public static void Add(Entity entity)
         {
@@ -35,6 +38,11 @@ namespace NeonShooter
                 addedEntities.Add(entity);
         }
 
+        public static IEnumerable<Entity> GetNerbyEnteties(Vector2 position, float radius)
+        {
+            return entities.Where(x => Vector2.DistanceSquared(position, x.Position) < radius * radius);
+        }
+
         private static void AddEntity(Entity entity)
         {
             entities.Add(entity);
@@ -42,6 +50,14 @@ namespace NeonShooter
                 bullets.Add(entity as Bullet);
             else if (entity is Enemy)
                 enemies.Add(entity as Enemy);
+        }
+
+        private static void KillPlayer()
+        {
+            PlayerShip.Instance.Kill();
+            enemies.ForEach(x => x.WasShot());
+            blackHoles.ForEach(x => x.Kill());
+            EnemySpawner.Reset();
         }
 
         static void HandleCollisions()
@@ -79,6 +95,28 @@ namespace NeonShooter
                     break;
                 }
             }
+
+            //handle collision with black holes
+            for (int i = 0; i < blackHoles.Count; i++)
+            {
+                for (int j = 0; j < bullets.Count; j++)
+                    if (enemies[j].IsActive && IsColliding(blackHoles[i], enemies[j]))
+                        enemies[j].WasShot();
+
+                for (int j = 0; j < bullets.Count; j++)
+                {
+                    if (IsColliding(blackHoles[i], bullets[j]))
+                    {
+                        bullets[j].IsExpired = true;
+                        blackHoles[i].WasShot();
+                    }
+                }
+                if (IsColliding(PlayerShip.Instance, blackHoles[i]))
+                {
+                    PlayerShip.Instance.Kill();
+                    break;
+                }
+            }
         }
 
         public static void Update()
@@ -102,6 +140,7 @@ namespace NeonShooter
 
             bullets = bullets.Where(x => !x.IsExpired).ToList();
             enemies = enemies.Where(x => !x.IsExpired).ToList();
+            //blackHole = blackHole.Where(x => !x.IsExpired).ToList();
 
 
         }
