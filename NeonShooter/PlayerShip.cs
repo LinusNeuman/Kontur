@@ -52,6 +52,24 @@ namespace NeonShooter
             PlayerStatus.RemoveLife();
             joystickMgr.Reset();
             framesUntilRespawn = PlayerStatus.IsGameOver ? 300 : 120;
+            
+
+            Color yellow = new Color(0.8f, 0.8f, 0.4f);
+            for (int i = 0; i < 1200; i++)
+            {
+                float speed = 18f * (1f - 1 / rand.NextFloat(1f, 10f));
+
+                Color color = Color.Lerp(Color.White, yellow, rand.NextFloat(0, 1));
+                var state = new ParticleState()
+                {
+                    Velocity = rand.NextVector2(speed, speed),
+                    Type = ParticleType.None,
+                    LengthMultiplier = 1
+                };
+
+                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, Position, color, 190, new Vector2(1.5f, 1.5f), state);
+            }
+
         }
 
         public override void Update()

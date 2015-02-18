@@ -22,6 +22,8 @@ namespace NeonShooter
             if (h == 0 && s == 0)
                 return new Color(v,v,v);
 
+
+            //dummy line
             float c = s*v;
             float x = c*(1-Math.Abs(h%2-1));
             float m = v- c;
