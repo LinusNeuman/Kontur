@@ -131,11 +131,20 @@ namespace NeonShooter
             spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
             EntityManager.Draw(spriteBatch);
             ParticleManager.Draw(spriteBatch);
+            
+
+            spriteBatch.End();
+
+            base.Draw(gameTime);
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
+    null, null, null, null, SpriteScale);
+
             spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
             DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
             DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
 
-            if(PlayerStatus.IsGameOver)
+            if (PlayerStatus.IsGameOver)
             {
                 string text = "Game Over\n" +
                     "Your Score: " + PlayerStatus.Score + "\n" +
@@ -146,8 +155,6 @@ namespace NeonShooter
             }
 
             spriteBatch.End();
-
-            base.Draw(gameTime);
         }
 
         private void DrawRightAlignedString(string text, float y)

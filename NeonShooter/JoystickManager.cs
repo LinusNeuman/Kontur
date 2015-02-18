@@ -60,7 +60,7 @@ namespace NeonShooter
 
                     moveJoystick.fingerIsDown = true;
 
-                    moveJoystick.knob.x = (int)gesture.Position.X;
+                    moveJoystick.knob.x = (int)gesture.Position.X * ((int)(GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X));
                     moveJoystick.knob.y = (int)gesture.Position.Y;
 
                     moveJoystick.direction.X = moveJoystick.knob.x - moveJoystick.x; // To calculate we need the position _relative_ to the centre of the joystick. 
