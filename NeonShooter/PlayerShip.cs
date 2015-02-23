@@ -40,7 +40,7 @@ namespace NeonShooter
 
         private PlayerShip()
         {
-            image = Art.PlayerStndShip;
+            image = Art.PlayerDmgShip;
             Position = GameRoot.ScreenSize / 2;
             Radius = 10;
 

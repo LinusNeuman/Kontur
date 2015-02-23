@@ -24,6 +24,8 @@ namespace NeonShooter
 
         static List<BlackHole> blackHoles = new List<BlackHole>();
 
+        public static List<BlackHole> BlackHoles { get { return blackHoles; } }
+
         static bool isUpdating;
         static List<Entity> addedEntities = new List<Entity>();
 
