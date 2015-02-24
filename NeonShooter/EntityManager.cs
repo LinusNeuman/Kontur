@@ -40,7 +40,7 @@ namespace NeonShooter
                 addedEntities.Add(entity);
         }
 
-        public static IEnumerable<Entity> GetNerbyEnteties(Vector2 position, float radius)
+        public static IEnumerable<Entity> GetNearbyEntities(Vector2 position, float radius)
         {
             return entities.Where(x => Vector2.DistanceSquared(position, x.Position) < radius * radius);
         }

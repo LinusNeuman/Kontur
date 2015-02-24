@@ -30,39 +30,24 @@ namespace NeonShooter
             Radius = image.Width / 2f;
         }
 
-            public void WasShot()
+        public override void Update()        {            var entities = EntityManager.GetNearbyEntities(Position, 250);
+
+            foreach (var entity in entities)
             {
-                hitpoints--;
-                if (hitpoints <= 0)
-                    IsExpired = true;
+                if (entity is Enemy && !(entity as Enemy).IsActive)
+                    continue;
 
-                float hue = (float)((3 * GameRoot.GameTime.TotalGameTime.TotalSeconds) % 6);
-                Color color = ColorUtil.HSVToColor(hue, 0.25f, 1);
-                const int numParticles = 150;
-                float startOffset = rand.NextFloat(0, MathHelper.TwoPi / numParticles);
-
-                for (int i = 0; i < numParticles; i++)
+                //bullets are repelled by black holes and everything else is pulled towards it, into it.
+                if (entity is Bullet)
+                    entity.Velocity += (entity.Position - Position).ScaleTo(0.3f);
+                else
                 {
-                    Vector2 sprayVel = MathUtil.FromPolar(MathHelper.TwoPi * i / numParticles + startOffset, rand.NextFloat(8, 16));
-                    Vector2 pos = Position + 2f * sprayVel;
-                    var state = new ParticleState()
-                    {
-                        Velocity = sprayVel,
-                        LengthMultiplier = 1,
-                        Type = ParticleType.IgnoreGravity
-                    };
+                    var dPos = Position - entity.Position;
+                    var length = dPos.Length();
 
-                    GameRoot.ParticleManager.CreateParticle(Art.LineParticle, pos, color, 90, new Vector2(1.5f, 1.5f), state);
+                    entity.Velocity += dPos.ScaleTo(MathHelper.Lerp(2, 0, length / 250f));
                 }
-            }
-
-            public void Kill()
-            {
-                hitpoints = 0;
-                WasShot();
-            }
-
-        public override void Update()        {            var entities = EntityManager.GetNerbyEnteties(Position, 250);                        foreach (var entity in entities)            {                if (entity is Enemy && !(entity as Enemy).IsActive)                    continue;                //bullets are repelled by black holes and everything else is pulled towards it, into it.                if (entity is Bullet)                    entity.Velocity += (entity.Position - Position).ScaleTo(0.3f);                else                 {                    var dPos = Position - entity.Position;                    var length = dPos.Length();                    entity.Velocity += dPos.ScaleTo(MathHelper.Lerp(2, 0, length / 205f));                }            }            // black holes spray orbiting particles every quarter seconds            if((GameRoot.GameTime.TotalGameTime.Milliseconds / 250) % 2 == 0)
+            }            // black holes spray orbiting particles every quarter seconds            if((GameRoot.GameTime.TotalGameTime.Milliseconds / 250) % 2 == 0)
             {
                 Vector2 sprayVel = MathUtil.FromPolar(sprayAngle, rand.NextFloat(12, 15));
                 Color color = ColorUtil.HSVToColor(5, 0.5f, 0.8f);
@@ -77,7 +62,41 @@ namespace NeonShooter
                 GameRoot.ParticleManager.CreateParticle(Art.LineParticle, pos, color, 190, new Vector2(1.5f, 1.5f), state);            }
 
             //rotate spray direction
-            sprayAngle -= MathHelper.TwoPi / 50f;        }
+            sprayAngle -= MathHelper.TwoPi / 50f;        }
+
+        public void WasShot()
+        {
+            hitpoints--;
+            if (hitpoints <= 0)
+                IsExpired = true;
+
+            float hue = (float)((3 * GameRoot.GameTime.TotalGameTime.TotalSeconds) % 6);
+            Color color = ColorUtil.HSVToColor(hue, 0.25f, 1);
+            const int numParticles = 50;
+            float startOffset = rand.NextFloat(0, MathHelper.TwoPi / numParticles);
+
+            for (int i = 0; i < numParticles; i++)
+            {
+                Vector2 sprayVel = MathUtil.FromPolar(MathHelper.TwoPi * i / numParticles + startOffset, rand.NextFloat(8, 16));
+                Vector2 pos = Position + 2f * sprayVel;
+                var state = new ParticleState()
+                {
+                    Velocity = sprayVel,
+                    LengthMultiplier = 1,
+                    Type = ParticleType.IgnoreGravity
+                };
+
+                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, pos, color, 90, new Vector2(1.5f, 1.5f), state);
+            }
+
+            Sound.Explosion.Play(0.5f, rand.NextFloat(-0.2f, 0.2f), 0);
+        }
+
+        public void Kill()
+        {
+            hitpoints = 0;
+            WasShot();
+        }
 
             public override void  Draw(SpriteBatch spriteBatch)
             {

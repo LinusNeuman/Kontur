@@ -21,6 +21,25 @@ namespace NeonShooter
         public ParticleType Type;
         public float LengthMultiplier;
 
+        private static Random rand = new Random();
+
+        public ParticleState(Vector2 velocity, ParticleType type, float lengthMultiplier = 1f)
+        {
+            Velocity = velocity;
+            Type = type;
+            LengthMultiplier = lengthMultiplier;
+        }
+
+        public static ParticleState GetRandom(float minVel, float maxVel)
+        {
+            var state = new ParticleState();
+            state.Velocity = rand.NextVector2(minVel, maxVel);
+            state.Type = ParticleType.None;
+            state.LengthMultiplier = 1;
+
+            return state;
+        }
+
         public static void UpdateParticle(ParticleManager<ParticleState>.Particle particle)
         {
             var vel = particle.State.Velocity;
@@ -47,7 +66,7 @@ namespace NeonShooter
                     var dPos = EntityManager.BlackHoles[i].Position - pos;
                     float distance = dPos.Length();
                     var n = dPos / distance;
-                    vel += 10000 * n / (distance * distance * 10000);
+                    vel += 10000 * n / (distance * distance + 10000);
 
                     // tangential acceleration for nearby particles
                     if (distance < 400)

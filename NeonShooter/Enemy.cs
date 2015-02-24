@@ -67,9 +67,9 @@ namespace NeonShooter
             Color color2 = ColorUtil.HSVToColor(hue2, 0.5f, 1);
 
 
-            for (int i = 0; i < 120; i++)
+            for (int i = 0; i < 60; i++)
             {
-                float speed = 18f * (1f - 1 / rand.NextFloat(1f, 10f));
+                float speed = 12f * (1f - 1 / rand.NextFloat(1f, 10f));
                 var state = new ParticleState()
                 {
                     Velocity = rand.NextVector2(speed,speed),
