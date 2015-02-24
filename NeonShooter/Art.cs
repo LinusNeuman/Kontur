@@ -21,7 +21,7 @@ namespace NeonShooter
         public static Texture2D PlayerStndShip { get; private set; }
         public static Texture2D PlayerTnkShip { get; private set; }
 
-        public static Texture2D Seeker { get; private set; } // change names
+        public static Texture2D Follower { get; private set; } // change names
         public static Texture2D Wanderer_Part1 { get; private set; }
         public static Texture2D Wanderer_Part2 { get; private set; }
 
@@ -48,7 +48,7 @@ namespace NeonShooter
             PlayerStndShip = content.Load<Texture2D>("Player/StandardShip");
             PlayerTnkShip = content.Load<Texture2D>("Player/TankShip");
 
-            Seeker = content.Load<Texture2D>("Enemies/Seeker");
+            Follower = content.Load<Texture2D>("Enemies/Follower");
             Wanderer_Part1 = content.Load<Texture2D>("Enemies/WandererLvl1");
             Wanderer_Part2 = content.Load<Texture2D>("Enemies/WandererLvl1Small");
 

@@ -33,7 +33,7 @@ namespace NeonShooter
 
         public static void Load(ContentManager content)
         {
-            Music = content.Load<Song>("Sound/Music");
+            Music = content.Load<Song>("Sound/LBS_LGA_ANTHEM");
 
             explosions = Enumerable.Range(1, 8).Select(x => content.Load<SoundEffect>("Sound/explosion-0" + x)).ToArray();
             shots = Enumerable.Range(1, 4).Select(x => content.Load<SoundEffect>("Sound/shoot-0" + x)).ToArray();

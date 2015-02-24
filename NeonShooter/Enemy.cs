@@ -89,7 +89,7 @@ namespace NeonShooter
 
         public static Enemy CreateSeeker(Vector2 position)
         {
-            var enemy = new Enemy(Art.Seeker, position);
+            var enemy = new Enemy(Art.Follower, position);
             enemy.AddBehaviour(enemy.FollowPlayer());
             enemy.PointValue = 2;
 
