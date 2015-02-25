@@ -2,4 +2,5 @@
 <resources>
     <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">NeonShooter</string>
+    <string name="app_id">974774150255</string>
 </resources>

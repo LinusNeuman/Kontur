@@ -71,7 +71,7 @@ namespace NeonShooter
                 (((float)graphics.PreferredBackBufferHeight / 1080));
             SpriteScale = Matrix.CreateScale(screenscaleX, screenscaleY, 1);
 
-
+            
             MediaPlayer.Play(Sound.Music);
             MediaPlayer.IsRepeating = true;
 
