@@ -86,6 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AchievementManager.cs" />
     <Compile Include="Activity1.cs" />
     <Compile Include="Art.cs" />
     <Compile Include="BlackHole.cs" />

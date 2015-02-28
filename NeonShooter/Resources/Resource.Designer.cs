@@ -1931,6 +1931,21 @@ namespace NeonShooter
 			// aapt resource value: 0x7f060018
 			public const int accept = 2131099672;
 			
+			// aapt resource value: 0x7f06003e
+			public const int achievement_100_explosions = 2131099710;
+			
+			// aapt resource value: 0x7f06003c
+			public const int achievement_100k = 2131099708;
+			
+			// aapt resource value: 0x7f06003d
+			public const int achievement_50k = 2131099709;
+			
+			// aapt resource value: 0x7f06003f
+			public const int achievement_dangerous_void = 2131099711;
+			
+			// aapt resource value: 0x7f060040
+			public const int achievement_survivor = 2131099712;
+			
 			// aapt resource value: 0x7f06003b
 			public const int app_id = 2131099707;
 			

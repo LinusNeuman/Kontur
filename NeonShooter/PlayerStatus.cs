@@ -30,7 +30,11 @@ namespace NeonShooter
 
         private const string highScoreFilename = "highscores.txt";
 
-
+        public static int achkills;
+        public static bool achkilledbyblackhole;
+        public static int achscore;
+        public static int achlifetime;
+        public static int achtimer;
 
         private static int LoadHighScore()
         {
@@ -56,6 +60,14 @@ namespace NeonShooter
             Reset();
         }
 
+        public static void ResetAchievementData()
+        {
+            achkills = 0;
+            achlifetime = 0;
+            achscore = 0;
+            achkilledbyblackhole = false;
+        }
+
         public static void Reset()
         {
             if (Score > HighScore)
@@ -66,6 +78,8 @@ namespace NeonShooter
             Lives = 4;
             scoreForExtraLife = 2000;
             multiplierTimeLeft = 0;
+
+            ResetAchievementData();
         }
 
         public static void Update()
@@ -78,6 +92,33 @@ namespace NeonShooter
                     ResetMultiplier();
                 }
                 
+            }
+
+            CheckAchievementProgress();
+        }
+
+        public static void CheckAchievementProgress()
+        {
+            achtimer += (int)GameRoot.GameTime.ElapsedGameTime.TotalMinutes;
+
+            if (achtimer >= 5)
+            {
+                AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.Survive);
+            }
+
+            if(Score >= 50000)
+            {
+                AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.FiftyKScore);
+            }
+
+            if (Score >= 100000)
+            {
+                AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.OneHundredKScore);
+            }
+
+            if (achkills >= 100)
+            {
+                AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.OneHundredKills);
             }
         }
 

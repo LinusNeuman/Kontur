@@ -24,7 +24,7 @@ namespace NeonShooter
         , Icon = "@drawable/icon"
         , Theme = "@style/Theme.Splash"
         , AlwaysRetainTaskState = true
-        , LaunchMode = Android.Content.PM.LaunchMode.SingleInstance
+        , LaunchMode = Android.Content.PM.LaunchMode.SingleTask
         , ScreenOrientation = ScreenOrientation.SensorLandscape
         , ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden)]
     public class Activity1
@@ -54,31 +54,38 @@ namespace NeonShooter
 
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle); 
+            base.OnCreate(bundle);
 
+            System.Console.WriteLine("started builder");
             // Create the interface used to interact with Google Play.
             //mGooglePlayClient = new GamesClient.Builder(this, this, this)
             //    .SetGravityForPopups((int)(GravityFlags.Bottom | GravityFlags.CenterHorizontal))
             //    .Create();
-            
+
 
             GoogleApiClientBuilder builder = new GoogleApiClientBuilder(this)
                 .AddApi(GamesClass.Api)
                 .AddScope(GamesClass.ScopeGames)
                 .AddApi(PlusClass.Api)
                 .AddScope(PlusClass.ScopePlusLogin)
-                .AddConnectionCallbacks((IGoogleApiClientConnectionCallbacks) this)
+                .AddConnectionCallbacks((IGoogleApiClientConnectionCallbacks)this)
                 .AddOnConnectionFailedListener(this)
-                .SetAccountName("Pelle")
+                //.SetAccountName("Pelle")
                 ;
                 //.Build();
+            
 
+            
+            //builder.SetViewForPopups(getApiClient(), getWindow().getDecorView().findViewById(android.R.id.content));
+
+            
             mGooglePlayClient = builder.Build();
+            mGooglePlayClient.Connect();
+            
 
+            //builder.SetViewForPopups(view);
             //pGooglePlayClient.RegisterConnectionCallbacks (this);
-            //pGooglePlayClient.IsConnectionFailedListenerRegistered (this);
-
-            Toast.MakeText(this, "test", ToastLength.Long);
+            //pGooglePlayClient.IsConnectionFailedListenerRegistered (this);;
 
             GameRoot.Activity = this;
             var g = new GameRoot();
@@ -110,6 +117,7 @@ namespace NeonShooter
 
         private void ResolveLogin(ConnectionResult result)
         {
+            System.Console.WriteLine("CONNECTION ERROR: " + result.ToString());
             // Does this failure reason have a solution?
             if (result.HasResolution)
             {
@@ -117,22 +125,25 @@ namespace NeonShooter
                 {
                     // Try to resolve the problem automatically.
                     result.StartResolutionForResult(this, REQUEST_CODE_RESOLVE_ERR);
+                    System.Console.WriteLine("STARTED RESOLVING: " + REQUEST_CODE_RESOLVE_ERR.ToString());
                 }
-                catch (Android.Content.IntentSender.SendIntentException /*e*/)
+                catch (Android.Content.IntentSender.SendIntentException e)
                 {
+                    System.Console.WriteLine("CATCH: " + Android.Content.IntentSender.SendIntentException.ToException(e).ToString());
                     // Not really sure why this is here.
                     mGooglePlayClient.Connect();
                 }
             }
+
         }
 
-        protected void onStart() // no idea what this does but in google's tutorial
+        protected void onStart()
         {
             base.OnStart();
 
 
-            // when is this function being called??? google i want answers
-            mGooglePlayClient.Connect(); // connects the client? i dont know
+            System.Console.WriteLine("Is connecting..");
+            mGooglePlayClient.Connect();
         }
 
         protected void onStop()
@@ -168,7 +179,7 @@ namespace NeonShooter
 
         public void OnConnected(Bundle bundle) 
         {
-            Toast.MakeText(this, "Connected", ToastLength.Long).Show();
+            System.Console.WriteLine("Connected");
 
         }
 
@@ -178,7 +189,7 @@ namespace NeonShooter
 
             mConnectionResult = connectionResult;
 
-            Toast.MakeText(this, "Connection failed", ToastLength.Long).Show();
+            System.Console.WriteLine("Connection failed");
         }
 
         public void OnConnectionSuspended(int i)
@@ -189,6 +200,14 @@ namespace NeonShooter
         public void OnAudioFocusChange(AudioFocus af)
         {
 
+        }
+
+        public IGoogleApiClient pGooglePlayClient
+        {
+            get
+            {
+                return mGooglePlayClient;
+            }
         }
     }
 }

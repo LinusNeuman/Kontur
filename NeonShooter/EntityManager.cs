@@ -85,6 +85,7 @@ namespace NeonShooter
                     {
                         enemies[i].WasShot();
                         bullets[j].IsExpired = true;
+                        PlayerStatus.achkills += 1;
                     }
                     
                 }
@@ -117,6 +118,7 @@ namespace NeonShooter
                 }
                 if (IsColliding(PlayerShip.Instance, blackHoles[i]))
                 {
+                    AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.BlackHole);
                     EntityManager.KillPlayer();
                     break;
                 }

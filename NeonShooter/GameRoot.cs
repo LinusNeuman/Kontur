@@ -63,6 +63,7 @@ namespace NeonShooter
 
             EntityManager.Add(PlayerShip.Instance);
 
+            AchievementManager.pInstance.Initialize();
 
 
             float screenscaleX =
