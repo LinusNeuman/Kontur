@@ -19,7 +19,7 @@ using Android.Views;
 
 namespace NeonShooter
 {
-    [Activity(Label = "NeonShooter"
+    [Activity(Label = "Kontur"
         , MainLauncher = true
         , Icon = "@drawable/icon"
         , Theme = "@style/Theme.Splash"
@@ -94,48 +94,8 @@ namespace NeonShooter
         }
 
 
-        /// <summary>
-        /// Helper function for attempting to Log into Google Play servers.
-        /// </summary>
-        public void LoginToGoogle()
-        {
-            // If we are already connected/connecting, no need to try again.
-            if (mGooglePlayClient.IsConnected || mGooglePlayClient.IsConnecting)
-                return;
 
-            // If we haven't already tried to login, do so now. Other wise, try to resolve
-            // the issue from the last login attempt.
-            if (mConnectionResult == null)
-            {
-                mGooglePlayClient.Connect();
-            }
-            else
-            {
-                ResolveLogin(mConnectionResult);
-            }
-        }
-
-        private void ResolveLogin(ConnectionResult result)
-        {
-            System.Console.WriteLine("CONNECTION ERROR: " + result.ToString());
-            // Does this failure reason have a solution?
-            if (result.HasResolution)
-            {
-                try
-                {
-                    // Try to resolve the problem automatically.
-                    result.StartResolutionForResult(this, REQUEST_CODE_RESOLVE_ERR);
-                    System.Console.WriteLine("STARTED RESOLVING: " + REQUEST_CODE_RESOLVE_ERR.ToString());
-                }
-                catch (Android.Content.IntentSender.SendIntentException e)
-                {
-                    System.Console.WriteLine("CATCH: " + Android.Content.IntentSender.SendIntentException.ToException(e).ToString());
-                    // Not really sure why this is here.
-                    mGooglePlayClient.Connect();
-                }
-            }
-
-        }
+      
 
         protected void onStart()
         {
@@ -185,7 +145,17 @@ namespace NeonShooter
 
         public void OnConnectionFailed(ConnectionResult connectionResult) 
         {
-            ResolveLogin(connectionResult);
+            if(connectionResult.HasResolution)
+            {
+                try
+                {
+                    connectionResult.StartResolutionForResult(this, REQUEST_CODE_RESOLVE_ERR);
+                }
+                catch (Android.Content.IntentSender.SendIntentException e)
+                {
+                    mGooglePlayClient.Connect();
+                }
+            }
 
             mConnectionResult = connectionResult;
 

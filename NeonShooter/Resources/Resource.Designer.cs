@@ -1393,7 +1393,7 @@ namespace NeonShooter
 			public const int ic_plusone_tall_off_client = 2130837584;
 			
 			// aapt resource value: 0x7f020051
-			public const int Icon = 2130837585;
+			public const int icon = 2130837585;
 			
 			// aapt resource value: 0x7f020052
 			public const int mr_ic_audio_vol = 2130837586;

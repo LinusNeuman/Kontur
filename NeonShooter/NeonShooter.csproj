@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NeonShooter</RootNamespace>
-    <AssemblyName>NeonShooter</AssemblyName>
+    <AssemblyName>Kontur</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
@@ -119,7 +119,6 @@
     <AndroidAsset Include="Assets\Content\Joystick\Joystick.xnb" />
     <AndroidAsset Include="Assets\Content\Joystick\Knob.xnb" />
     <AndroidAsset Include="Assets\Content\Fonts\Font.xnb" />
-    <AndroidAsset Include="Assets\Content\Sound\Music.xnb" />
     <AndroidAsset Include="Assets\Content\FX\GaussianBlur.xnb" />
     <AndroidAsset Include="Assets\Content\FX\BloomCombine.xnb" />
     <AndroidAsset Include="Assets\Content\FX\BloomExtract.xnb" />
@@ -153,7 +152,6 @@
     <AndroidResource Include="Resources\Values\Styles.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\Content\Sound\Music.wma" />
     <AndroidAsset Include="Assets\Content\Sound\spawn-04.wav" />
     <AndroidAsset Include="Assets\Content\Sound\spawn-05.wav" />
     <AndroidAsset Include="Assets\Content\Sound\spawn-06.wav" />
@@ -178,7 +176,7 @@
     <Content Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </Content>
-    <AndroidResource Include="Resources\Drawable\Icon.PNG" />
+    <AndroidResource Include="Resources\Drawable\icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Binaries.3.2.0\build\MonoAndroid\MonoGame.Binaries.targets" Condition="Exists('..\packages\MonoGame.Binaries.3.2.0\build\MonoAndroid\MonoGame.Binaries.targets')" />

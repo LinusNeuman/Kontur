@@ -6,6 +6,17 @@ using System;
 
 using BloomPostprocess;
 
+// test for google play services
+using Android.Gms;
+using Android.Gms.Common;
+using Android.Gms.Games;
+using Android.Gms.Games.LeaderBoard;
+using Android.Gms.Plus;
+using Android.Gms.Plus.Model.People;
+using Android.Gms.Common.Apis;
+using Android.Views;
+// test for in app billing
+
 namespace NeonShooter
 {
     /// <summary>
@@ -103,6 +114,13 @@ namespace NeonShooter
         protected override void Update(GameTime gameTime)
         {
             GameTime = gameTime;
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            {
+                NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+                if(activity.pGooglePlayClient.IsConnected)
+                activity.StartActivityForResult(GamesClass.Achievements.GetAchievementsIntent(activity.pGooglePlayClient), Activity1.REQUEST_ACHIEVEMENTS);
+            }
 
             Input.Update();
 
