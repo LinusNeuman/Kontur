@@ -165,6 +165,8 @@ namespace NeonShooter
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
     null, null, null, null, SpriteScale);
 
+            PlayerShip.Instance.joystickMgr.Draw(spriteBatch);
+
             spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
             DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
             DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
