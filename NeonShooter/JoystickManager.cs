@@ -27,7 +27,7 @@ namespace NeonShooter
             moveJoystick = new Joystick(60, 60);
             moveJoystick.init();
 
-            aimJoystick = new Joystick((int)(1920 - Art.Joystick.Width - 60), 60);
+            aimJoystick = new Joystick((int)(GameRoot.VirtualScreenSize.X - Art.Joystick.Width - 60), 60);
             aimJoystick.init();
 
             instance = this;

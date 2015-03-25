@@ -45,8 +45,8 @@ namespace NeonShooter
             var vel = particle.State.Velocity;
 
             var pos = particle.Position;
-            int width = (int)GameRoot.ScreenSize.X;
-            int height = (int)GameRoot.ScreenSize.Y;
+            int width = (int)GameRoot.VirtualScreenSize.X;
+            int height = (int)GameRoot.VirtualScreenSize.Y;
 
             // collision for bullets with edges
             if (pos.X < 0) vel.X = Math.Abs(vel.X);

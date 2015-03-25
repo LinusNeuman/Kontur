@@ -187,7 +187,7 @@ namespace NeonShooter
         private void DrawRightAlignedString(string text, float y)
         {
             var textWidth = Art.Font.MeasureString(text).X;
-            spriteBatch.DrawString(Art.Font, text, new Vector2(1920 - textWidth - 5, y), Color.White);
+            spriteBatch.DrawString(Art.Font, text, new Vector2(VirtualScreenSize.X - textWidth - 5, y), Color.White);
         }
     }
 }
