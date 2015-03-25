@@ -55,13 +55,13 @@ namespace NeonShooter
 
                 #region MoveJoy
 
-                if ((gesture.Position - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < Art.Joystick.Width/2) // 160
+                if ((gesture.Position - new Vector2(moveJoystick.x * ((int)(GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X)), moveJoystick.y * ((int)(GameRoot.ScreenSize.Y / GameRoot.VirtualScreenSize.Y)))).Length() < Art.Joystick.Width / 2) // 160
                 {
 
                     moveJoystick.fingerIsDown = true;
 
                     moveJoystick.knob.x = (int)gesture.Position.X * ((int)(GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X));
-                    moveJoystick.knob.y = (int)gesture.Position.Y;
+                    moveJoystick.knob.y = (int)gesture.Position.Y ;
 
                     moveJoystick.direction.X = moveJoystick.knob.x - moveJoystick.x; // To calculate we need the position _relative_ to the centre of the joystick. 
                     moveJoystick.direction.Y = moveJoystick.knob.y - moveJoystick.y;
