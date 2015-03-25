@@ -159,7 +159,7 @@ namespace NeonShooter
             Grid.Draw(spriteBatch);
             
             spriteBatch.End();
-
+            
             base.Draw(gameTime);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
