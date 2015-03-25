@@ -168,7 +168,7 @@ namespace NeonShooter
         {
 
 
-            joystickMgr.Draw(spriteBatch);
+            //joystickMgr.Draw(spriteBatch);
 
             if(!IsDead)
                 base.Draw(spriteBatch);
