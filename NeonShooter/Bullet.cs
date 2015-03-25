@@ -30,10 +30,12 @@ namespace NeonShooter
 
         public override void Update()
         {
+            
             if (Velocity.LengthSquared() > 0)
                 Orientation = Velocity.ToAngle();
 
             Position += Velocity;
+            GameRoot.Grid.ApplyExplosiveForce(0.5f * Velocity.Length(), Position, 80);
 
             //delete the bullets that go outside the screen
             if (!GameRoot.Viewport.Bounds.Contains(Position.ToPoint()))

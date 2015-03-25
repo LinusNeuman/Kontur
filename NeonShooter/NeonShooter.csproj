@@ -100,6 +100,7 @@
     <Compile Include="EntityManager.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GameRoot.cs" />
+    <Compile Include="Grid.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Joystick.cs" />
     <Compile Include="JoystickKnob.cs" />

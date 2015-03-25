@@ -39,6 +39,7 @@ namespace NeonShooter
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static Vector2 VirtualScreenSize { get { return new Vector2(1920, 1080); } }
         public static GameTime GameTime { get; private set; }
+        public static Grid Grid { get; private set; }
 
         public GameRoot()
         {
@@ -76,6 +77,9 @@ namespace NeonShooter
 
             AchievementManager.pInstance.Initialize();
 
+            const int maxGridPoints = 1600;
+            Vector2 gridSpacing = new Vector2((float)Math.Sqrt(Viewport.Width * Viewport.Height / maxGridPoints));
+            Grid = new Grid(Viewport.Bounds, gridSpacing);
 
             float screenscaleX =
                 (((float)graphics.PreferredBackBufferWidth / 1920));
@@ -143,15 +147,17 @@ namespace NeonShooter
         {
             bloom.BeginDraw();
 
+            
             graphics.GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, 
                 null, null, null, null, SpriteScale);
+            
             //spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
             spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
             EntityManager.Draw(spriteBatch);
             ParticleManager.Draw(spriteBatch);
+            Grid.Draw(spriteBatch);
             
-
             spriteBatch.End();
 
             base.Draw(gameTime);

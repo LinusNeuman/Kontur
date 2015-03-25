@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework;
 
 namespace NeonShooter
 {
@@ -41,6 +42,8 @@ namespace NeonShooter
         public static Texture2D LineParticle { get; private set; }
         public static Texture2D Glow { get; private set; }
 
+        public static Texture2D Pixel { get; private set; }
+
         public static void Load(ContentManager content)
         {
             PlayerDmgShip = content.Load<Texture2D>("Player/DamageShip");
@@ -67,6 +70,11 @@ namespace NeonShooter
 
             LineParticle = content.Load<Texture2D>("Particles/Laser");
             Glow = content.Load<Texture2D>("Particles/Glow");
+
+            //go back here to maybe fix with other ships
+            Pixel = new Texture2D(PlayerDmgShip.GraphicsDevice, 1, 1);
+                Pixel.SetData(new[] { Color.White });
+            
         }
     }
 }
