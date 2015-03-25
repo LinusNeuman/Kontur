@@ -82,9 +82,9 @@ namespace NeonShooter
             Grid = new Grid(Viewport.Bounds, gridSpacing);
 
             float screenscaleX =
-                (((float)graphics.PreferredBackBufferWidth / 1920));
+                (((float)ScreenSize.X / VirtualScreenSize.X));
             float screenscaleY =
-                (((float)graphics.PreferredBackBufferHeight / 1080));
+                (((float)ScreenSize.Y / VirtualScreenSize.Y));
             SpriteScale = Matrix.CreateScale(screenscaleX, screenscaleY, 1);
 
             
@@ -178,7 +178,7 @@ namespace NeonShooter
                     "High Score: " + PlayerStatus.HighScore;
 
                 Vector2 textSize = Art.Font.MeasureString(text);
-                spriteBatch.DrawString(Art.Font, text, ScreenSize / 2 - textSize / 2, Color.White);
+                spriteBatch.DrawString(Art.Font, text, VirtualScreenSize / 2 - textSize / 2, Color.White);
             }
 
             spriteBatch.End();
