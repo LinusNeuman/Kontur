@@ -106,6 +106,7 @@
     <Compile Include="JoystickKnob.cs" />
     <Compile Include="JoystickManager.cs" />
     <Compile Include="MathUtil.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="ParticleManager.cs" />
     <Compile Include="ParticleState.cs" />
     <Compile Include="PlayerShip.cs" />

@@ -41,6 +41,8 @@ namespace NeonShooter
         public static GameTime GameTime { get; private set; }
         public static Grid Grid { get; private set; }
 
+        Menu menu;
+
         public GameRoot()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -108,6 +110,8 @@ namespace NeonShooter
 
             Art.Load(Content);
             Sound.Load(Content);
+
+            menu = new Menu();
         }
 
         /// <summary>
@@ -119,22 +123,50 @@ namespace NeonShooter
         {
             GameTime = gameTime;
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            switch (Menu.gameState)
             {
-                NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
-                if(activity.pGooglePlayClient.IsConnected)
-                activity.StartActivityForResult(GamesClass.Achievements.GetAchievementsIntent(activity.pGooglePlayClient), Activity1.REQUEST_ACHIEVEMENTS);
-            }
+                case Menu.GameState.ingame:
+                    {
+                        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                        {
+                            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+                            if (activity.pGooglePlayClient.IsConnected)
+                                activity.StartActivityForResult(GamesClass.Achievements.GetAchievementsIntent(activity.pGooglePlayClient), Activity1.REQUEST_ACHIEVEMENTS);
+                        }
 
-            Input.Update();
+                        Input.Update();
 
-            EnemySpawner.Update();
+                        EnemySpawner.Update();
 
-            PlayerStatus.Update(); // do not update when paused
+                        PlayerStatus.Update(); // do not update when paused
 
-            EntityManager.Update();
+                        EntityManager.Update();
 
-            ParticleManager.Update();
+                        ParticleManager.Update();
+                    }
+                    break;
+
+                case Menu.GameState.menu:
+                    {
+                        menu.Update();
+                    }
+                    break;
+
+                case Menu.GameState.gameover:
+                    {
+
+                    }
+                    break;
+
+                case Menu.GameState.pause:
+                    {
+
+                    }
+                    break;
+
+                    
+
+        }
 
             base.Update(gameTime);
         }
@@ -151,35 +183,91 @@ namespace NeonShooter
             graphics.GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, 
                 null, null, null, null, SpriteScale);
+
+            switch (Menu.gameState)
+            {
+                case Menu.GameState.ingame:
+                    {
+                        spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
+                        EntityManager.Draw(spriteBatch);
+                        ParticleManager.Draw(spriteBatch);
+                        Grid.Draw(spriteBatch);
+                    }
+                    break;
+
+                case Menu.GameState.menu:
+                    {
+
+                    }
+                    break;
+
+                case Menu.GameState.gameover:
+                    {
+                        
+                    }
+                    break;
+
+                case Menu.GameState.pause:
+                    {
+
+                    }
+                    break;
+            }
+           
             
-            //spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
-            spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
-            EntityManager.Draw(spriteBatch);
-            ParticleManager.Draw(spriteBatch);
-            Grid.Draw(spriteBatch);
             
             spriteBatch.End();
             
             base.Draw(gameTime);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
-    null, null, null, null, SpriteScale);
+null, null, null, null, SpriteScale);
 
-            PlayerShip.Instance.joystickMgr.Draw(spriteBatch);
-
-            spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
-            DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
-            DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
-
-            if (PlayerStatus.IsGameOver)
+            switch (Menu.gameState)
             {
-                string text = "Game Over\n" +
-                    "Your Score: " + PlayerStatus.Score + "\n" +
-                    "High Score: " + PlayerStatus.HighScore;
+                case Menu.GameState.ingame:
+                    {
+                        PlayerShip.Instance.joystickMgr.Draw(spriteBatch);
 
-                Vector2 textSize = Art.Font.MeasureString(text);
-                spriteBatch.DrawString(Art.Font, text, VirtualScreenSize / 2 - textSize / 2, Color.White);
+                        spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
+                        DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
+                        DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
+                    }
+                    break;
+
+                case Menu.GameState.menu:
+                    {
+                        
+                    }
+                    break;
+
+                case Menu.GameState.gameover:
+                    {
+                        string text = "Game Over\n" +
+                            "Your Score: " + PlayerStatus.Score + "\n" +
+                            "High Score: " + PlayerStatus.HighScore;
+
+                        Vector2 textSize = Art.Font.MeasureString(text);
+                        spriteBatch.DrawString(Art.Font, text, VirtualScreenSize / 2 - textSize / 2, Color.White);
+                    }
+                    break;
+
+                case Menu.GameState.pause:
+                    {
+
+                    }
+                    break;
             }
+
+
+
+            
+
+            
+
+            
+                
+            
 
             spriteBatch.End();
         }
