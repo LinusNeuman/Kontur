@@ -90,6 +90,11 @@ namespace NeonShooter
                 
             }
 
+            if (PlayerStatus.IsGameOver)
+            {
+                Menu.gameState = Menu.GameState.gameover;
+            }
+
             joystickMgr.Update();
 
             var aim = Input.GetAimDirection(); // get aim
