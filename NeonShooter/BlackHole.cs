@@ -63,8 +63,7 @@ namespace NeonShooter
 
             //rotate spray direction
             sprayAngle -= MathHelper.TwoPi / 50f;
-
-            GameRoot.Grid.ApplyImplosiveForce((float)Math.Sin(sprayAngle / 2) * 10 + 20, Position, 200);        }
+        }
 
         public void WasShot()
         {

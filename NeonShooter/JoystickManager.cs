@@ -55,7 +55,6 @@ namespace NeonShooter
 
                 #region MoveJoy
 
-                if ((gesture.Position - new Vector2(moveJoystick.x * ((int)(GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X)), moveJoystick.y * ((int)(GameRoot.ScreenSize.Y / GameRoot.VirtualScreenSize.Y)))).Length() < Art.Joystick.Width / 2) // 160
                 {
 
                     moveJoystick.fingerIsDown = true;
