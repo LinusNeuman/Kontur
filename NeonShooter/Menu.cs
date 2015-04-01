@@ -100,14 +100,22 @@ namespace NeonShooter
             HighscoresTxt = content.Load<Texture2D>("Buttons/Highscores");
             BgTxt = content.Load<Texture2D>("Graphics/MainMenuBG");
         }
-
-        public  void Update()
+        
+        public void LoadGame(ContentManager Content)
         {
-            HandleTouchInput();
+            Bullet.Load(Content);
+            EnemySpawner.Load(Content);
+            BlackHole.Load(Content);
+            PlayerShip.Load(Content);
+        }
+
+        public void Update(ContentManager Content)
+        {
+            HandleTouchInput(Content);
 
         }
 
-        public void HandleTouchInput()
+        public void HandleTouchInput(ContentManager Content)
         {
             while (TouchPanel.IsGestureAvailable)
             {
@@ -167,6 +175,7 @@ namespace NeonShooter
                     {
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
                         {
+                            LoadGame(Content);
                             MediaPlayer.Play(Sound.Music);
                             MediaPlayer.IsRepeating = true;
                             gameState = GameState.ingame;

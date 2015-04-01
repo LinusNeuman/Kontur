@@ -17,11 +17,6 @@ namespace NeonShooter
 {
     public class ParticleManager<T>
     {
-        #region Textures
-
-
-
-        #endregion
 
         private Action<Particle> updateParticle;
         private CircularParticleArray particleList;

@@ -25,8 +25,8 @@ namespace NeonShooter
 
         #endregion
 
-        public Joystick moveJoystick;
-        public Joystick aimJoystick;
+        public static Joystick moveJoystick;
+        public static Joystick aimJoystick;
 
         Vector2 tempScale;
 
@@ -34,13 +34,16 @@ namespace NeonShooter
 
         public JoystickManager()
         {
+            instance = this;
+        }
+
+        public static void Initialize()
+        {
             moveJoystick = new Joystick(60, 60);
             moveJoystick.init();
 
             aimJoystick = new Joystick((int)(GameRoot.VirtualScreenSize.X - Joystick.Width - 60), 60);
             aimJoystick.init();
-
-            instance = this;
         }
 
         public void Reset()

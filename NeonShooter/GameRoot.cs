@@ -106,13 +106,11 @@ namespace NeonShooter
 
             Art.Load(Content);
             Sound.Load(Content);
-            Bullet.Load(Content);
-            EnemySpawner.Load(Content);
-            BlackHole.Load(Content);
-            PlayerShip.Load(Content);
-            JoystickManager.Load(Content);
             Menu.Load(Content);
 
+            JoystickManager.Load(Content);
+            JoystickManager.Initialize();
+            
             menu = new Menu();
         }
 
@@ -153,7 +151,7 @@ namespace NeonShooter
 
                 case Menu.GameState.menu:
                     {
-                        menu.Update();
+                        menu.Update(Content);
 
                         ParticleManager.Update();
                     }

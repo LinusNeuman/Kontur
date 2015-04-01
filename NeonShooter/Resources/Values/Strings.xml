@@ -8,4 +8,6 @@
     <string name="achievement_100_explosions">CgkI3bWJ_OoVEAIQAw</string>
     <string name="achievement_dangerous_void">CgkI3bWJ_OoVEAIQBA</string>
     <string name="achievement_survivor">CgkI3bWJ_OoVEAIQBQ</string>
+    <string name="leaderboard_highscore">CgkI3bWJ_OoVEAIQCQ</string>
+    <string name="leaderboard_survival">CgkI3bWJ_OoVEAIQCg</string>
 </resources>
