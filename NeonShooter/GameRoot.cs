@@ -113,6 +113,7 @@ namespace NeonShooter
             BlackHole.Load(Content);
             PlayerShip.Load(Content);
             JoystickManager.Load(Content);
+            Menu.Load(Content);
 
             menu = new Menu();
         }
@@ -199,7 +200,7 @@ namespace NeonShooter
 
                 case Menu.GameState.menu:
                     {
-
+                        ParticleManager.Draw(spriteBatch);
                     }
                     break;
 
@@ -240,7 +241,7 @@ null, null, null, null, SpriteScale);
 
                 case Menu.GameState.menu:
                     {
-                        
+                        menu.Draw(spriteBatch);
                     }
                     break;
 
