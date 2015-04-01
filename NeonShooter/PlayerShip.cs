@@ -12,11 +12,23 @@ using Android.Widget;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Content;
 
 namespace NeonShooter
 {
     class PlayerShip : Entity
     {
+        #region Textures
+
+        public static Texture2D PlayerDmgShip { get; private set; }
+        public static Texture2D PlayerSpdShip { get; private set; }
+        public static Texture2D PlayerStndShip { get; private set; }
+        public static Texture2D PlayerTnkShip { get; private set; }
+
+        public static Texture2D Pixel { get; private set; }
+
+        #endregion
+
         const int cooldownFrames = 8;
         public int cooldownRemaining = 0;
         static Random rand = new Random();
@@ -40,11 +52,22 @@ namespace NeonShooter
 
         private PlayerShip()
         {
-            image = Art.PlayerDmgShip;
-            Position = GameRoot.ScreenSize / 2;
+            image = PlayerDmgShip;
+            Position = GameRoot.VirtualScreenSize / 2;
             Radius = 10;
 
             joystickMgr = new JoystickManager();
+        }
+
+        public static void Load(ContentManager content)
+        {
+            PlayerDmgShip = content.Load<Texture2D>("Player/DamageShip");
+            PlayerSpdShip = content.Load<Texture2D>("Player/SpeedShip");
+            PlayerStndShip = content.Load<Texture2D>("Player/StandardShip");
+            PlayerTnkShip = content.Load<Texture2D>("Player/TankShip");
+            //go back here to maybe fix with other ships
+            Pixel = new Texture2D(PlayerDmgShip.GraphicsDevice, 1, 1);
+            Pixel.SetData(new[] { Color.White });
         }
 
         public void Kill()
@@ -52,10 +75,11 @@ namespace NeonShooter
             PlayerStatus.RemoveLife();
             joystickMgr.Reset();
             framesUntilRespawn = PlayerStatus.IsGameOver ? 300 : 120;
-            
+
+            Position = GameRoot.VirtualScreenSize / 2;
 
             Color yellow = new Color(0.8f, 0.8f, 0.4f);
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 100; i++)
             {
                 float speed = 18f * (1f - 1 / rand.NextFloat(1f, 10f));
 
@@ -81,13 +105,18 @@ namespace NeonShooter
                     if (PlayerStatus.Lives == 0)
                     {
                         PlayerStatus.Reset();
-                        Position = GameRoot.ScreenSize / 2;
+                        Position = GameRoot.VirtualScreenSize / 2;
                     }
-                    GameRoot.Grid.ApplyDirectedForce(new Vector3(0, 0, 5000), new Vector3(Position, 0), 50);
+                    
                     return;
                 }
 
                 
+            }
+
+            if (PlayerStatus.IsGameOver)
+            {
+                Menu.gameState = Menu.GameState.gameover;
             }
 
             joystickMgr.Update();
@@ -116,7 +145,7 @@ namespace NeonShooter
             const float speed = 7;
             Velocity = speed * Input.GetMovementDirection();
             Position += Velocity;
-            Position = Vector2.Clamp(Position, Size / 2, GameRoot.ScreenSize - Size / 2);
+            Position = Vector2.Clamp(Position, Size / 2, GameRoot.VirtualScreenSize - Size / 2);
 
             if (Velocity.LengthSquared() > 0)
                 Orientation = Velocity.ToAngle();

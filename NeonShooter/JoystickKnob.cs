@@ -25,7 +25,7 @@ namespace NeonShooter
         public JoystickKnob()
         {
             // code for constructor
-            texture = Art.Knob;
+            texture = JoystickManager.Knob;
         }
 
         public int originX

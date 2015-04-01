@@ -12,11 +12,18 @@ using Android.Widget;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Content;
 
 namespace NeonShooter
 {
     class BlackHole : Entity
     {
+        #region Textures
+
+        public static Texture2D BlackHoleTxt { get; private set; }
+
+        #endregion
+
         private static Random rand = new Random();
 
         private int hitpoints = 10;
@@ -25,9 +32,14 @@ namespace NeonShooter
 
         public BlackHole(Vector2 position)
         {
-            image = Art.BlackHole;
+            image = BlackHoleTxt;
             Position = position;
             Radius = image.Width / 2f;
+        }
+
+        public static void Load(ContentManager content)
+        {
+            BlackHoleTxt = content.Load<Texture2D>("Enemies/BlackHole");
         }
 
         public override void Update()        {            var entities = EntityManager.GetNearbyEntities(Position, 250);
@@ -63,8 +75,7 @@ namespace NeonShooter
 
             //rotate spray direction
             sprayAngle -= MathHelper.TwoPi / 50f;
-
-            GameRoot.Grid.ApplyImplosiveForce((float)Math.Sin(sprayAngle / 2) * 10 + 20, Position, 200);        }
+        }
 
         public void WasShot()
         {

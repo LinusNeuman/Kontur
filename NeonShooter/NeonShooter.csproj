@@ -93,6 +93,7 @@
     <Compile Include="BloomComponent.cs" />
     <Compile Include="BloomSettings.cs" />
     <Compile Include="Bullet.cs" />
+    <Compile Include="Button.cs" />
     <Compile Include="ColorUtil.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemySpawner.cs" />
@@ -101,12 +102,12 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="FramCounter.cs" />
     <Compile Include="GameRoot.cs" />
-    <Compile Include="Grid.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Joystick.cs" />
     <Compile Include="JoystickKnob.cs" />
     <Compile Include="JoystickManager.cs" />
     <Compile Include="MathUtil.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="ParticleManager.cs" />
     <Compile Include="ParticleState.cs" />
     <Compile Include="PlayerShip.cs" />
@@ -137,6 +138,7 @@
     <AndroidAsset Include="Assets\Content\Particles\Laser.xnb" />
     <AndroidAsset Include="Assets\Content\Particles\Glow.xnb" />
     <AndroidAsset Include="Assets\Content\Enemies\Follower.xnb" />
+    <AndroidAsset Include="Assets\Content\Button.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

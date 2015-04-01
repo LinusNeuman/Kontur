@@ -39,7 +39,7 @@ namespace NeonShooter
             my_x = margin_left;
             my_y = margin_bottom;
 
-            texture = Art.Joystick;
+            texture = JoystickManager.Joystick;
 
             TouchPanel.EnabledGestures = GestureType.FreeDrag | 
                 GestureType.Tap | GestureType.Hold;

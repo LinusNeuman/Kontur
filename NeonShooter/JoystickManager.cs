@@ -12,13 +12,23 @@ using Android.Widget;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace NeonShooter
 {
     public class JoystickManager
     {
+        #region Textures
+
+        public static Texture2D Joystick { get; private set; }
+        public static Texture2D Knob { get; private set; }
+
+        #endregion
+
         public Joystick moveJoystick;
         public Joystick aimJoystick;
+
+        Vector2 tempScale;
 
         public static JoystickManager instance;
 
@@ -27,7 +37,7 @@ namespace NeonShooter
             moveJoystick = new Joystick(60, 60);
             moveJoystick.init();
 
-            aimJoystick = new Joystick((int)(GameRoot.VirtualScreenSize.X - Art.Joystick.Width - 60), 60);
+            aimJoystick = new Joystick((int)(GameRoot.VirtualScreenSize.X - Joystick.Width - 60), 60);
             aimJoystick.init();
 
             instance = this;
@@ -37,6 +47,12 @@ namespace NeonShooter
         {
             moveJoystick.Reset();
             aimJoystick.Reset();
+        }
+
+        public static void Load(ContentManager content)
+        {
+            Joystick = content.Load<Texture2D>("Joystick/Joystick");
+            Knob = content.Load<Texture2D>("Joystick/Knob");
         }
 
         public void Update()
@@ -53,38 +69,66 @@ namespace NeonShooter
             {
                 GestureSample gesture = TouchPanel.ReadGesture();
 
+                if (GameRoot.ScreenSize.X < GameRoot.VirtualScreenSize.X)
+                {
+                    tempScale.X = GameRoot.VirtualScreenSize.X / GameRoot.ScreenSize.X;
+                    tempScale.Y = GameRoot.VirtualScreenSize.Y / GameRoot.ScreenSize.Y;
+                }
+                if (GameRoot.ScreenSize.Y < GameRoot.VirtualScreenSize.Y)
+                {
+                    tempScale.X = GameRoot.VirtualScreenSize.X / GameRoot.ScreenSize.X;
+                    tempScale.Y = GameRoot.VirtualScreenSize.Y / GameRoot.ScreenSize.Y;
+                }
+
+                if (GameRoot.ScreenSize.X > GameRoot.VirtualScreenSize.X)
+                {
+                    tempScale.X = GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X;
+                    tempScale.Y = GameRoot.ScreenSize.Y / GameRoot.VirtualScreenSize.Y;
+                }
+
+                if (GameRoot.ScreenSize.Y > GameRoot.VirtualScreenSize.Y)
+                {
+                    tempScale.X = GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X;
+                    tempScale.Y = GameRoot.ScreenSize.Y / GameRoot.VirtualScreenSize.Y;
+                }
+
                 #region MoveJoy
 
-                if ((gesture.Position - new Vector2(moveJoystick.x * ((int)(GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X)), moveJoystick.y * ((int)(GameRoot.ScreenSize.Y / GameRoot.VirtualScreenSize.Y)))).Length() < Art.Joystick.Width / 2) // 160
+                if ((gesture.Position * tempScale - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < Joystick.Width / 2) // 160
                 {
 
                     moveJoystick.fingerIsDown = true;
 
-                    moveJoystick.knob.x = (int)gesture.Position.X * ((int)(GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X));
-                    moveJoystick.knob.y = (int)gesture.Position.Y ;
+                    moveJoystick.knob.x = (int)(gesture.Position.X * tempScale.X);
+                    moveJoystick.knob.y = (int)(gesture.Position.Y * tempScale.Y);
 
                     moveJoystick.direction.X = moveJoystick.knob.x - moveJoystick.x; // To calculate we need the position _relative_ to the centre of the joystick. 
                     moveJoystick.direction.Y = moveJoystick.knob.y - moveJoystick.y;
                 }
-                else
+                if ((gesture.Position * tempScale - new Vector2(moveJoystick.x, moveJoystick.y)).Length() > Joystick.Width / 2)
+                {
                     moveJoystick.fingerIsDown = false;
+                }
 
                 #endregion
 
                 #region AimJoy
 
-                if ((gesture.Position - new Vector2(aimJoystick.x, aimJoystick.y)).Length() < 180)
+                if ((gesture.Position * tempScale - new Vector2(aimJoystick.x, aimJoystick.y)).Length() < Joystick.Width / 2) // 160
                 {
+
                     aimJoystick.fingerIsDown = true;
 
-                    aimJoystick.knob.x = (int)gesture.Position.X;
-                    aimJoystick.knob.y = (int)gesture.Position.Y;
+                    aimJoystick.knob.x = (int)(gesture.Position.X * tempScale.X);
+                    aimJoystick.knob.y = (int)(gesture.Position.Y * tempScale.Y);
 
-                    aimJoystick.direction.X = aimJoystick.knob.x - aimJoystick.x;// + GameRoot.ScreenSize.X - Art.Joystick.Width; // To calculate we need the position _relative_ to the centre of the joystick. 
+                    aimJoystick.direction.X = aimJoystick.knob.x - aimJoystick.x; // To calculate we need the position _relative_ to the centre of the joystick. 
                     aimJoystick.direction.Y = aimJoystick.knob.y - aimJoystick.y;
                 }
-                else
+                if ((gesture.Position * tempScale - new Vector2(aimJoystick.x, aimJoystick.y)).Length() > Joystick.Width / 2) // 160
+                {
                     aimJoystick.fingerIsDown = false;
+                }
 
                 #endregion
             }

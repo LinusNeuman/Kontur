@@ -25,7 +25,7 @@ namespace NeonShooter
         , Theme = "@style/Theme.Splash"
         , AlwaysRetainTaskState = true
         , LaunchMode = Android.Content.PM.LaunchMode.SingleTask
-        , ScreenOrientation = ScreenOrientation.SensorLandscape
+        , ScreenOrientation = ScreenOrientation.Landscape
         , ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden)]
     public class Activity1
         : Microsoft.Xna.Framework.AndroidGameActivity

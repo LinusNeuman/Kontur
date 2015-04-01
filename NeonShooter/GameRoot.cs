@@ -39,7 +39,8 @@ namespace NeonShooter
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static Vector2 VirtualScreenSize { get { return new Vector2(1920, 1080); } }
         public static GameTime GameTime { get; private set; }
-        public static Grid Grid { get; private set; }
+
+        Menu menu;
 
         private FrameCounter _frameCounter = new FrameCounter();
         private bool showFPS;
@@ -87,7 +88,6 @@ namespace NeonShooter
 
             const int maxGridPoints = 1600;
             Vector2 gridSpacing = new Vector2((float)Math.Sqrt(Viewport.Width * Viewport.Height / maxGridPoints));
-            Grid = new Grid(Viewport.Bounds, gridSpacing);
 
             float screenscaleX =
                 (((float)ScreenSize.X / VirtualScreenSize.X));
@@ -116,6 +116,14 @@ namespace NeonShooter
 
             Art.Load(Content);
             Sound.Load(Content);
+            Bullet.Load(Content);
+            EnemySpawner.Load(Content);
+            BlackHole.Load(Content);
+            PlayerShip.Load(Content);
+            JoystickManager.Load(Content);
+            Menu.Load(Content);
+
+            menu = new Menu();
         }
 
         /// <summary>
@@ -127,27 +135,50 @@ namespace NeonShooter
         {
             GameTime = gameTime;
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            switch (Menu.gameState)
             {
-                NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
-                if(activity.pGooglePlayClient.IsConnected)
-                activity.StartActivityForResult(GamesClass.Achievements.GetAchievementsIntent(activity.pGooglePlayClient), Activity1.REQUEST_ACHIEVEMENTS);
-            }
+                case Menu.GameState.ingame:
+                    {
+                        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                        {
+                            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+                            if (activity.pGooglePlayClient.IsConnected)
+                                activity.StartActivityForResult(GamesClass.Achievements.GetAchievementsIntent(activity.pGooglePlayClient), Activity1.REQUEST_ACHIEVEMENTS);
+                        }
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.RightStick == ButtonState.Pressed)
-            {
-                showFPS = !showFPS;
-            }
+                        Input.Update();
 
-            Input.Update();
+                        EnemySpawner.Update();
 
-            EnemySpawner.Update();
+                        PlayerStatus.Update(); // do not update when paused
 
-            PlayerStatus.Update(); // do not update when paused
+                        EntityManager.Update();
 
-            EntityManager.Update();
+                        ParticleManager.Update();
+                    }
+                    break;
 
-            ParticleManager.Update();
+                case Menu.GameState.menu:
+                    {
+                        menu.Update();
+                    }
+                    break;
+
+                case Menu.GameState.gameover:
+                    {
+
+                    }
+                    break;
+
+                case Menu.GameState.pause:
+                    {
+
+                    }
+                    break;
+
+                    
+
+        }
 
             base.Update(gameTime);
         }
@@ -164,12 +195,38 @@ namespace NeonShooter
             graphics.GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, 
                 null, null, null, null, SpriteScale);
+
+            switch (Menu.gameState)
+            {
+                case Menu.GameState.ingame:
+                    {
+                        spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
+                        EntityManager.Draw(spriteBatch);
+                        ParticleManager.Draw(spriteBatch);
+                    }
+                    break;
+
+                case Menu.GameState.menu:
+                    {
+                        ParticleManager.Draw(spriteBatch);
+                    }
+                    break;
+
+                case Menu.GameState.gameover:
+                    {
+                        
+                    }
+                    break;
+
+                case Menu.GameState.pause:
+                    {
+
+                    }
+                    break;
+            }
+           
             
-            //spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
-            spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
-            EntityManager.Draw(spriteBatch);
-            ParticleManager.Draw(spriteBatch);
-            Grid.Draw(spriteBatch);
+
             
             spriteBatch.End();
             
@@ -178,11 +235,42 @@ namespace NeonShooter
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
     null, DepthStencilState.None, null, null, SpriteScale);
 
-            PlayerShip.Instance.joystickMgr.Draw(spriteBatch);
+            switch (Menu.gameState)
+            {
+                case Menu.GameState.ingame:
+                    {
+                        PlayerShip.Instance.joystickMgr.Draw(spriteBatch);
 
-            spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
-            DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
-            DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
+                        spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
+                        DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
+                        DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
+                    }
+                    break;
+
+                case Menu.GameState.menu:
+                    {
+                        menu.Draw(spriteBatch);
+                    }
+                    break;
+
+                case Menu.GameState.gameover:
+                    {
+                        string text = "Game Over\n" +
+                            "Your Score: " + PlayerStatus.Score + "\n" +
+                            "High Score: " + PlayerStatus.HighScore;
+
+                        Vector2 textSize = Art.Font.MeasureString(text);
+                        spriteBatch.DrawString(Art.Font, text, VirtualScreenSize / 2 - textSize / 2, Color.White);
+                    }
+                    break;
+
+                case Menu.GameState.pause:
+                    {
+
+                    }
+                    break;
+            }
+
 
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -192,16 +280,6 @@ namespace NeonShooter
 
             if(showFPS)
                 spriteBatch.DrawString(Art.Font, fps, new Vector2(VirtualScreenSize.X / 2, VirtualScreenSize.Y - 60), Color.White);
-
-            if (PlayerStatus.IsGameOver)
-            {
-                string text = "Game Over\n" +
-                    "Your Score: " + PlayerStatus.Score + "\n" +
-                    "High Score: " + PlayerStatus.HighScore;
-
-                Vector2 textSize = Art.Font.MeasureString(text);
-                spriteBatch.DrawString(Art.Font, text, VirtualScreenSize / 2 - textSize / 2, Color.White);
-            }
 
             spriteBatch.End();
         }

@@ -10,11 +10,21 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace NeonShooter
 {
     static class EnemySpawner
     {
+        #region Textures
+
+        public static Texture2D Follower { get; private set; } // change names
+        public static Texture2D Wanderer_Part1 { get; private set; }
+        public static Texture2D Wanderer_Part2 { get; private set; }
+
+        #endregion
+
         static Random rand = new Random();
         static float inverseSpawnChance = 60;
         static float inverseBlackHoleChance = 600;
@@ -37,6 +47,13 @@ namespace NeonShooter
                 inverseSpawnChance -= 0.005f;
 
             
+        }
+
+        public static void Load(ContentManager content)
+        {
+            Follower = content.Load<Texture2D>("Enemies/Follower");
+            Wanderer_Part1 = content.Load<Texture2D>("Enemies/WandererLvl1");
+            Wanderer_Part2 = content.Load<Texture2D>("Enemies/WandererLvl1Small");
         }
 
         private static Vector2 GetSpawnPosition()
