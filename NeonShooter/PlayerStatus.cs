@@ -11,6 +11,17 @@ using Android.Views;
 using Android.Widget;
 using System.IO;
 
+// test for google play services
+using Android.Gms;
+using Android.Gms.Common;
+using Android.Gms.Games;
+using Android.Gms.Games.LeaderBoard;
+using Android.Gms.Plus;
+using Android.Gms.Plus.Model.People;
+using Android.Gms.Common.Apis;
+using Android.Views;
+// test for in app billing
+
 namespace NeonShooter
 {
     static class PlayerStatus
@@ -44,6 +55,10 @@ namespace NeonShooter
 
         private static void SaveHighScore(int score)
         {
+            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+            if (activity.pGooglePlayClient.IsConnected)
+                GamesClass.Leaderboards.SubmitScore(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ", score);
+            
             try 
             {
                 File.WriteAllText(highScoreFilename, score.ToString());
