@@ -79,8 +79,6 @@ namespace NeonShooter
 
             base.Initialize();
 
-            EntityManager.Add(PlayerShip.Instance);
-
             AchievementManager.pInstance.Initialize();
 
             float screenscaleX =
@@ -237,6 +235,16 @@ namespace NeonShooter
                         spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
                         DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
                         DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
+
+                        if (PlayerStatus.IsGameOver)
+                        {
+                            string text = "Game Over\n" +
+                               "Your Score: " + PlayerStatus.Score + "\n" +
+                               "High Score: " + PlayerStatus.HighScore;
+
+                            Vector2 textSize = Art.Font.MeasureString(text);
+                            spriteBatch.DrawString(Art.Font, text, VirtualScreenSize / 2 - textSize / 2, Color.White);
+                        }
                     }
                     break;
 

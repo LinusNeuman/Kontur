@@ -59,12 +59,18 @@ namespace NeonShooter
             joystickMgr = new JoystickManager();
         }
 
+        public static void Initialize()
+        {
+            
+        }
+
         public static void Load(ContentManager content)
         {
             PlayerDmgShip = content.Load<Texture2D>("Player/DamageShip");
             PlayerSpdShip = content.Load<Texture2D>("Player/SpeedShip");
             PlayerStndShip = content.Load<Texture2D>("Player/StandardShip");
             PlayerTnkShip = content.Load<Texture2D>("Player/TankShip");
+
             //go back here to maybe fix with other ships
             Pixel = new Texture2D(PlayerDmgShip.GraphicsDevice, 1, 1);
             Pixel.SetData(new[] { Color.White });
@@ -116,13 +122,13 @@ namespace NeonShooter
 
             if (PlayerStatus.IsGameOver)
             {
-                Menu.gameState = Menu.GameState.gameover;
+                //Menu.gameState = Menu.GameState.gameover;
             }
 
             joystickMgr.Update();
 
             var aim = Input.GetAimDirection(); // get aim
-            if (aim.LengthSquared() > 0 && cooldownRemaining <= 0)
+            if (aim.LengthSquared() > 0 && cooldownRemaining <= 0 && !IsDead)
             {
                 cooldownRemaining = cooldownFrames;
                 float aimAngle = aim.ToAngle();

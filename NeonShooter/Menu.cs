@@ -67,7 +67,7 @@ namespace NeonShooter
             {
                texture = PlayTxt,
                Position = new Vector2(GameRoot.VirtualScreenSize.X - PlayTxt.Width - 140, GameRoot.VirtualScreenSize.Y - PlayTxt.Height - 680),
-               bgameState = NeonShooter.Button.bGameState.upgrades,
+               bgameState = NeonShooter.Button.bGameState.ingame,
             });
             buttonList.Add(new Button()
             {
@@ -104,9 +104,14 @@ namespace NeonShooter
         public void LoadGame(ContentManager Content)
         {
             Bullet.Load(Content);
-            EnemySpawner.Load(Content);
+            
             BlackHole.Load(Content);
+            
             PlayerShip.Load(Content);
+            EntityManager.Add(PlayerShip.Instance);
+            EnemySpawner.Load(Content);
+
+            
         }
 
         public void Update(ContentManager Content)

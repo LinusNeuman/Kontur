@@ -2042,6 +2042,12 @@ namespace NeonShooter
 			// aapt resource value: 0x7f060019
 			public const int decline = 2131099673;
 			
+			// aapt resource value: 0x7f060041
+			public const int leaderboard_highscore = 2131099713;
+			
+			// aapt resource value: 0x7f060042
+			public const int leaderboard_survival = 2131099714;
+			
 			// aapt resource value: 0x7f060000
 			public const int mr_media_route_button_content_description = 2131099648;
 			

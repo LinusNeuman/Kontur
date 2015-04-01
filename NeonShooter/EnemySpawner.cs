@@ -33,9 +33,9 @@ namespace NeonShooter
         {
             if (!PlayerShip.Instance.IsDead && EntityManager.Count < 200)
             {
-                if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.Count < 10)
+                if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.EnemyCount < 10)
                     EntityManager.Add(Enemy.CreateSeeker(GetSpawnPosition()));
-                if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.Count < 10)
+                if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.EnemyCount < 10)
                     EntityManager.Add(Enemy.CreateWanderer(GetSpawnPosition()));
 
                 if (EntityManager.BlackHoleCount < 1 && rand.Next((int)inverseBlackHoleChance) == 0)

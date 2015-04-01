@@ -28,6 +28,8 @@ namespace NeonShooter
         public static Joystick moveJoystick;
         public static Joystick aimJoystick;
 
+        private bool anyFingerDown; // USE THIS
+
         Vector2 tempScale;
 
         public static JoystickManager instance;

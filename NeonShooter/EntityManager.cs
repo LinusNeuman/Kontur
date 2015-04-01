@@ -31,6 +31,7 @@ namespace NeonShooter
 
         public static int Count { get { return entities.Count; } }
         public static int BlackHoleCount { get { return blackHoles.Count; } }
+        public static int EnemyCount { get { return enemies.Count; } }
 
         public static void Add(Entity entity)
         {
