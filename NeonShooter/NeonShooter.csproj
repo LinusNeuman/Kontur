@@ -118,7 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Content\Fonts\spriteFont1.xnb" />
-    <AndroidAsset Include="Assets\Content\Graphics\TitleScreenBg.xnb" />
     <AndroidAsset Include="Assets\Content\Joystick\Joystick.xnb" />
     <AndroidAsset Include="Assets\Content\Joystick\Knob.xnb" />
     <AndroidAsset Include="Assets\Content\Fonts\Font.xnb" />
@@ -138,7 +137,12 @@
     <AndroidAsset Include="Assets\Content\Particles\Laser.xnb" />
     <AndroidAsset Include="Assets\Content\Particles\Glow.xnb" />
     <AndroidAsset Include="Assets\Content\Enemies\Follower.xnb" />
-    <AndroidAsset Include="Assets\Content\Button.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\TitleScreenBg.xnb" />
+    <AndroidAsset Include="Assets\Content\Buttons\Play.xnb" />
+    <AndroidAsset Include="Assets\Content\Buttons\Settings.xnb" />
+    <AndroidAsset Include="Assets\Content\Buttons\About.xnb" />
+    <AndroidAsset Include="Assets\Content\Buttons\Highscores.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\MainMenuBG.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -156,27 +160,11 @@
     <AndroidResource Include="Resources\Values\Styles.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\Content\Sound\spawn-04.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\spawn-05.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\spawn-06.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\spawn-07.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\spawn-08.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\explosion-01.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\explosion-02.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\explosion-03.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\explosion-04.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\explosion-05.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\explosion-06.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\explosion-07.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\explosion-08.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\shoot-01.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\shoot-02.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\shoot-03.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\shoot-04.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\spawn-01.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\spawn-02.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\spawn-03.wav" />
+    <AndroidAsset Include="Assets\Content\Sound\explosion.wav" />
+    <AndroidAsset Include="Assets\Content\Sound\shoot.wav" />
+    <AndroidAsset Include="Assets\Content\Sound\spawn.wav" />
     <AndroidAsset Include="Assets\Content\Sound\LBS_LGA_ANTHEM.mp3" />
+    <AndroidAsset Include="Assets\Content\Sound\8bit.mp3" />
     <Content Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </Content>

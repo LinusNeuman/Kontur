@@ -69,6 +69,14 @@ namespace NeonShooter
             {
                 GestureSample gesture = TouchPanel.ReadGesture();
 
+                if (GameRoot.ScreenSize.X == GameRoot.VirtualScreenSize.X)
+                {
+                    tempScale.X = 1;
+                }
+                if (GameRoot.ScreenSize.Y == GameRoot.VirtualScreenSize.Y)
+                {
+                    tempScale.Y = 1;
+                }
                 if (GameRoot.ScreenSize.X < GameRoot.VirtualScreenSize.X)
                 {
                     tempScale.X = GameRoot.VirtualScreenSize.X / GameRoot.ScreenSize.X;

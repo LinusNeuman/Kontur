@@ -129,7 +129,7 @@ namespace NeonShooter
                 Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, aimAngle);
 
                 float randomSpread = rand.NextFloat(-0.04f, 0.04f) + rand.NextFloat(-0.04f, 0.04f);
-                Vector2 vel = MathUtil.FromPolar(aimAngle + randomSpread, 11f);
+                Vector2 vel = MathUtil.FromPolar(aimAngle + randomSpread, 20f);
 
                 Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
                 EntityManager.Add(new Bullet(Position + offset, vel));
@@ -142,7 +142,7 @@ namespace NeonShooter
             if (cooldownRemaining > 0)
                 cooldownRemaining--;
 
-            const float speed = 7;
+            const float speed = 7f;
             Velocity = speed * Input.GetMovementDirection();
             Position += Velocity;
             Position = Vector2.Clamp(Position, Size / 2, GameRoot.VirtualScreenSize - Size / 2);

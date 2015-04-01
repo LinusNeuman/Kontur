@@ -18,26 +18,27 @@ namespace NeonShooter
     static class Sound
     {
         public static Song Music { get; private set; }
+        public static Song MainTheme { get; private set; }
 
         private static readonly Random rand = new Random();
 
-        private static SoundEffect[] explosions;
-        // random explosion sound
-        public static SoundEffect Explosion { get { return explosions[rand.Next(explosions.Length)]; } }
+        private static SoundEffect explosions;
+        public static SoundEffect Explosion { get { return explosions; } }
 
-        private static SoundEffect[] shots;
-        public static SoundEffect Shot { get { return shots[rand.Next(shots.Length)]; } }
+        private static SoundEffect shots;
+        public static SoundEffect Shot { get { return shots; } }
 
-        private static SoundEffect[] spawns;
-        public static SoundEffect Spawn { get { return spawns[rand.Next(spawns.Length)]; } }
+        private static SoundEffect spawns;
+        public static SoundEffect Spawn { get { return spawns; } }
 
         public static void Load(ContentManager content)
         {
             Music = content.Load<Song>("Sound/LBS_LGA_ANTHEM");
+            MainTheme = content.Load<Song>("Sound/8bit");
 
-            explosions = Enumerable.Range(1, 8).Select(x => content.Load<SoundEffect>("Sound/explosion-0" + x)).ToArray();
-            shots = Enumerable.Range(1, 4).Select(x => content.Load<SoundEffect>("Sound/shoot-0" + x)).ToArray();
-            spawns = Enumerable.Range(1, 8).Select(x => content.Load<SoundEffect>("Sound/spawn-0" + x)).ToArray();
+            explosions = content.Load<SoundEffect>("Sound/explosion");
+            shots = content.Load<SoundEffect>("Sound/shoot");
+            spawns = content.Load<SoundEffect>("Sound/spawn"); 
         }
     }
 }

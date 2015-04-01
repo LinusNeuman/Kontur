@@ -25,7 +25,12 @@ namespace NeonShooter
             menu,
             ingame,
             gameover,
-            pause
+            pause,
+            upgrades,
+            play,
+            about,
+            settings,
+            leaderboards
         }
 
         public bGameState bgameState;

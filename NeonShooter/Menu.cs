@@ -13,6 +13,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
+
+// test for google play services
+using Android.Gms;
+using Android.Gms.Common;
+using Android.Gms.Games;
+using Android.Gms.Games.LeaderBoard;
+using Android.Gms.Plus;
+using Android.Gms.Plus.Model.People;
+using Android.Gms.Common.Apis;
+using Android.Views;
+// test for in app billing
 
 namespace NeonShooter
 {
@@ -20,7 +32,11 @@ namespace NeonShooter
     {
         #region Textures
 
-        public static Texture2D ButtonTxt { get; private set; }
+        public static Texture2D PlayTxt { get; private set; }
+        public static Texture2D HighscoresTxt { get; private set; }
+        public static Texture2D AboutTxt { get; private set; }
+        public static Texture2D SettingsTxt { get; private set; }
+        public static Texture2D BgTxt { get; private set; }
 
         #endregion
 
@@ -33,7 +49,12 @@ namespace NeonShooter
             menu,
             ingame,
             gameover,
-            pause
+            pause,
+            upgrades,
+            play,
+            about,
+            settings,
+            leaderboards
         }
 
         public static GameState gameState = GameState.menu;
@@ -44,49 +65,46 @@ namespace NeonShooter
         {
             buttonList.Add(new Button()
             {
-               texture = ButtonTxt,
-               Position = new Vector2(GameRoot.VirtualScreenSize.X - ButtonTxt.Width - 100, GameRoot.VirtualScreenSize.Y - ButtonTxt.Height - 200),
-               bgameState = NeonShooter.Button.bGameState.ingame,
+               texture = PlayTxt,
+               Position = new Vector2(GameRoot.VirtualScreenSize.X - PlayTxt.Width - 140, GameRoot.VirtualScreenSize.Y - PlayTxt.Height - 680),
+               bgameState = NeonShooter.Button.bGameState.upgrades,
             });
+            buttonList.Add(new Button()
+            {
+                texture = HighscoresTxt,
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - HighscoresTxt.Width - 140, GameRoot.VirtualScreenSize.Y - HighscoresTxt.Height - 430),
+                bgameState = NeonShooter.Button.bGameState.leaderboards,
+            });
+            buttonList.Add(new Button()
+            {
+                texture = SettingsTxt,
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - AboutTxt.Width - 140, GameRoot.VirtualScreenSize.Y - AboutTxt.Height - 200),
+                bgameState = NeonShooter.Button.bGameState.settings,
+            });
+            buttonList.Add(new Button()
+            {
+                texture = AboutTxt,
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - AboutTxt.Width - 400, GameRoot.VirtualScreenSize.Y - AboutTxt.Height - 200),
+                bgameState = NeonShooter.Button.bGameState.about,
+            });
+
+            MediaPlayer.Play(Sound.MainTheme);
+            MediaPlayer.IsRepeating = true;
         }
 
         public static void Load(ContentManager content)
         {
-            ButtonTxt = content.Load<Texture2D>("Button");
+            PlayTxt = content.Load<Texture2D>("Buttons/Play");
+            SettingsTxt = content.Load<Texture2D>("Buttons/Settings");
+            AboutTxt = content.Load<Texture2D>("Buttons/About");
+            HighscoresTxt = content.Load<Texture2D>("Buttons/Highscores");
+            BgTxt = content.Load<Texture2D>("Graphics/MainMenuBG");
         }
 
         public  void Update()
         {
             HandleTouchInput();
 
-            FingerParticles();
-        }
-
-        public void FingerParticles()
-        {
-            while (TouchPanel.IsGestureAvailable)
-            {
-                GestureSample gesture = TouchPanel.ReadGesture();
-
-
-
-                Color yellow = new Color(0.8f, 0.8f, 0.4f);
-                for (int i = 0; i < 100; i++)
-                {
-                    float speed = 18f * (1f - 1 / rand.NextFloat(1f, 10f));
-
-                    Color color = Color.Lerp(Color.White, yellow, rand.NextFloat(0, 1));
-                    var state = new ParticleState()
-                    {
-                        Velocity = rand.NextVector2(speed, speed),
-                        Type = ParticleType.None,
-                        LengthMultiplier = 1
-                    };
-
-                    GameRoot.ParticleManager.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1.5f, 1.5f), state);
-                }
-
-            }
         }
 
         public void HandleTouchInput()
@@ -95,6 +113,14 @@ namespace NeonShooter
             {
                 GestureSample gesture = TouchPanel.ReadGesture();
 
+                if(GameRoot.ScreenSize.X == GameRoot.VirtualScreenSize.X)
+                {
+                    tempScale.X = 1;
+                }
+                if (GameRoot.ScreenSize.Y == GameRoot.VirtualScreenSize.Y)
+                {
+                    tempScale.Y = 1;
+                }
                 if (GameRoot.ScreenSize.X < GameRoot.VirtualScreenSize.X)
                 {
                     tempScale.X = GameRoot.VirtualScreenSize.X / GameRoot.ScreenSize.X;
@@ -118,6 +144,22 @@ namespace NeonShooter
                     tempScale.Y = GameRoot.ScreenSize.Y / GameRoot.VirtualScreenSize.Y;
                 }
 
+                Color yellow = new Color(0.8f, 0.8f, 0.4f);
+                for (int i = 0; i < 100; i++)
+                {
+                    float speed = 18f * (1f - 1 / rand.NextFloat(1f, 10f));
+
+                    Color color = Color.Lerp(Color.White, yellow, rand.NextFloat(0, 1));
+                    var state = new ParticleState()
+                    {
+                        Velocity = rand.NextVector2(speed, speed),
+                        Type = ParticleType.None,
+                        LengthMultiplier = 1
+                    };
+
+                    GameRoot.ParticleManager.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1.5f, 1.5f), state);
+                }
+
                 for (int i = 0; i < buttonList.Count; i++)
 			    {		
                     if ((gesture.Position.X * tempScale.X > buttonList[i].Position.X && gesture.Position.X * tempScale.X < buttonList[i].Position.X + buttonList[i].texture.Width &&
@@ -125,7 +167,36 @@ namespace NeonShooter
                     {
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
                         {
+                            MediaPlayer.Play(Sound.Music);
+                            MediaPlayer.IsRepeating = true;
                             gameState = GameState.ingame;
+                        }
+
+                        if (buttonList[i].bgameState == Button.bGameState.play)
+                        {
+                            gameState = GameState.play;
+                        }
+
+                        if (buttonList[i].bgameState == Button.bGameState.settings)
+                        {
+                            gameState = GameState.settings;
+                        }
+
+                        if (buttonList[i].bgameState == Button.bGameState.upgrades)
+                        {
+                            gameState = GameState.upgrades;
+                        }
+
+                        if (buttonList[i].bgameState == Button.bGameState.about)
+                        {
+                            gameState = GameState.about;
+                        }
+
+                        if (buttonList[i].bgameState == Button.bGameState.leaderboards)
+                        {
+                            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+                            if (activity.pGooglePlayClient.IsConnected)
+                            activity.StartActivityForResult(GamesClass.Leaderboards.GetAllLeaderboardsIntent(activity.pGooglePlayClient), Activity1.REQUEST_LEADERBOARD);
                         }
                     }
                 }
@@ -135,6 +206,10 @@ namespace NeonShooter
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(BgTxt, Vector2.Zero, Color.White);
+
+
+
             for (int i = 0; i < buttonList.Count; i++)
             {
                 spriteBatch.Draw(buttonList[i].texture, buttonList[i].Position, Color.White);

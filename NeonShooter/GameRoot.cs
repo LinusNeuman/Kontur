@@ -43,7 +43,7 @@ namespace NeonShooter
         Menu menu;
 
         private FrameCounter _frameCounter = new FrameCounter();
-        private bool showFPS;
+        private bool showFPS = true;
 
         public GameRoot()
         {
@@ -57,9 +57,6 @@ namespace NeonShooter
             Instance = this;
 
             this.IsFixedTimeStep = true;
-
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
 
             bloom = new BloomComponent(this);
             Components.Add(bloom);
@@ -86,18 +83,11 @@ namespace NeonShooter
 
             AchievementManager.pInstance.Initialize();
 
-            const int maxGridPoints = 1600;
-            Vector2 gridSpacing = new Vector2((float)Math.Sqrt(Viewport.Width * Viewport.Height / maxGridPoints));
-
             float screenscaleX =
                 (((float)ScreenSize.X / VirtualScreenSize.X));
             float screenscaleY =
                 (((float)ScreenSize.Y / VirtualScreenSize.Y));
             SpriteScale = Matrix.CreateScale(screenscaleX, screenscaleY, 1);
-
-            
-            MediaPlayer.Play(Sound.Music);
-            MediaPlayer.IsRepeating = true;
 
             ParticleManager = new ParticleManager<ParticleState>(1024 * 20, ParticleState.UpdateParticle);
         }
@@ -139,10 +129,12 @@ namespace NeonShooter
             {
                 case Menu.GameState.ingame:
                     {
+
                         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                         {
                             NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
                             if (activity.pGooglePlayClient.IsConnected)
+                                
                                 activity.StartActivityForResult(GamesClass.Achievements.GetAchievementsIntent(activity.pGooglePlayClient), Activity1.REQUEST_ACHIEVEMENTS);
                         }
 
@@ -155,12 +147,15 @@ namespace NeonShooter
                         EntityManager.Update();
 
                         ParticleManager.Update();
+
                     }
                     break;
 
                 case Menu.GameState.menu:
                     {
                         menu.Update();
+
+                        ParticleManager.Update();
                     }
                     break;
 
