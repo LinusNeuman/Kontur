@@ -25,7 +25,7 @@ namespace NeonShooter
             pause
         }
 
-        public static GameState gameState = GameState.menu;
+        public static GameState gameState = GameState.ingame;
 
         public  void Update()
         {

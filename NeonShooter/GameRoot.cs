@@ -108,6 +108,11 @@ namespace NeonShooter
 
             Art.Load(Content);
             Sound.Load(Content);
+            Bullet.Load(Content);
+            EnemySpawner.Load(Content);
+            BlackHole.Load(Content);
+            PlayerShip.Load(Content);
+            JoystickManager.Load(Content);
 
             menu = new Menu();
         }
@@ -189,7 +194,6 @@ namespace NeonShooter
                         spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
                         EntityManager.Draw(spriteBatch);
                         ParticleManager.Draw(spriteBatch);
-                        Grid.Draw(spriteBatch);
                     }
                     break;
 
@@ -213,13 +217,7 @@ namespace NeonShooter
             }
            
             
-<<<<<<< HEAD
-            //spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
-            spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
-            EntityManager.Draw(spriteBatch);
-            ParticleManager.Draw(spriteBatch);
-=======
->>>>>>> ed7d7381c81270b70e2d0dd09b6b079625219021
+
             
             spriteBatch.End();
             

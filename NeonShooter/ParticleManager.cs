@@ -11,11 +11,18 @@ using Android.Views;
 using Android.Widget;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace NeonShooter
 {
     public class ParticleManager<T>
     {
+        #region Textures
+
+
+
+        #endregion
+
         private Action<Particle> updateParticle;
         private CircularParticleArray particleList;
 

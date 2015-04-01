@@ -52,7 +52,7 @@ namespace NeonShooter
             }
 
             Position += Velocity;
-            Position = Vector2.Clamp(Position, Size / 2, GameRoot.ScreenSize - Size / 2);
+            Position = Vector2.Clamp(Position, Size / 2, GameRoot.VirtualScreenSize - Size / 2);
 
             Velocity *= 0.8f;
         }
@@ -89,7 +89,7 @@ namespace NeonShooter
 
         public static Enemy CreateSeeker(Vector2 position)
         {
-            var enemy = new Enemy(Art.Follower, position);
+            var enemy = new Enemy(EnemySpawner.Follower, position);
             enemy.AddBehaviour(enemy.FollowPlayer());
             enemy.PointValue = 2;
 
@@ -100,7 +100,7 @@ namespace NeonShooter
 
         public static Enemy CreateWanderer(Vector2 position)
         {
-            var enemy = new Enemy(Art.Wanderer_Part1, position);
+            var enemy = new Enemy(EnemySpawner.Wanderer_Part1, position);
             enemy.AddBehaviour(enemy.MoveRandomly());
             enemy.PointValue = 1;
 
