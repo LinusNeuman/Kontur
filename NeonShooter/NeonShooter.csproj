@@ -33,7 +33,7 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidLinkSkip />
-    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
     <BundleAssemblies>False</BundleAssemblies>
     <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
@@ -99,6 +99,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="FramCounter.cs" />
     <Compile Include="GameRoot.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="Input.cs" />

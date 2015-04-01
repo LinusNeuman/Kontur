@@ -93,6 +93,17 @@ namespace NeonShooter
             g.Run();
         }
 
+        protected void OnPause()
+        {
+            
+            base.OnPause();
+        }
+
+        protected void OnResume()
+        {
+
+            base.OnResume();
+        }
 
 
       

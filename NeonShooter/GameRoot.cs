@@ -41,6 +41,9 @@ namespace NeonShooter
         public static GameTime GameTime { get; private set; }
         public static Grid Grid { get; private set; }
 
+        private FrameCounter _frameCounter = new FrameCounter();
+        private bool showFPS;
+
         public GameRoot()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -54,11 +57,16 @@ namespace NeonShooter
 
             this.IsFixedTimeStep = true;
 
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+
             bloom = new BloomComponent(this);
             Components.Add(bloom);
             //bloom.Settings = new BloomSettings(null, 0.25f, 4, 2, 1, 1.5f, 1);
             int i = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Default");
             bloom.Settings = BloomSettings.PresetSettings[i];
+
+
         }
 
         /// <summary>
@@ -126,6 +134,11 @@ namespace NeonShooter
                 activity.StartActivityForResult(GamesClass.Achievements.GetAchievementsIntent(activity.pGooglePlayClient), Activity1.REQUEST_ACHIEVEMENTS);
             }
 
+            if (GamePad.GetState(PlayerIndex.One).Buttons.RightStick == ButtonState.Pressed)
+            {
+                showFPS = !showFPS;
+            }
+
             Input.Update();
 
             EnemySpawner.Update();
@@ -163,13 +176,22 @@ namespace NeonShooter
             base.Draw(gameTime);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
-    null, null, null, null, SpriteScale);
+    null, DepthStencilState.None, null, null, SpriteScale);
 
             PlayerShip.Instance.joystickMgr.Draw(spriteBatch);
 
             spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
             DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
             DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
+
+            var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            _frameCounter.Update(deltaTime);
+
+            var fps = string.Format("FPS: {0}", _frameCounter.AverageFramesPerSecond);
+
+            if(showFPS)
+                spriteBatch.DrawString(Art.Font, fps, new Vector2(VirtualScreenSize.X / 2, VirtualScreenSize.Y - 60), Color.White);
 
             if (PlayerStatus.IsGameOver)
             {
