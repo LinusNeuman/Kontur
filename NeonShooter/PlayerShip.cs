@@ -29,7 +29,7 @@ namespace NeonShooter
 
         #endregion
 
-        const int cooldownFrames = 8;
+        const int cooldownFrames = 5;
         public int cooldownRemaining = 0;
         static Random rand = new Random();
 
@@ -137,13 +137,14 @@ namespace NeonShooter
                 float randomSpread = rand.NextFloat(-0.04f, 0.04f) + rand.NextFloat(-0.04f, 0.04f);
                 Vector2 vel = MathUtil.FromPolar(aimAngle + randomSpread, 20f);
 
-                Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
+                //Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
+                Vector2 offset = Vector2.Zero;
                 EntityManager.Add(new Bullet(Position + offset, vel));
 
-                offset= Vector2.Transform(new Vector2(25, 16), aimQuat);
-                EntityManager.Add(new Bullet(Position + offset, vel));
+                //offset= Vector2.Transform(new Vector2(25, 16), aimQuat);
+                //EntityManager.Add(new Bullet(Position + offset, vel));
 
-                Sound.Shot.Play(0.2f, rand.NextFloat(-0.2f, 0.2f), 0); // change pitch
+                Sound.Shot.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0); // change pitch
             }
             if (cooldownRemaining > 0)
                 cooldownRemaining--;

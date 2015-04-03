@@ -29,7 +29,7 @@ namespace BloomPostprocess
 
         // Controls how much blurring is applied to the bloom image.
         // The typical range is from 1 up to 10 or so.
-        public readonly float BlurAmount;
+        public float BlurAmount;
 
 
         // Controls the amount of the bloom and base images that
@@ -77,6 +77,8 @@ namespace BloomPostprocess
             new BloomSettings("Saturated",   0.25f,  4,   2,     1,    2,       0),
             new BloomSettings("Blurry",      0,      2,   1,     0.1f, 1,       1),
             new BloomSettings("Subtle",      0.5f,   2,   1,     1,    1,       1),
+            new BloomSettings("Experimental",0f,  4,   2.25f, 0.1f,    2,       1),
+            new BloomSettings("Preview",     0.25f,  4,   1f, 1,    1,       1),
         };
     }
 }

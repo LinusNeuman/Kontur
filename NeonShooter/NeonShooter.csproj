@@ -115,6 +115,7 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sound.cs" />
+    <Compile Include="Upgrades.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Content\Fonts\spriteFont1.xnb" />
@@ -143,6 +144,8 @@
     <AndroidAsset Include="Assets\Content\Buttons\About.xnb" />
     <AndroidAsset Include="Assets\Content\Buttons\Highscores.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\MainMenuBG.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\UpgradesMenuBG.xnb" />
+    <AndroidAsset Include="Assets\Content\Player\3Ddmg.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

@@ -101,12 +101,18 @@ namespace NeonShooter
         {
             if (Multiplier > 1)
             {
-                if((multiplierTimeLeft -= (float)GameRoot.GameTime.ElapsedGameTime.TotalSeconds) <= 0)
+                if((multiplierTimeLeft -= (float)GameRoot.GameTime.ElapsedGameTime.TotalSeconds) <= 3)
                 {
                     multiplierTimeLeft = multiplierExpiryTime;
                     ResetMultiplier();
                 }
                 
+            }
+
+
+            if (PlayerStatus.IsGameOver)
+            {
+                Menu.gameState = Menu.GameState.gameover;
             }
 
             CheckAchievementProgress();

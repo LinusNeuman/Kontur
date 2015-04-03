@@ -28,9 +28,10 @@ namespace NeonShooter
         SpriteBatch spriteBatch;
         SpriteFont font;
 
+
         Matrix SpriteScale;
 
-        BloomComponent bloom;
+        public BloomComponent bloom;
 
         public static ParticleManager<ParticleState> ParticleManager { get; private set; }
 
@@ -39,15 +40,21 @@ namespace NeonShooter
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static Vector2 VirtualScreenSize { get { return new Vector2(1920, 1080); } }
         public static GameTime GameTime { get; private set; }
+        public static Vector2 tempScale;
+        public static float aspectRatio;
 
         Menu menu;
+        Upgrades upgrades;
 
         private FrameCounter _frameCounter = new FrameCounter();
         private bool showFPS = true;
 
         public GameRoot()
         {
+
             graphics = new GraphicsDeviceManager(this);
+
+
 
             Content.RootDirectory = "Content";
 
@@ -63,8 +70,6 @@ namespace NeonShooter
             //bloom.Settings = new BloomSettings(null, 0.25f, 4, 2, 1, 1.5f, 1);
             int i = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Default");
             bloom.Settings = BloomSettings.PresetSettings[i];
-
-
         }
 
         /// <summary>
@@ -99,6 +104,8 @@ namespace NeonShooter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            aspectRatio = graphics.GraphicsDevice.Viewport.AspectRatio;
+
             // TODO: use this.Content to load your game content here
             font = Content.Load<SpriteFont>("Fonts/spriteFont1");
 
@@ -110,6 +117,44 @@ namespace NeonShooter
             JoystickManager.Initialize();
             
             menu = new Menu();
+            upgrades = new Upgrades();
+            UpdateTempScale();
+
+
+        }
+
+        public void UpdateTempScale()
+        {
+            if (GameRoot.ScreenSize.X == GameRoot.VirtualScreenSize.X)
+            {
+                tempScale.X = 1;
+            }
+            if (GameRoot.ScreenSize.Y == GameRoot.VirtualScreenSize.Y)
+            {
+                tempScale.Y = 1;
+            }
+            if (GameRoot.ScreenSize.X < GameRoot.VirtualScreenSize.X)
+            {
+                tempScale.X = GameRoot.VirtualScreenSize.X / GameRoot.ScreenSize.X;
+                tempScale.Y = GameRoot.VirtualScreenSize.Y / GameRoot.ScreenSize.Y;
+            }
+            if (GameRoot.ScreenSize.Y < GameRoot.VirtualScreenSize.Y)
+            {
+                tempScale.X = GameRoot.VirtualScreenSize.X / GameRoot.ScreenSize.X;
+                tempScale.Y = GameRoot.VirtualScreenSize.Y / GameRoot.ScreenSize.Y;
+            }
+
+            if (GameRoot.ScreenSize.X > GameRoot.VirtualScreenSize.X)
+            {
+                tempScale.X = GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X;
+                tempScale.Y = GameRoot.ScreenSize.Y / GameRoot.VirtualScreenSize.Y;
+            }
+
+            if (GameRoot.ScreenSize.Y > GameRoot.VirtualScreenSize.Y)
+            {
+                tempScale.X = GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X;
+                tempScale.Y = GameRoot.ScreenSize.Y / GameRoot.VirtualScreenSize.Y;
+            }
         }
 
         /// <summary>
@@ -167,7 +212,14 @@ namespace NeonShooter
                     }
                     break;
 
-                    
+
+                case Menu.GameState.upgrades:
+                    {
+                        upgrades.Update(gameTime, Content);
+
+                        ParticleManager.Update();
+                    }
+                    break;
 
         }
 
@@ -212,6 +264,14 @@ namespace NeonShooter
                 case Menu.GameState.pause:
                     {
 
+                    }
+                    break;
+
+                case Menu.GameState.upgrades:
+                    {
+                        upgrades.Draw(spriteBatch);
+
+                        ParticleManager.Draw(spriteBatch);
                     }
                     break;
             }

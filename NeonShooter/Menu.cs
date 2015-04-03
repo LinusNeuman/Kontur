@@ -24,6 +24,7 @@ using Android.Gms.Plus;
 using Android.Gms.Plus.Model.People;
 using Android.Gms.Common.Apis;
 using Android.Views;
+using BloomPostprocess;
 // test for in app billing
 
 namespace NeonShooter
@@ -39,8 +40,6 @@ namespace NeonShooter
         public static Texture2D BgTxt { get; private set; }
 
         #endregion
-
-        Vector2 tempScale;
 
         static Random rand = new Random();
 
@@ -67,7 +66,7 @@ namespace NeonShooter
             {
                texture = PlayTxt,
                Position = new Vector2(GameRoot.VirtualScreenSize.X - PlayTxt.Width - 140, GameRoot.VirtualScreenSize.Y - PlayTxt.Height - 680),
-               bgameState = NeonShooter.Button.bGameState.ingame,
+               bgameState = NeonShooter.Button.bGameState.upgrades,
             });
             buttonList.Add(new Button()
             {
@@ -100,19 +99,6 @@ namespace NeonShooter
             HighscoresTxt = content.Load<Texture2D>("Buttons/Highscores");
             BgTxt = content.Load<Texture2D>("Graphics/MainMenuBG");
         }
-        
-        public void LoadGame(ContentManager Content)
-        {
-            Bullet.Load(Content);
-            
-            BlackHole.Load(Content);
-            
-            PlayerShip.Load(Content);
-            EntityManager.Add(PlayerShip.Instance);
-            EnemySpawner.Load(Content);
-
-            
-        }
 
         public void Update(ContentManager Content)
         {
@@ -125,62 +111,22 @@ namespace NeonShooter
             while (TouchPanel.IsGestureAvailable)
             {
                 GestureSample gesture = TouchPanel.ReadGesture();
-
-                if(GameRoot.ScreenSize.X == GameRoot.VirtualScreenSize.X)
-                {
-                    tempScale.X = 1;
-                }
-                if (GameRoot.ScreenSize.Y == GameRoot.VirtualScreenSize.Y)
-                {
-                    tempScale.Y = 1;
-                }
-                if (GameRoot.ScreenSize.X < GameRoot.VirtualScreenSize.X)
-                {
-                    tempScale.X = GameRoot.VirtualScreenSize.X / GameRoot.ScreenSize.X;
-                    tempScale.Y = GameRoot.VirtualScreenSize.Y / GameRoot.ScreenSize.Y;
-                }
-                if (GameRoot.ScreenSize.Y < GameRoot.VirtualScreenSize.Y)
-                {
-                    tempScale.X = GameRoot.VirtualScreenSize.X / GameRoot.ScreenSize.X;
-                    tempScale.Y = GameRoot.VirtualScreenSize.Y / GameRoot.ScreenSize.Y;
-                }
-
-                if (GameRoot.ScreenSize.X > GameRoot.VirtualScreenSize.X)
-                {
-                    tempScale.X = GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X;
-                    tempScale.Y = GameRoot.ScreenSize.Y / GameRoot.VirtualScreenSize.Y;
-                }
-
-                if (GameRoot.ScreenSize.Y > GameRoot.VirtualScreenSize.Y)
-                {
-                    tempScale.X = GameRoot.ScreenSize.X / GameRoot.VirtualScreenSize.X;
-                    tempScale.Y = GameRoot.ScreenSize.Y / GameRoot.VirtualScreenSize.Y;
-                }
-
-                Color yellow = new Color(0.8f, 0.8f, 0.4f);
-                for (int i = 0; i < 100; i++)
-                {
-                    float speed = 18f * (1f - 1 / rand.NextFloat(1f, 10f));
-
-                    Color color = Color.Lerp(Color.White, yellow, rand.NextFloat(0, 1));
-                    var state = new ParticleState()
-                    {
-                        Velocity = rand.NextVector2(speed, speed),
-                        Type = ParticleType.None,
-                        LengthMultiplier = 1
-                    };
-
-                    GameRoot.ParticleManager.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1.5f, 1.5f), state);
-                }
+                
 
                 for (int i = 0; i < buttonList.Count; i++)
-			    {		
-                    if ((gesture.Position.X * tempScale.X > buttonList[i].Position.X && gesture.Position.X * tempScale.X < buttonList[i].Position.X + buttonList[i].texture.Width &&
-                        gesture.Position.Y *tempScale.Y > buttonList[i].Position.Y && gesture.Position.Y * tempScale.Y < buttonList[i].Position.Y + buttonList[i].texture.Height))
+			    {
+                    if ((gesture.Position.X * GameRoot.tempScale.X > buttonList[i].Position.X && gesture.Position.X * GameRoot.tempScale.X < buttonList[i].Position.X + buttonList[i].texture.Width &&
+                        gesture.Position.Y * GameRoot.tempScale.Y > buttonList[i].Position.Y && gesture.Position.Y * GameRoot.tempScale.Y < buttonList[i].Position.Y + buttonList[i].texture.Height))
                     {
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
                         {
-                            LoadGame(Content);
+                            Bullet.Load(Content);
+                            BlackHole.Load(Content);
+                            PlayerShip.Load(Content);
+                            EntityManager.Add(PlayerShip.Instance);
+                            EnemySpawner.Load(Content);
+
+
                             MediaPlayer.Play(Sound.Music);
                             MediaPlayer.IsRepeating = true;
                             gameState = GameState.ingame;
@@ -198,6 +144,9 @@ namespace NeonShooter
 
                         if (buttonList[i].bgameState == Button.bGameState.upgrades)
                         {
+                            int f = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Preview");
+                            GameRoot.Instance.bloom.Settings = BloomSettings.PresetSettings[f];
+                            Upgrades.Load(Content);
                             gameState = GameState.upgrades;
                         }
 
@@ -210,7 +159,31 @@ namespace NeonShooter
                         {
                             NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
                             if (activity.pGooglePlayClient.IsConnected)
-                            activity.StartActivityForResult(GamesClass.Leaderboards.GetAllLeaderboardsIntent(activity.pGooglePlayClient), Activity1.REQUEST_LEADERBOARD);
+                                activity.StartActivityForResult(GamesClass.Leaderboards.GetAllLeaderboardsIntent(activity.pGooglePlayClient), Activity1.REQUEST_LEADERBOARD);
+                        }
+                    }
+                    else
+                    {
+                        if (gesture.GestureType == GestureType.Tap)
+                        {
+                            Color yellow = new Color(47, 206, 251);
+                            //Color color2 = ColorUtil.HSVToColor(5, 0.5f, 0.8f);
+
+                            for (int o = 0; o < 5; o++)
+                            {
+                                float speed = 8f * (1f - 1 / rand.NextFloat(1f, 10f));
+
+                                Color color = Color.Lerp(Color.White, yellow, rand.NextFloat(0, 1));
+
+                                var state = new ParticleState()
+                                {
+                                    Velocity = rand.NextVector2(speed, speed),
+                                    Type = ParticleType.None,
+                                    LengthMultiplier = 1
+                                };
+
+                                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1.5f, 1.5f), state);
+                            }
                         }
                     }
                 }
