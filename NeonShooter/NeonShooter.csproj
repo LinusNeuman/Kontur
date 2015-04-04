@@ -146,6 +146,7 @@
     <AndroidAsset Include="Assets\Content\Graphics\MainMenuBG.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\UpgradesMenuBG.xnb" />
     <AndroidAsset Include="Assets\Content\Player\3Ddmg.xnb" />
+    <AndroidAsset Include="Assets\Content\Fonts\FPSFont.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

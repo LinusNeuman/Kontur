@@ -27,6 +27,7 @@ namespace NeonShooter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont font;
+        SpriteFont fpsFont;
 
 
         Matrix SpriteScale;
@@ -108,6 +109,7 @@ namespace NeonShooter
 
             // TODO: use this.Content to load your game content here
             font = Content.Load<SpriteFont>("Fonts/spriteFont1");
+            fpsFont = Content.Load<SpriteFont>("Fonts/FPSFont");
 
             Art.Load(Content);
             Sound.Load(Content);
@@ -337,10 +339,14 @@ namespace NeonShooter
 
             _frameCounter.Update(deltaTime);
 
-            var fps = string.Format("FPS: {0}", _frameCounter.AverageFramesPerSecond);
+            var fps = string.Format("{0} Current FPS", _frameCounter.CurrentFramesPerSecond);
+            var avgfps = string.Format("{0} Average FPS", _frameCounter.AverageFramesPerSecond);
 
-            if(showFPS)
-                spriteBatch.DrawString(Art.Font, fps, new Vector2(VirtualScreenSize.X / 2, VirtualScreenSize.Y - 60), Color.White);
+            if (showFPS)
+            {
+                spriteBatch.DrawString(fpsFont, fps, new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(fpsFont, avgfps, new Vector2(0, 30), Color.White);
+            }
 
             spriteBatch.End();
         }

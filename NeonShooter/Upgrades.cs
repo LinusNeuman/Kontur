@@ -36,12 +36,12 @@ namespace NeonShooter
 
         public Upgrades()
         {
-            buttonList.Add(new Button()
-            {
-                texture = PlayTxt,
-                Position = new Vector2(GameRoot.VirtualScreenSize.X - PlayTxt.Width - 140, GameRoot.VirtualScreenSize.Y - PlayTxt.Height - 680),
-                bgameState = NeonShooter.Button.bGameState.upgrades,
-            });
+            //buttonList.Add(new Button()
+            //{
+            //    texture = PlayTxt,
+            //    Position = new Vector2(GameRoot.VirtualScreenSize.X - PlayTxt.Width - 140, GameRoot.VirtualScreenSize.Y - PlayTxt.Height - 680),
+            //    bgameState = NeonShooter.Button.bGameState.upgrades,
+            //});
         }
 
         public static void Load(ContentManager content)
