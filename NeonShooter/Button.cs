@@ -30,7 +30,8 @@ namespace NeonShooter
             play,
             about,
             settings,
-            leaderboards
+            leaderboards,
+            none
         }
 
         public bGameState bgameState;

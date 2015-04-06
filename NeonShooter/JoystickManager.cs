@@ -62,7 +62,7 @@ namespace NeonShooter
         {
             HandleTouchInput();
 
-            //moveJoystick.Update();
+            moveJoystick.Update();
             aimJoystick.Update();
         }
 

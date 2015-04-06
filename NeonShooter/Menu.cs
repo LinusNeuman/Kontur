@@ -62,6 +62,7 @@ namespace NeonShooter
 
         public Menu()
         {
+
             buttonList.Add(new Button()
             {
                texture = PlayTxt,
@@ -91,13 +92,13 @@ namespace NeonShooter
             MediaPlayer.IsRepeating = true;
         }
 
-        public static void Load(ContentManager content)
+        public static void Load(ContentManager Content)
         {
-            PlayTxt = content.Load<Texture2D>("Buttons/Play");
-            SettingsTxt = content.Load<Texture2D>("Buttons/Settings");
-            AboutTxt = content.Load<Texture2D>("Buttons/About");
-            HighscoresTxt = content.Load<Texture2D>("Buttons/Highscores");
-            BgTxt = content.Load<Texture2D>("Graphics/MainMenuBG");
+            PlayTxt = Content.Load<Texture2D>("Buttons/Play");
+            SettingsTxt = Content.Load<Texture2D>("Buttons/Settings");
+            AboutTxt = Content.Load<Texture2D>("Buttons/About");
+            HighscoresTxt = Content.Load<Texture2D>("Buttons/Highscores");
+            BgTxt = Content.Load<Texture2D>("Graphics/MainMenuBG");
         }
 
         public void Update(ContentManager Content)
@@ -169,9 +170,9 @@ namespace NeonShooter
                             Color yellow = new Color(47, 206, 251);
                             //Color color2 = ColorUtil.HSVToColor(5, 0.5f, 0.8f);
 
-                            for (int o = 0; o < 5; o++)
+                            for (int o = 0; o < 4; o++)
                             {
-                                float speed = 8f * (1f - 1 / rand.NextFloat(1f, 10f));
+                                float speed = 6f * (1f - 1 / rand.NextFloat(1f, 6f));
 
                                 Color color = Color.Lerp(Color.White, yellow, rand.NextFloat(0, 1));
 
@@ -179,10 +180,10 @@ namespace NeonShooter
                                 {
                                     Velocity = rand.NextVector2(speed, speed),
                                     Type = ParticleType.None,
-                                    LengthMultiplier = 1
+                                    LengthMultiplier = 0.5f
                                 };
 
-                                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1.5f, 1.5f), state);
+                                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1f, 1f), state);
                             }
                         }
                     }

@@ -47,6 +47,8 @@ namespace NeonShooter
         public static int achlifetime;
         public static int achtimer;
 
+        public static int credits;
+
         private static int LoadHighScore()
         {
             int score;

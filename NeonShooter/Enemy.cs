@@ -84,7 +84,7 @@ namespace NeonShooter
             PlayerStatus.AddPoints(PointValue);
             PlayerStatus.IncreaseMultiplier();
 
-            Sound.Explosion.Play(0.1f, rand.NextFloat(-0.2f, 0.2f), 0);
+            Sound.Explosion.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0);
         }
 
         public static Enemy CreateSeeker(Vector2 position)
@@ -93,7 +93,7 @@ namespace NeonShooter
             enemy.AddBehaviour(enemy.FollowPlayer());
             enemy.PointValue = 2;
 
-            Sound.Spawn.Play(0.1f, rand.NextFloat(-0.2f, 0.2f), 0);
+            Sound.Spawn.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0);
 
             return enemy;
         }

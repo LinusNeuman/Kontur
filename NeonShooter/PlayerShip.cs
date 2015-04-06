@@ -29,7 +29,7 @@ namespace NeonShooter
 
         #endregion
 
-        const int cooldownFrames = 5;
+        const int cooldownFrames = 8;
         public int cooldownRemaining = 0;
         static Random rand = new Random();
 
@@ -54,7 +54,7 @@ namespace NeonShooter
         {
             image = PlayerDmgShip;
             Position = GameRoot.VirtualScreenSize / 2;
-            Radius = 10;
+            Radius = 15;
 
             joystickMgr = new JoystickManager();
         }
@@ -134,7 +134,7 @@ namespace NeonShooter
                 float aimAngle = aim.ToAngle();
                 Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, aimAngle);
 
-                float randomSpread = rand.NextFloat(-0.04f, 0.04f) + rand.NextFloat(-0.04f, 0.04f);
+                float randomSpread = rand.NextFloat(-0.06f, 0.06f) + rand.NextFloat(-0.06f, 0.06f);
                 Vector2 vel = MathUtil.FromPolar(aimAngle + randomSpread, 20f);
 
                 //Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);

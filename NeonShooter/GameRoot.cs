@@ -114,7 +114,7 @@ namespace NeonShooter
             Art.Load(Content);
             Sound.Load(Content);
             Menu.Load(Content);
-
+            Upgrades.LoadButtons(Content);
             JoystickManager.Load(Content);
             JoystickManager.Initialize();
             
@@ -316,6 +316,12 @@ namespace NeonShooter
                     }
                     break;
 
+                case Menu.GameState.upgrades:
+                    {
+                        upgrades.DrawBG(spriteBatch);
+                    }
+                    break;
+
                 case Menu.GameState.gameover:
                     {
                         string text = "Game Over\n" +
@@ -344,8 +350,8 @@ namespace NeonShooter
 
             if (showFPS)
             {
-                spriteBatch.DrawString(fpsFont, fps, new Vector2(0, 0), Color.White);
-                spriteBatch.DrawString(fpsFont, avgfps, new Vector2(0, 30), Color.White);
+                spriteBatch.DrawString(fpsFont, fps, new Vector2(0, 40), Color.White);
+                spriteBatch.DrawString(fpsFont, avgfps, new Vector2(0,80), Color.White);
             }
 
             spriteBatch.End();
