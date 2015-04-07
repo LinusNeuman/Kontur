@@ -27,8 +27,8 @@ namespace NeonShooter
     static class PlayerStatus
     {
         // time it takes for multiplier to go away
-        private const float multiplierExpiryTime = 0.8f;
-        private const int maxMultiplier = 20;
+        private const float multiplierExpiryTime = 2f;
+        private const int maxMultiplier = 5;
 
         public static int Lives { get; private set; }
         public static int Score { get; private set; }
@@ -38,6 +38,8 @@ namespace NeonShooter
 
         private static float multiplierTimeLeft;
         private static int scoreForExtraLife;
+
+        public static int selectedShip;
 
         private const string highScoreFilename = "highscores.txt";
 
@@ -51,8 +53,19 @@ namespace NeonShooter
 
         private static int LoadHighScore()
         {
-            int score;
-            return File.Exists(highScoreFilename) && int.TryParse(File.ReadAllText(highScoreFilename), out score) ? score : 0;
+            int score = 0;
+            //return File.Exists(highScoreFilename) && int.TryParse(File.ReadAllText(highScoreFilename), out score) ? score : 0;
+
+            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+            if(activity.pGooglePlayClient.IsConnected)
+            {
+                IPendingResult result;
+                result = GamesClass.Leaderboards.LoadCurrentPlayerLeaderboardScore(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ", LeaderboardVariant.TimeSpanAllTime, LeaderboardVariant.CollectionPublic);
+                //result.SetResultCallback(new IResultCallback<IPlayersLoadPlayersResult>()
+                System.Console.WriteLine(result.ToString());
+            }
+
+            return score;
         }
 
         private static void SaveHighScore(int score)
@@ -92,9 +105,9 @@ namespace NeonShooter
 
             Score = 0;
             Multiplier = 1;
-            Lives = 4;
+            Lives = 3;
             scoreForExtraLife = 2000;
-            multiplierTimeLeft = 0;
+            multiplierTimeLeft = 2;
 
             ResetAchievementData();
         }
@@ -103,7 +116,15 @@ namespace NeonShooter
         {
             if (Multiplier > 1)
             {
-                if((multiplierTimeLeft -= (float)GameRoot.GameTime.ElapsedGameTime.TotalSeconds) <= 3)
+                //if((multiplierTimeLeft -= (float)GameRoot.GameTime.ElapsedGameTime.TotalSeconds) <= 3)
+                //{
+                //    multiplierTimeLeft = multiplierExpiryTime;
+                //    ResetMultiplier();
+                //}
+
+                multiplierTimeLeft -= (float)GameRoot.GameTime.ElapsedGameTime.TotalSeconds;
+
+                if(multiplierTimeLeft <= 0)
                 {
                     multiplierTimeLeft = multiplierExpiryTime;
                     ResetMultiplier();

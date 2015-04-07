@@ -36,6 +36,8 @@ namespace NeonShooter
         int framesUntilRespawn = 0;
         public bool IsDead { get { return framesUntilRespawn > 0; } }
 
+
+
         private static PlayerShip instance;
         public static PlayerShip Instance
         {
@@ -52,7 +54,8 @@ namespace NeonShooter
 
         private PlayerShip()
         {
-            image = PlayerDmgShip;
+            image = PlayerStndShip;
+
             Position = GameRoot.VirtualScreenSize / 2;
             Radius = 15;
 
@@ -74,6 +77,23 @@ namespace NeonShooter
             //go back here to maybe fix with other ships
             Pixel = new Texture2D(PlayerDmgShip.GraphicsDevice, 1, 1);
             Pixel.SetData(new[] { Color.White });
+
+            if (PlayerStatus.selectedShip == 0)
+            {
+                PlayerShip.Instance.image = PlayerSpdShip;
+            }
+            if (PlayerStatus.selectedShip == 1)
+            {
+                PlayerShip.Instance.image = PlayerTnkShip;
+            }
+            if (PlayerStatus.selectedShip == 2)
+            {
+                PlayerShip.Instance.image = PlayerStndShip;
+            }
+            if (PlayerStatus.selectedShip == 3)
+            {
+                PlayerShip.Instance.image = PlayerDmgShip;
+            }
         }
 
         public void Kill()

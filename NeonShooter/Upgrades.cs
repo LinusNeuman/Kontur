@@ -162,6 +162,7 @@ namespace NeonShooter
                         {
                             Bullet.Load(Content);
                             BlackHole.Load(Content);
+                            PlayerStatus.selectedShip = selectedShip;
                             PlayerShip.Load(Content);
                             EntityManager.Add(PlayerShip.Instance);
                             EnemySpawner.Load(Content);
@@ -173,6 +174,8 @@ namespace NeonShooter
 
                             int f = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Default");
                             GameRoot.Instance.bloom.Settings = BloomSettings.PresetSettings[f];
+
+             
 
                             Menu.gameState = Menu.GameState.ingame;
                         }

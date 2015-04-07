@@ -28,7 +28,22 @@ namespace NeonShooter
 
         public Bullet(Vector2 position, Vector2 velocity)
         {
-            image = BulletLvl1;
+            if (PlayerStatus.selectedShip == 0)
+            {
+                image = BulletLvl1;
+            }
+            if (PlayerStatus.selectedShip == 1)
+            {
+                image = BulletLvl2;
+            }
+            if (PlayerStatus.selectedShip == 2)
+            {
+                image = BulletLvl1;
+            }
+            if (PlayerStatus.selectedShip == 3)
+            {
+                image = BulletLvl3;
+            }
             Position = position;
             Velocity = velocity;
             Orientation = Velocity.ToAngle();

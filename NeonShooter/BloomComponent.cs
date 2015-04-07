@@ -31,6 +31,8 @@ namespace BloomPostprocess
         RenderTarget2D renderTarget2;
 
 
+
+
         // Choose what display settings the bloom should use.
         public BloomSettings Settings
         {
@@ -73,6 +75,28 @@ namespace BloomPostprocess
                 throw new ArgumentNullException("game");
         }
 
+        public void test()
+        {
+            
+        }
+
+        void GraphicsDevice_DeviceReset(object sender, EventArgs e)
+        {
+            PresentationParameters pp = GraphicsDevice.PresentationParameters;
+
+            int width = pp.BackBufferWidth;
+            int height = pp.BackBufferHeight;
+
+            SurfaceFormat format = pp.BackBufferFormat;
+
+            sceneRenderTarget = new RenderTarget2D(GraphicsDevice, width, height, false, format, pp.DepthStencilFormat, pp.MultiSampleCount, RenderTargetUsage.DiscardContents);
+
+            width /= 2;
+            height /= 2;
+
+            renderTarget1 = new RenderTarget2D(GraphicsDevice, width, height, false, format, DepthFormat.None);
+            renderTarget2 = new RenderTarget2D(GraphicsDevice, width, height, false, format, DepthFormat.None);
+        }
 
         /// <summary>
         /// Load your graphics content.
@@ -81,14 +105,10 @@ namespace BloomPostprocess
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            try
-            {
-                bloomExtractEffect = Game.Content.Load<Effect>("FX/BloomExtract");
-            }
-            catch (Exception e)
-            {
-                System.Console.WriteLine("Fx Error: " + e.ToString());
-            }
+            GraphicsDevice.DeviceReset += GraphicsDevice_DeviceReset;
+
+
+            bloomExtractEffect = Game.Content.Load<Effect>("FX/BloomExtract");
             bloomCombineEffect = Game.Content.Load<Effect>("FX/BloomCombine");
             gaussianBlurEffect = Game.Content.Load<Effect>("FX/GaussianBlur");
 
@@ -99,6 +119,9 @@ namespace BloomPostprocess
             int height = pp.BackBufferHeight;
 
             SurfaceFormat format = pp.BackBufferFormat;
+
+
+
 
             // Create a texture for rendering the main scene, prior to applying bloom.
             sceneRenderTarget = new RenderTarget2D(GraphicsDevice, width, height, false,

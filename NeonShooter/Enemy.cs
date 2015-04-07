@@ -91,7 +91,7 @@ namespace NeonShooter
         {
             var enemy = new Enemy(EnemySpawner.Follower, position);
             enemy.AddBehaviour(enemy.FollowPlayer());
-            enemy.PointValue = 2;
+            enemy.PointValue = 100;
 
             Sound.Spawn.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0);
 
@@ -102,9 +102,9 @@ namespace NeonShooter
         {
             var enemy = new Enemy(EnemySpawner.Wanderer_Part1, position);
             enemy.AddBehaviour(enemy.MoveRandomly());
-            enemy.PointValue = 1;
+            enemy.PointValue = 50;
 
-            Sound.Spawn.Play(0.1f, rand.NextFloat(-0.2f, 0.2f), 0);
+            Sound.Spawn.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0);
 
             return enemy;
         }
