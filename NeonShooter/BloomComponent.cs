@@ -89,7 +89,7 @@ namespace BloomPostprocess
 
             SurfaceFormat format = pp.BackBufferFormat;
 
-            sceneRenderTarget = new RenderTarget2D(GraphicsDevice, width, height, false, format, pp.DepthStencilFormat, pp.MultiSampleCount, RenderTargetUsage.DiscardContents);
+            sceneRenderTarget = new RenderTarget2D(GraphicsDevice, width, height, false, format, DepthFormat.None, pp.MultiSampleCount, RenderTargetUsage.DiscardContents);
 
             width /= 2;
             height /= 2;
@@ -125,7 +125,7 @@ namespace BloomPostprocess
 
             // Create a texture for rendering the main scene, prior to applying bloom.
             sceneRenderTarget = new RenderTarget2D(GraphicsDevice, width, height, false,
-                                                   format, pp.DepthStencilFormat, pp.MultiSampleCount,
+                                                   format, DepthFormat.None, pp.MultiSampleCount,
                                                    RenderTargetUsage.DiscardContents);
 
             // Create two rendertargets for the bloom processing. These are half the
