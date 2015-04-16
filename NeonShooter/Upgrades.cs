@@ -160,6 +160,14 @@ namespace NeonShooter
 
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
                         {
+                            for (int g = 0; g < buttonList.Count; g++)
+                            {
+                                buttonList[g].texture.Dispose();
+                            }
+                            
+                            
+                            Sound.MainTheme.Dispose();
+                            Sound.Load(Content);
                             Bullet.Load(Content);
                             BlackHole.Load(Content);
                             PlayerStatus.selectedShip = selectedShip;

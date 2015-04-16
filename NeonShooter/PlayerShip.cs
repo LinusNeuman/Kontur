@@ -224,7 +224,7 @@ namespace NeonShooter
         public override void Draw(SpriteBatch spriteBatch)
         {
 
-
+            
             //joystickMgr.Draw(spriteBatch);
 
             if(!IsDead)

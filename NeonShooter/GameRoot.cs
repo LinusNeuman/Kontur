@@ -112,7 +112,7 @@ namespace NeonShooter
             fpsFont = Content.Load<SpriteFont>("Fonts/FPSFont");
 
             Art.Load(Content);
-            Sound.Load(Content);
+            Sound.LoadTheme(Content);
             Menu.Load(Content);
             Upgrades.LoadButtons(Content);
             JoystickManager.Load(Content);
@@ -248,6 +248,8 @@ namespace NeonShooter
                         spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
                         EntityManager.Draw(spriteBatch);
                         ParticleManager.Draw(spriteBatch);
+                        PlayerShip.Instance.joystickMgr.DrawSight(spriteBatch);
+                        
                     }
                     break;
 

@@ -22,6 +22,7 @@ namespace NeonShooter
 
         public static Texture2D Joystick { get; private set; }
         public static Texture2D Knob { get; private set; }
+        public static Texture2D Sight { get; private set; }
 
         #endregion
 
@@ -31,6 +32,9 @@ namespace NeonShooter
         private bool anyFingerDown; // USE THIS
 
         public static JoystickManager instance;
+
+        public Vector2 SightPos;
+        public float SightRot;
 
         public JoystickManager()
         {
@@ -56,6 +60,7 @@ namespace NeonShooter
         {
             Joystick = content.Load<Texture2D>("Joystick/Joystick");
             Knob = content.Load<Texture2D>("Joystick/Knob");
+            Sight = content.Load<Texture2D>("Player/Sight");
         }
 
         public void Update()
@@ -64,6 +69,16 @@ namespace NeonShooter
 
             moveJoystick.Update();
             aimJoystick.Update();
+
+
+            Vector2 tempDir = aimJoystick.direction;
+            tempDir.Normalize();
+
+            SightPos = PlayerShip.Instance.Position + (tempDir * 70);
+            SightRot = (float)Math.Atan2(tempDir.Y, tempDir.X);
+            SightRot = MathHelper.ToDegrees(SightRot) + 90;
+            SightRot = MathHelper.ToRadians(SightRot);
+
         }
 
         public void HandleTouchInput()
@@ -119,6 +134,16 @@ namespace NeonShooter
         {
             moveJoystick.Draw(spriteBatch);
             aimJoystick.Draw(spriteBatch);
+
+            
+        }
+
+        public void DrawSight(SpriteBatch spriteBatch)
+        {
+            if (!PlayerShip.Instance.IsDead)
+            {
+                spriteBatch.Draw(Sight, SightPos, null, Color.White, SightRot, new Vector2((Sight.Width / 2), (Sight.Height / 2)), 1f, SpriteEffects.None, 0);
+            }
         }
     }
 }

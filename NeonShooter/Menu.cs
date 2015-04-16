@@ -121,6 +121,10 @@ namespace NeonShooter
                     {
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
                         {
+                            for (int f = 0; f < buttonList.Count; f++)
+                            {
+                                buttonList[f].texture.Dispose();
+                            }
                             Bullet.Load(Content);
                             BlackHole.Load(Content);
                             PlayerShip.Load(Content);

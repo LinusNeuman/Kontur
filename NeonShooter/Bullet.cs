@@ -20,9 +20,10 @@ namespace NeonShooter
     {
         #region Textures
 
-        public static Texture2D BulletLvl1 { get; private set; }
-        public static Texture2D BulletLvl2 { get; private set; }
-        public static Texture2D BulletLvl3 { get; private set; }
+        public static Texture2D BulletSpeed { get; private set; }
+        public static Texture2D BulletTank { get; private set; }
+        public static Texture2D BulletStandard { get; private set; }
+        public static Texture2D BulletDamage { get; private set; }
 
         #endregion
 
@@ -30,19 +31,19 @@ namespace NeonShooter
         {
             if (PlayerStatus.selectedShip == 0)
             {
-                image = BulletLvl1;
+                image = BulletSpeed;
             }
             if (PlayerStatus.selectedShip == 1)
             {
-                image = BulletLvl2;
+                image = BulletTank;
             }
             if (PlayerStatus.selectedShip == 2)
             {
-                image = BulletLvl1;
+                image = BulletStandard;
             }
             if (PlayerStatus.selectedShip == 3)
             {
-                image = BulletLvl3;
+                image = BulletDamage;
             }
             Position = position;
             Velocity = velocity;
@@ -54,9 +55,10 @@ namespace NeonShooter
 
         public static void Load(ContentManager content)
         {
-            BulletLvl1 = content.Load<Texture2D>("Bullets/BulletLvl1");
-            BulletLvl2 = content.Load<Texture2D>("Bullets/BulletLvl2");
-            BulletLvl3 = content.Load<Texture2D>("Bullets/BulletLvl3");
+            BulletSpeed = content.Load<Texture2D>("Bullets/BulletSpeed");
+            BulletTank = content.Load<Texture2D>("Bullets/BulletTank");
+            BulletStandard = content.Load<Texture2D>("Bullets/BulletStandard");
+            BulletDamage = content.Load<Texture2D>("Bullets/BulletDamage");
         }
 
         public override void Update()
