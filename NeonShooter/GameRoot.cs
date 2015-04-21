@@ -179,6 +179,7 @@ namespace NeonShooter
 
                         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                         {
+                            MediaPlayer.Pause();
                             Menu.gameState = Menu.GameState.pause;
 
                             

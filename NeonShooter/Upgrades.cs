@@ -49,14 +49,15 @@ namespace NeonShooter
 
         Vector3 cameraPosition = new Vector3(0f, 0.5f, 1.5f);
 
-        List<Button> buttonList = new List<Button>();
+        public static List<Button> buttonList = new List<Button>();
 
         public static PreviewShip previewShip;
 
         int selectedShip = 2;
 
-        public Upgrades()
+        public static void ReloadButtons()
         {
+            buttonList.Clear();
             buttonList.Add(new Button()
             {
                 texture = GoBackButtonTxt,
@@ -91,6 +92,11 @@ namespace NeonShooter
                 Position = new Vector2(GameRoot.VirtualScreenSize.X - 680, GameRoot.VirtualScreenSize.Y - RightArrowButtonTxt.Height - 400),
                 bgameState = NeonShooter.Button.bGameState.none,
             });
+        }
+
+        public Upgrades()
+        {
+            
         }
 
         public static void Load(ContentManager content)
@@ -224,7 +230,7 @@ namespace NeonShooter
                                     LengthMultiplier = 0.5f
                                 };
 
-                                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1f, 1f), state);
+                                GameRoot.ParticleManager2.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1f, 1f), state);
                             }
                         }
                     }

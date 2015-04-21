@@ -59,8 +59,9 @@ namespace NeonShooter
 
         public static void ResetGame()
         {
-            enemies.ForEach(x => x.WasShot());
-            blackHoles.ForEach(x => x.Kill());
+            bullets.Clear();
+            enemies.Clear();
+            blackHoles.Clear();
             EnemySpawner.Reset();
         }
 
