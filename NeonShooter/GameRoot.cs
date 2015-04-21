@@ -274,6 +274,7 @@ namespace NeonShooter
                     {
                         spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
                         EntityManager.Draw(spriteBatch);
+                        ParticleManager.Draw(spriteBatch);
                         ParticleManager2.Draw(spriteBatch);
                     }
                     break;
@@ -281,7 +282,7 @@ namespace NeonShooter
                 case Menu.GameState.upgrades:
                     {
                         upgrades.Draw(spriteBatch);
-
+  
                         ParticleManager2.Draw(spriteBatch);
                     }
                     break;

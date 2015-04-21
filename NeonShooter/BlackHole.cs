@@ -113,8 +113,14 @@ namespace NeonShooter
 
             public override void  Draw(SpriteBatch spriteBatch)
             {
+                float scale = 1f;
+
+                if(Menu.gameState != Menu.GameState.pause)
+                {
  	            //make the size of black holes pulsate
-                float scale = 1 + 0.1f *(float) Math.Sin(10 * GameRoot.GameTime.TotalGameTime.TotalSeconds);
+                scale = 1 + 0.1f *(float) Math.Sin(10 * GameRoot.GameTime.TotalGameTime.TotalSeconds);
+
+                }
                 spriteBatch.Draw(image, Position, null, color, Orientation, Size / 2f, scale, 0, 0);
             }
 
