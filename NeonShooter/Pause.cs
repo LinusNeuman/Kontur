@@ -16,10 +16,31 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using BloomPostprocess;
 
+// test for google play services
+using Android.Gms;
+using Android.Gms.Common;
+using Android.Gms.Games;
+using Android.Gms.Games.LeaderBoard;
+using Android.Gms.Plus;
+using Android.Gms.Plus.Model.People;
+using Android.Gms.Common.Apis;
+using Android.Views;
+using BloomPostprocess;
+// test for in app billing
+
 namespace NeonShooter
 {
     public class Pause
     {
+        #region Textures
+
+        public static Texture2D ResumeTxt { get; private set; }
+        public static Texture2D AchievementTxt { get; private set; }
+        public static Texture2D MenuTxt { get; private set; }
+        public static Texture2D BgTxt { get; private set; }
+        
+
+        #endregion
 
         static Random rand = new Random();
 
@@ -27,18 +48,38 @@ namespace NeonShooter
 
         public Pause()
         {
-
+            buttonList.Add(new Button()
+            {
+                texture = ResumeTxt,
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - ResumeTxt.Width - 140, GameRoot.VirtualScreenSize.Y - ResumeTxt.Height - 680),
+                bgameState = NeonShooter.Button.bGameState.ingame,
+            });
+            buttonList.Add(new Button()
+            {
+                texture = AchievementTxt,
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - AchievementTxt.Width - 140, GameRoot.VirtualScreenSize.Y - AchievementTxt.Height - 430),
+                bgameState = NeonShooter.Button.bGameState.none,
+            });
+            buttonList.Add(new Button()
+            {
+                texture = MenuTxt,
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - MenuTxt.Width - 140, GameRoot.VirtualScreenSize.Y - MenuTxt.Height - 200),
+                bgameState = NeonShooter.Button.bGameState.menu,
+            });
         }
 
 
         public static void Load(ContentManager content)
         {
-
+            ResumeTxt = content.Load<Texture2D>("Paused/Paused_Resume");
+            AchievementTxt = content.Load<Texture2D>("Paused/Paused_Ach");
+            MenuTxt = content.Load<Texture2D>("Paused/Paused_Menu");
+            BgTxt = content.Load<Texture2D>("Paused/Paused");
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(ContentManager Content)
         {
-
+            HandleTouchInput(Content);
         }
 
         public void HandleTouchInput(ContentManager Content)
@@ -55,18 +96,21 @@ namespace NeonShooter
                     {
                         if (buttonList[i].bgameState == Button.bGameState.menu)
                         {
+                            PlayerShip.Instance.Kill();
+                            PlayerShip.Instance.ResetGame();
+
+                            EntityManager.ResetGame();
+
+                            Menu.Load(Content);
+
                             Menu.gameState = Menu.GameState.menu;
+
+
                         }
 
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
                         {
-                            Bullet.Load(Content);
-                            BlackHole.Load(Content);
-                            PlayerShip.Load(Content);
-                            EntityManager.Add(PlayerShip.Instance);
-                            EnemySpawner.Load(Content);
-
-
+                            
                             MediaPlayer.Resume();
 
                             MediaPlayer.IsRepeating = true;
@@ -79,13 +123,12 @@ namespace NeonShooter
                             Menu.gameState = Menu.GameState.ingame;
                         }
 
-                        if (buttonList[i].texture == null)
+                        if (buttonList[i].texture == AchievementTxt)
                         {
-                        }
+                            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+                            if (activity.pGooglePlayClient.IsConnected)
 
-                        if (buttonList[i].texture == null)
-                        {
-                            
+                                activity.StartActivityForResult(GamesClass.Achievements.GetAchievementsIntent(activity.pGooglePlayClient), Activity1.REQUEST_ACHIEVEMENTS);
                         }
                     }
                     else
@@ -108,7 +151,7 @@ namespace NeonShooter
                                     LengthMultiplier = 0.5f
                                 };
 
-                                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1f, 1f), state);
+                                GameRoot.ParticleManager2.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1f, 1f), state);
                             }
                         }
                     }
@@ -118,6 +161,7 @@ namespace NeonShooter
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(BgTxt, Vector2.Zero, Color.White);
             for (int i = 0; i < buttonList.Count; i++)
             {
                 spriteBatch.Draw(buttonList[i].texture, buttonList[i].Position, Color.White);

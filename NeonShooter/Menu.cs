@@ -92,6 +92,11 @@ namespace NeonShooter
             MediaPlayer.IsRepeating = true;
         }
 
+        public static void Reload()
+        {
+            
+        }
+
         public static void Load(ContentManager Content)
         {
             PlayTxt = Content.Load<Texture2D>("Buttons/Play");
@@ -130,7 +135,7 @@ namespace NeonShooter
                             PlayerShip.Load(Content);
                             EntityManager.Add(PlayerShip.Instance);
                             EnemySpawner.Load(Content);
-
+                            Upgrades.LoadButtons(Content);
 
                             MediaPlayer.Play(Sound.Music);
                             MediaPlayer.IsRepeating = true;
@@ -149,9 +154,17 @@ namespace NeonShooter
 
                         if (buttonList[i].bgameState == Button.bGameState.upgrades)
                         {
+                            for (int g = 0; g < buttonList.Count; g++)
+                            {
+                                buttonList[g].texture.Dispose();
+                            }
+                            BgTxt.Dispose();
+
                             int f = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Preview");
                             GameRoot.Instance.bloom.Settings = BloomSettings.PresetSettings[f];
                             Upgrades.Load(Content);
+                            Upgrades.LoadButtons(Content);
+                            Upgrades.ReloadButtons();
                             gameState = GameState.upgrades;
                         }
 
@@ -187,7 +200,7 @@ namespace NeonShooter
                                     LengthMultiplier = 0.5f
                                 };
 
-                                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1f, 1f), state);
+                                GameRoot.ParticleManager2.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1f, 1f), state);
                             }
                         }
                     }

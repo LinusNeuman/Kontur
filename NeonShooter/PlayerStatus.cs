@@ -68,6 +68,8 @@ namespace NeonShooter
             return score;
         }
 
+       
+
         private static void SaveHighScore(int score)
         {
             NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
@@ -174,7 +176,7 @@ namespace NeonShooter
             Score += basePoints * Multiplier;
             while (Score >= scoreForExtraLife)
             {
-                scoreForExtraLife += 2000;
+                scoreForExtraLife += 20000;
                 Lives++;
             }
         }

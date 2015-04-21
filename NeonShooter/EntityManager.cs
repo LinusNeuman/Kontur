@@ -57,6 +57,13 @@ namespace NeonShooter
                 blackHoles.Add(entity as BlackHole);
         }
 
+        public static void ResetGame()
+        {
+            enemies.ForEach(x => x.WasShot());
+            blackHoles.ForEach(x => x.Kill());
+            EnemySpawner.Reset();
+        }
+
         private static void KillPlayer()
         {
             PlayerShip.Instance.Kill();

@@ -73,6 +73,8 @@ namespace NeonShooter
             particle.State = state;
         }
 
+        
+
         public void Update()
         {
             int removalCount = 0;

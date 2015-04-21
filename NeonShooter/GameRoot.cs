@@ -35,6 +35,7 @@ namespace NeonShooter
         public BloomComponent bloom;
 
         public static ParticleManager<ParticleState> ParticleManager { get; private set; }
+        public static ParticleManager<ParticleState> ParticleManager2 { get; private set; }
 
         public static GameRoot Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
@@ -46,6 +47,7 @@ namespace NeonShooter
 
         Menu menu;
         Upgrades upgrades;
+        Pause pause;
 
         private FrameCounter _frameCounter = new FrameCounter();
         private bool showFPS = true;
@@ -94,6 +96,7 @@ namespace NeonShooter
             SpriteScale = Matrix.CreateScale(screenscaleX, screenscaleY, 1);
 
             ParticleManager = new ParticleManager<ParticleState>(1024 * 20, ParticleState.UpdateParticle);
+            ParticleManager2 = new ParticleManager<ParticleState>(1024 * 20, ParticleState.UpdateParticle);
         }
 
         /// <summary>
@@ -114,12 +117,13 @@ namespace NeonShooter
             Art.Load(Content);
             Sound.LoadTheme(Content);
             Menu.Load(Content);
-            Upgrades.LoadButtons(Content);
+            Pause.Load(Content);
             JoystickManager.Load(Content);
             JoystickManager.Initialize();
             
             menu = new Menu();
             upgrades = new Upgrades();
+            pause = new Pause();
             UpdateTempScale();
 
 
@@ -175,10 +179,9 @@ namespace NeonShooter
 
                         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                         {
-                            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
-                            if (activity.pGooglePlayClient.IsConnected)
-                                
-                                activity.StartActivityForResult(GamesClass.Achievements.GetAchievementsIntent(activity.pGooglePlayClient), Activity1.REQUEST_ACHIEVEMENTS);
+                            Menu.gameState = Menu.GameState.pause;
+
+                            
                         }
 
                         Input.Update();
@@ -198,7 +201,7 @@ namespace NeonShooter
                     {
                         menu.Update(Content);
 
-                        ParticleManager.Update();
+                        ParticleManager2.Update();
                     }
                     break;
 
@@ -210,7 +213,8 @@ namespace NeonShooter
 
                 case Menu.GameState.pause:
                     {
-
+                        pause.Update(Content);
+                        ParticleManager2.Update();
                     }
                     break;
 
@@ -219,7 +223,7 @@ namespace NeonShooter
                     {
                         upgrades.Update(gameTime, Content);
 
-                        ParticleManager.Update();
+                        ParticleManager2.Update();
                     }
                     break;
 
@@ -255,7 +259,7 @@ namespace NeonShooter
 
                 case Menu.GameState.menu:
                     {
-                        ParticleManager.Draw(spriteBatch);
+                        ParticleManager2.Draw(spriteBatch);
                     }
                     break;
 
@@ -267,7 +271,9 @@ namespace NeonShooter
 
                 case Menu.GameState.pause:
                     {
-
+                        spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
+                        EntityManager.Draw(spriteBatch);
+                        ParticleManager2.Draw(spriteBatch);
                     }
                     break;
 
@@ -275,7 +281,7 @@ namespace NeonShooter
                     {
                         upgrades.Draw(spriteBatch);
 
-                        ParticleManager.Draw(spriteBatch);
+                        ParticleManager2.Draw(spriteBatch);
                     }
                     break;
             }
@@ -337,7 +343,10 @@ namespace NeonShooter
 
                 case Menu.GameState.pause:
                     {
-
+                        spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
+                        DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
+                        DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
+                        pause.Draw(spriteBatch);
                     }
                     break;
             }

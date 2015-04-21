@@ -96,6 +96,12 @@ namespace NeonShooter
             }
         }
 
+        public void ResetGame()
+        {
+            PlayerStatus.Reset();
+            Position = GameRoot.VirtualScreenSize / 2;
+        }
+
         public void Kill()
         {
             PlayerStatus.RemoveLife();
