@@ -164,6 +164,7 @@
     <AndroidAsset Include="Assets\Content\Paused\Paused_Menu.xnb" />
     <AndroidAsset Include="Assets\Content\Player\Sight.xnb" />
     <AndroidAsset Include="Assets\Content\Bullets\BulletSpeed.xnb" />
+    <AndroidAsset Include="Assets\Content\Particles\LaserBig.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

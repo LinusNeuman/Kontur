@@ -27,6 +27,7 @@ namespace NeonShooter
 
         public static Texture2D Pixel { get; private set; }
 
+
         #endregion
 
         const int cooldownFrames = 8;
@@ -111,7 +112,7 @@ namespace NeonShooter
             Position = GameRoot.VirtualScreenSize / 2;
 
             Color yellow = new Color(0.8f, 0.8f, 0.4f);
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 30; i++)
             {
                 float speed = 18f * (1f - 1 / rand.NextFloat(1f, 10f));
 
@@ -123,7 +124,7 @@ namespace NeonShooter
                     LengthMultiplier = 1
                 };
 
-                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, Position, color, 190, new Vector2(1.5f, 1.5f), state);
+                GameRoot.ParticleManager.CreateParticle(Art.LineParticle2, Position, color, 190, new Vector2(1.5f, 1.5f), state);
             }
 
         }
