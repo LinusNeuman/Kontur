@@ -67,18 +67,18 @@ namespace NeonShooter
             Color color2 = ColorUtil.HSVToColor(hue2, 0.5f, 1);
 
 
-            for (int i = 0; i < 60; i++)
+            for (int i = 0; i < 30; i++)
             {
-                float speed = 12f * (1f - 1 / rand.NextFloat(1f, 10f));
+                float speed = 10f * (1f - 1 / rand.NextFloat(1f, 10f));
                 var state = new ParticleState()
                 {
-                    Velocity = rand.NextVector2(speed,speed),
+                    Velocity = rand.NextVector2(1,7),
                     Type = ParticleType.Enemy,
                     LengthMultiplier = 1f
                 };
 
                 Color color = Color.Lerp(color1, color2, rand.NextFloat(0, 1));
-                GameRoot.ParticleManager.CreateParticle(Art.LineParticle, Position, color, 190, new Vector2(1.5f,1.5f), state);
+                GameRoot.ParticleManager.CreateParticle(Art.LineParticle2, Position, color, 190, new Vector2(1.5f,1.5f), state);
             }
 
             PlayerStatus.AddPoints(PointValue);
