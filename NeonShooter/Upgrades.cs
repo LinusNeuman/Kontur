@@ -175,7 +175,6 @@ namespace NeonShooter
                             Sound.MainTheme.Dispose();
                             Sound.Load(Content);
                             Bullet.Load(Content);
-                            BlackHole.Load(Content);
                             PlayerStatus.selectedShip = selectedShip;
                             PlayerShip.Load(Content);
                             EntityManager.Add(PlayerShip.Instance);

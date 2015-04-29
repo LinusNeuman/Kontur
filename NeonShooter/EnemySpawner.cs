@@ -38,8 +38,6 @@ namespace NeonShooter
                 if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.EnemyCount < 10)
                     EntityManager.Add(Enemy.CreateWanderer(GetSpawnPosition()));
 
-                if (EntityManager.BlackHoleCount < 1 && rand.Next((int)inverseBlackHoleChance) == 0)
-                    EntityManager.Add(new BlackHole(GetSpawnPosition()));
             }
 
             // increase spawn rate

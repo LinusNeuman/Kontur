@@ -131,7 +131,7 @@ namespace NeonShooter
                                 buttonList[f].texture.Dispose();
                             }
                             Bullet.Load(Content);
-                            BlackHole.Load(Content);
+                      
                             PlayerShip.Load(Content);
                             EntityManager.Add(PlayerShip.Instance);
                             EnemySpawner.Load(Content);

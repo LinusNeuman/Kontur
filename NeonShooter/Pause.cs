@@ -112,7 +112,7 @@ namespace NeonShooter
                             Bullet.BulletSpeed.Dispose();
                             Bullet.BulletStandard.Dispose();
                             Bullet.BulletTank.Dispose();
-                            BlackHole.BlackHoleTxt.Dispose();
+   
 
                             PlayerShip.Pixel.Dispose();
                             PlayerShip.PlayerDmgShip.Dispose();
