@@ -76,7 +76,7 @@ namespace NeonShooter
 
             SightPos = PlayerShip.Instance.Position + (tempDir * 70);
             SightRot = (float)Math.Atan2(tempDir.Y, tempDir.X);
-            SightRot = MathHelper.ToDegrees(SightRot) + 90;
+            SightRot = MathHelper.ToDegrees(SightRot);
             SightRot = MathHelper.ToRadians(SightRot);
 
         }

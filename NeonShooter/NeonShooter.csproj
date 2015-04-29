@@ -139,7 +139,6 @@
     <AndroidAsset Include="Assets\Content\Particles\Laser.xnb" />
     <AndroidAsset Include="Assets\Content\Particles\Glow.xnb" />
     <AndroidAsset Include="Assets\Content\Enemies\Follower.xnb" />
-    <AndroidAsset Include="Assets\Content\Graphics\TitleScreenBg.xnb" />
     <AndroidAsset Include="Assets\Content\Buttons\Play.xnb" />
     <AndroidAsset Include="Assets\Content\Buttons\Settings.xnb" />
     <AndroidAsset Include="Assets\Content\Buttons\About.xnb" />
@@ -165,6 +164,7 @@
     <AndroidAsset Include="Assets\Content\Player\Sight.xnb" />
     <AndroidAsset Include="Assets\Content\Bullets\BulletSpeed.xnb" />
     <AndroidAsset Include="Assets\Content\Particles\LaserBig.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\gridBackground.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

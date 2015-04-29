@@ -174,7 +174,7 @@ namespace NeonShooter
                                     LengthMultiplier = 0.5f
                                 };
 
-                                GameRoot.ParticleManager2.CreateParticle(Art.LineParticle, gesture.Position, color, 190, new Vector2(1f, 1f), state);
+                                GameRoot.ParticleManager2.CreateParticle(Art.LineParticle, gesture.Position * GameRoot.tempScale, color, 190, new Vector2(1f, 1f), state);
                             }
                         }
                     }

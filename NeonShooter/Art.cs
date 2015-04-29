@@ -39,7 +39,7 @@ namespace NeonShooter
 
         public static void Load(ContentManager content)
         {
-            TitleScreenBg = content.Load<Texture2D>("Graphics/TitleScreenBg");
+            TitleScreenBg = content.Load<Texture2D>("Graphics/gridBackground");
             Font = content.Load<SpriteFont>("Fonts/Font");
             LineParticle = content.Load<Texture2D>("Particles/Laser");
             LineParticle2 = content.Load<Texture2D>("Particles/LaserBig");
