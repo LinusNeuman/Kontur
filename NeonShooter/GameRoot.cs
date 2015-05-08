@@ -48,6 +48,7 @@ namespace NeonShooter
         Menu menu;
         Upgrades upgrades;
         Pause pause;
+        GameOver gameOver;
 
         private FrameCounter _frameCounter = new FrameCounter();
         private bool showFPS = true;
@@ -120,7 +121,9 @@ namespace NeonShooter
             Pause.Load(Content);
             JoystickManager.Load(Content);
             JoystickManager.Initialize();
-            
+            GameOver.Load(Content);
+
+            gameOver = new GameOver();
             menu = new Menu();
             upgrades = new Upgrades();
             pause = new Pause();
@@ -208,7 +211,8 @@ namespace NeonShooter
 
                 case Menu.GameState.gameover:
                     {
-
+                        gameOver.Update(Content);
+                        ParticleManager2.Update();
                     }
                     break;
 
@@ -266,7 +270,11 @@ namespace NeonShooter
 
                 case Menu.GameState.gameover:
                     {
+                        spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
+                       //EntityManager.Draw(spriteBatch);
                         
+                      //  ParticleManager.Draw(spriteBatch);
+                        ParticleManager2.Draw(spriteBatch);
                     }
                     break;
 
@@ -334,6 +342,7 @@ namespace NeonShooter
 
                 case Menu.GameState.gameover:
                     {
+                        gameOver.Draw(spriteBatch);
                         string text = "Game Over\n" +
                             "Your Score: " + PlayerStatus.Score + "\n" +
                             "High Score: " + PlayerStatus.HighScore;

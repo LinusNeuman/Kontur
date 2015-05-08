@@ -100,6 +100,7 @@
     <Compile Include="EntityManager.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FramCounter.cs" />
+    <Compile Include="GameOver.cs" />
     <Compile Include="GameRoot.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Joystick.cs" />
@@ -164,6 +165,9 @@
     <AndroidAsset Include="Assets\Content\Bullets\BulletSpeed.xnb" />
     <AndroidAsset Include="Assets\Content\Particles\LaserBig.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\gridBackground.xnb" />
+    <AndroidAsset Include="Assets\Content\Buttons\Restart.xnb" />
+    <AndroidAsset Include="Assets\Content\Buttons\Mainmenu.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\GameoverBg.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

@@ -67,8 +67,8 @@ namespace NeonShooter
         {
             HandleTouchInput();
 
-            moveJoystick.Update();
-            aimJoystick.Update();
+            //moveJoystick.Update();
+            //aimJoystick.Update();
 
 
             Vector2 tempDir = aimJoystick.direction;
@@ -103,6 +103,11 @@ namespace NeonShooter
                 if ((gesture.Position * GameRoot.tempScale - new Vector2(moveJoystick.x, moveJoystick.y)).Length() > Joystick.Width / 2)
                 {
                     moveJoystick.fingerIsDown = false;
+                    
+                }
+                if ((gesture.Position * GameRoot.tempScale - new Vector2(aimJoystick.x, aimJoystick.y)).Length() > Joystick.Width / 2) // 160
+                {
+                    aimJoystick.fingerIsDown = false;
                 }
 
                 #endregion
