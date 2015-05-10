@@ -189,7 +189,7 @@ namespace NeonShooter
 
                             for (int o = 0; o < 4; o++)
                             {
-                                float speed = 6f * (1f - 1 / rand.NextFloat(1f, 6f));
+                                float speed = 10f * (1f - 1 / rand.NextFloat(1f, 6f));
 
                                 Color color = Color.Lerp(Color.White, yellow, rand.NextFloat(0, 1));
 
@@ -197,11 +197,12 @@ namespace NeonShooter
                                 {
                                     Velocity = rand.NextVector2(speed, speed),
                                     Type = ParticleType.None,
-                                    LengthMultiplier = 0.5f
+                                    LengthMultiplier = 1f
                                 };
 
-                                GameRoot.ParticleManager2.CreateParticle(Art.LineParticle, gesture.Position * GameRoot.tempScale, color, 190, new Vector2(1f, 1f), state);
+                                GameRoot.ParticleManager2.CreateParticle(Art.LineParticle2, gesture.Position * GameRoot.tempScale, color, 190, new Vector2(1.5f, 1.5f), state);
                             }
+
                         }
                     }
                 }

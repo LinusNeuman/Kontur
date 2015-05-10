@@ -100,7 +100,7 @@ namespace NeonShooter
 
         public static Enemy CreateWanderer(Vector2 position)
         {
-            var enemy = new Enemy(EnemySpawner.Wanderer_Part1, position);
+            var enemy = new Enemy(EnemySpawner.Wanderer, position);
             enemy.AddBehaviour(enemy.MoveRandomly());
             enemy.PointValue = 50;
 

@@ -115,8 +115,7 @@ namespace NeonShooter
                             EntityManager.ResetGame();
 
                             EnemySpawner.Follower.Dispose();
-                            EnemySpawner.Wanderer_Part1.Dispose();
-                            EnemySpawner.Wanderer_Part2.Dispose();
+                            EnemySpawner.Wanderer.Dispose();
 
                             Menu.gameState = Menu.GameState.menu;
 

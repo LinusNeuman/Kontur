@@ -177,7 +177,7 @@ namespace NeonShooter
                 cooldownRemaining--;
 
             const float speed = 7f;
-            Velocity = speed * Input.GetMovementDirection();
+            Velocity = Input.GetMovementDirection();
             Position += Velocity;
             Position = Vector2.Clamp(Position, Size / 2, GameRoot.VirtualScreenSize - Size / 2);
 

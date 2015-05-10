@@ -20,8 +20,7 @@ namespace NeonShooter
         #region Textures
 
         public static Texture2D Follower { get; private set; } // change names
-        public static Texture2D Wanderer_Part1 { get; private set; }
-        public static Texture2D Wanderer_Part2 { get; private set; }
+        public static Texture2D Wanderer { get; private set; }
 
         #endregion
 
@@ -50,8 +49,7 @@ namespace NeonShooter
         public static void Load(ContentManager content)
         {
             Follower = content.Load<Texture2D>("Enemies/Follower");
-            Wanderer_Part1 = content.Load<Texture2D>("Enemies/WandererLvl1");
-            Wanderer_Part2 = content.Load<Texture2D>("Enemies/WandererLvl1Small");
+            Wanderer = content.Load<Texture2D>("Enemies/Wanderer");
         }
 
         private static Vector2 GetSpawnPosition()

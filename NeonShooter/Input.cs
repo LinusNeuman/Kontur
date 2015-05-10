@@ -32,8 +32,6 @@ namespace NeonShooter
 
 
 
-            if (direction.LengthSquared() > 1)
-                direction.Normalize();
 
             return direction;
         }

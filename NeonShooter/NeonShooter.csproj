@@ -129,8 +129,6 @@
     <AndroidAsset Include="Assets\Content\Bullets\BulletDamage.xnb" />
     <AndroidAsset Include="Assets\Content\Bullets\BulletStandard.xnb" />
     <AndroidAsset Include="Assets\Content\Bullets\BulletTank.xnb" />
-    <AndroidAsset Include="Assets\Content\Enemies\WandererLvl1Small.xnb" />
-    <AndroidAsset Include="Assets\Content\Enemies\WandererLvl1.xnb" />
     <AndroidAsset Include="Assets\Content\Player\TankShip.xnb" />
     <AndroidAsset Include="Assets\Content\Player\DamageShip.xnb" />
     <AndroidAsset Include="Assets\Content\Player\SpeedShip.xnb" />
@@ -168,6 +166,7 @@
     <AndroidAsset Include="Assets\Content\Buttons\Restart.xnb" />
     <AndroidAsset Include="Assets\Content\Buttons\Mainmenu.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\GameoverBg.xnb" />
+    <AndroidAsset Include="Assets\Content\Enemies\Wanderer.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

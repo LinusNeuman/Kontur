@@ -254,7 +254,7 @@ namespace NeonShooter
             {
                 case Menu.GameState.ingame:
                     {
-                        spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
+                        spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.Red);
                         EntityManager.Draw(spriteBatch);
                         ParticleManager.Draw(spriteBatch);
                         PlayerShip.Instance.joystickMgr.DrawSight(spriteBatch);
