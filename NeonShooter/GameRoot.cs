@@ -26,8 +26,8 @@ namespace NeonShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont font;
-        SpriteFont fpsFont;
+        public SpriteFont font;
+        public SpriteFont fpsFont;
 
 
         Matrix SpriteScale;
@@ -46,9 +46,12 @@ namespace NeonShooter
         public static float aspectRatio;
 
         public Menu menu;
-        Upgrades upgrades;
-        Pause pause;
-        GameOver gameOver;
+        public Upgrades upgrades;
+        public Pause pause;
+        public GameOver gameOver;
+
+        public bool loadingGame = true;
+        public bool loadingLoad = true;
 
         private FrameCounter _frameCounter = new FrameCounter();
         private bool showFPS = true;
@@ -98,6 +101,12 @@ namespace NeonShooter
 
             ParticleManager = new ParticleManager<ParticleState>(1024 * 20, ParticleState.UpdateParticle);
             ParticleManager2 = new ParticleManager<ParticleState>(1024 * 20, ParticleState.UpdateParticle);
+
+
+            // when load finishes
+            //NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+            //activity.ConnectP();
+            // when load finishes
         }
 
         /// <summary>
@@ -111,28 +120,21 @@ namespace NeonShooter
 
             aspectRatio = graphics.GraphicsDevice.Viewport.AspectRatio;
 
+
+            LoadingScreen.Load(Content);
+
             // TODO: use this.Content to load your game content here
-            font = Content.Load<SpriteFont>("Fonts/spriteFont1");
-            fpsFont = Content.Load<SpriteFont>("Fonts/FPSFont");
 
-            Art.Load(Content);
-            Sound.LoadTheme(Content);
-            Menu.Load(Content);
-            Pause.Load(Content);
-            JoystickManager.Load(Content);
-            JoystickManager.Initialize();
-            GameOver.Load(Content);
 
-            gameOver = new GameOver();
-            menu = new Menu();
-            upgrades = new Upgrades();
-            pause = new Pause();
-            UpdateTempScale();
+            
+        }
 
+        public void LoadTheGame()
+        {
 
         }
 
-        public void UpdateTempScale()
+        public static void UpdateTempScale()
         {
             if (GameRoot.ScreenSize.X == GameRoot.VirtualScreenSize.X)
             {
@@ -174,65 +176,75 @@ namespace NeonShooter
         protected override void Update(GameTime gameTime)
         {
             GameTime = gameTime;
+            System.Console.WriteLine("Loading screen loading: " + loadingLoad.ToString());
 
-            switch (Menu.gameState)
+            if(loadingGame == true)
             {
-                case Menu.GameState.ingame:
-                    {
+                
+                LoadingScreen.Update(Content);
+            }
+            if (loadingGame == false)
+            {
 
-                        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                switch (Menu.gameState)
+                {
+                    case Menu.GameState.ingame:
                         {
-                            MediaPlayer.Pause();
-                            Menu.gameState = Menu.GameState.pause;
 
-                            
+                            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                            {
+                                MediaPlayer.Pause();
+                                Menu.gameState = Menu.GameState.pause;
+
+
+                            }
+
+                            Input.Update();
+
+                            EnemySpawner.Update();
+
+                            PlayerStatus.Update(); // do not update when paused
+
+                            EntityManager.Update();
+
+                            ParticleManager.Update();
+
                         }
+                        break;
 
-                        Input.Update();
+                    case Menu.GameState.menu:
+                        {
+                            menu.Update(Content);
 
-                        EnemySpawner.Update();
+                            ParticleManager2.Update();
+                        }
+                        break;
 
-                        PlayerStatus.Update(); // do not update when paused
+                    case Menu.GameState.gameover:
+                        {
+                            gameOver.Update(Content);
+                            ParticleManager2.Update();
+                        }
+                        break;
 
-                        EntityManager.Update();
-
-                        ParticleManager.Update();
-
-                    }
-                    break;
-
-                case Menu.GameState.menu:
-                    {
-                        menu.Update(Content);
-
-                        ParticleManager2.Update();
-                    }
-                    break;
-
-                case Menu.GameState.gameover:
-                    {
-                        gameOver.Update(Content);
-                        ParticleManager2.Update();
-                    }
-                    break;
-
-                case Menu.GameState.pause:
-                    {
-                        pause.Update(Content);
-                        ParticleManager2.Update();
-                    }
-                    break;
+                    case Menu.GameState.pause:
+                        {
+                            pause.Update(Content);
+                            ParticleManager2.Update();
+                        }
+                        break;
 
 
-                case Menu.GameState.upgrades:
-                    {
-                        upgrades.Update(gameTime, Content);
+                    case Menu.GameState.upgrades:
+                        {
+                            upgrades.Update(gameTime, Content);
 
-                        ParticleManager2.Update();
-                    }
-                    break;
+                            ParticleManager2.Update();
+                        }
+                        break;
 
-        }
+                }
+            }
 
             base.Update(gameTime);
         }
@@ -250,50 +262,58 @@ namespace NeonShooter
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, 
                 null, null, null, null, SpriteScale);
 
-            switch (Menu.gameState)
+            if(loadingGame == true)
             {
-                case Menu.GameState.ingame:
-                    {
-                        spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.Red);
-                        EntityManager.Draw(spriteBatch);
-                        ParticleManager.Draw(spriteBatch);
-                        PlayerShip.Instance.joystickMgr.DrawSight(spriteBatch);
-                        
-                    }
-                    break;
+                
+            }
 
-                case Menu.GameState.menu:
-                    {
-                        ParticleManager2.Draw(spriteBatch);
-                    }
-                    break;
+            if (loadingGame == false)
+            {
+                switch (Menu.gameState)
+                {
+                    case Menu.GameState.ingame:
+                        {
+                            spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.Red);
+                            EntityManager.Draw(spriteBatch);
+                            ParticleManager.Draw(spriteBatch);
+                            PlayerShip.Instance.joystickMgr.DrawSight(spriteBatch);
 
-                case Menu.GameState.gameover:
-                    {
-                        spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
-                       //EntityManager.Draw(spriteBatch);
-                        
-                      //  ParticleManager.Draw(spriteBatch);
-                        ParticleManager2.Draw(spriteBatch);
-                    }
-                    break;
+                        }
+                        break;
 
-                case Menu.GameState.pause:
-                    {
-                        spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
-                        EntityManager.Draw(spriteBatch);
-                        ParticleManager.Draw(spriteBatch);
-                        ParticleManager2.Draw(spriteBatch);
-                    }
-                    break;
+                    case Menu.GameState.menu:
+                        {
+                            ParticleManager2.Draw(spriteBatch);
+                        }
+                        break;
 
-                case Menu.GameState.upgrades:
-                    {
-                        upgrades.Draw(spriteBatch);
-  
-                        ParticleManager2.Draw(spriteBatch);
-                    }
-                    break;
+                    case Menu.GameState.gameover:
+                        {
+                            spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
+                            //EntityManager.Draw(spriteBatch);
+
+                            //  ParticleManager.Draw(spriteBatch);
+                            ParticleManager2.Draw(spriteBatch);
+                        }
+                        break;
+
+                    case Menu.GameState.pause:
+                        {
+                            spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
+                            EntityManager.Draw(spriteBatch);
+                            ParticleManager.Draw(spriteBatch);
+                            ParticleManager2.Draw(spriteBatch);
+                        }
+                        break;
+
+                    case Menu.GameState.upgrades:
+                        {
+                            upgrades.Draw(spriteBatch);
+
+                            ParticleManager2.Draw(spriteBatch);
+                        }
+                        break;
+                }
             }
            
             
@@ -306,74 +326,78 @@ namespace NeonShooter
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
     null, DepthStencilState.None, null, null, SpriteScale);
 
-            switch (Menu.gameState)
+            if(loadingGame == true)
             {
-                case Menu.GameState.ingame:
-                    {
-                        PlayerShip.Instance.joystickMgr.Draw(spriteBatch);
+                loadingLoad = false;
+                LoadingScreen.Draw(spriteBatch);
+            }
 
-                        spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
-                        DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
-                        DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
 
-                        if (PlayerStatus.IsGameOver)
+            if (loadingGame == false)
+            {
+                switch (Menu.gameState)
+                {
+                    case Menu.GameState.ingame:
                         {
+                            PlayerShip.Instance.joystickMgr.Draw(spriteBatch);
+
+                            spriteBatch.Draw(Art.ScoreBar, Vector2.Zero, Color.White);
+                            spriteBatch.DrawString(Art.Font, PlayerStatus.Lives.ToString(), new Vector2(1920 - 75, 12), Color.White);
+                            spriteBatch.DrawString(Art.Font, PlayerStatus.Score.ToString(), new Vector2(705, 12), Color.White);
+                            spriteBatch.DrawString(Art.Font, PlayerStatus.Multiplier.ToString(), new Vector2(380, 12), Color.White);
+
+
+                        }
+                        break;
+
+                    case Menu.GameState.menu:
+                        {
+                            menu.Draw(spriteBatch);
+                        }
+                        break;
+
+                    case Menu.GameState.upgrades:
+                        {
+                            upgrades.DrawBG(spriteBatch);
+                        }
+                        break;
+
+                    case Menu.GameState.gameover:
+                        {
+                            gameOver.Draw(spriteBatch);
                             string text = "Game Over\n" +
-                               "Your Score: " + PlayerStatus.Score + "\n" +
-                               "High Score: " + PlayerStatus.HighScore;
+                                "Your Score: " + PlayerStatus.Score + "\n" +
+                                "High Score: " + PlayerStatus.HighScore;
 
                             Vector2 textSize = Art.Font.MeasureString(text);
                             spriteBatch.DrawString(Art.Font, text, VirtualScreenSize / 2 - textSize / 2, Color.White);
                         }
-                    }
-                    break;
+                        break;
 
-                case Menu.GameState.menu:
-                    {
-                        menu.Draw(spriteBatch);
-                    }
-                    break;
-
-                case Menu.GameState.upgrades:
-                    {
-                        upgrades.DrawBG(spriteBatch);
-                    }
-                    break;
-
-                case Menu.GameState.gameover:
-                    {
-                        gameOver.Draw(spriteBatch);
-                        string text = "Game Over\n" +
-                            "Your Score: " + PlayerStatus.Score + "\n" +
-                            "High Score: " + PlayerStatus.HighScore;
-
-                        Vector2 textSize = Art.Font.MeasureString(text);
-                        spriteBatch.DrawString(Art.Font, text, VirtualScreenSize / 2 - textSize / 2, Color.White);
-                    }
-                    break;
-
-                case Menu.GameState.pause:
-                    {
-                        spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
-                        DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
-                        DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
-                        pause.Draw(spriteBatch);
-                    }
-                    break;
-            }
+                    case Menu.GameState.pause:
+                        {
+                            spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
+                            DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
+                            DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
+                            pause.Draw(spriteBatch);
+                        }
+                        break;
+                }
 
 
-            var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            _frameCounter.Update(deltaTime);
+                var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            var fps = string.Format("{0} Current FPS", _frameCounter.CurrentFramesPerSecond);
-            var avgfps = string.Format("{0} Average FPS", _frameCounter.AverageFramesPerSecond);
+                _frameCounter.Update(deltaTime);
 
-            if (showFPS)
-            {
-                spriteBatch.DrawString(fpsFont, fps, new Vector2(0, 40), Color.White);
-                spriteBatch.DrawString(fpsFont, avgfps, new Vector2(0,80), Color.White);
+                var fps = string.Format("{0} Current FPS", _frameCounter.CurrentFramesPerSecond);
+                var avgfps = string.Format("{0} Average FPS", _frameCounter.AverageFramesPerSecond);
+
+                if (showFPS)
+                {
+                    spriteBatch.DrawString(fpsFont, fps, new Vector2(0, 40), Color.White);
+                    spriteBatch.DrawString(fpsFont, avgfps, new Vector2(0, 80), Color.White);
+                }
             }
 
             spriteBatch.End();

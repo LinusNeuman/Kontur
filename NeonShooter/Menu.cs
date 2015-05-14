@@ -84,21 +84,24 @@ namespace NeonShooter
             buttonList.Add(new Button()
             {
                 texture = AboutTxt,
-                Position = new Vector2(GameRoot.VirtualScreenSize.X - AboutTxt.Width - 400, GameRoot.VirtualScreenSize.Y - AboutTxt.Height - 200),
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - AboutTxt.Width - 400 - 50 , GameRoot.VirtualScreenSize.Y - AboutTxt.Height - 200),
                 bgameState = NeonShooter.Button.bGameState.about,
             });
 
             MediaPlayer.Play(Sound.MainTheme);
             MediaPlayer.IsRepeating = true;
+
+            
         }
 
         public static void Reload()
         {
-            
+
         }
 
         public static void Load(ContentManager Content)
         {
+            
             PlayTxt = Content.Load<Texture2D>("Buttons/Play");
             SettingsTxt = Content.Load<Texture2D>("Buttons/Settings");
             AboutTxt = Content.Load<Texture2D>("Buttons/About");
@@ -178,7 +181,8 @@ namespace NeonShooter
                         {
                             NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
                             if (activity.pGooglePlayClient.IsConnected)
-                                activity.StartActivityForResult(GamesClass.Leaderboards.GetAllLeaderboardsIntent(activity.pGooglePlayClient), Activity1.REQUEST_LEADERBOARD);
+                                activity.StartActivityForResult(GamesClass.Leaderboards.GetLeaderboardIntent(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ"), Activity1.REQUEST_LEADERBOARD);
+                                //activity.StartActivityForResult(GamesClass.Leaderboards.GetAllLeaderboardsIntent(activity.pGooglePlayClient), Activity1.REQUEST_LEADERBOARD);
                         }
                     }
                     else

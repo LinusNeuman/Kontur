@@ -34,7 +34,7 @@ namespace NeonShooter
         public static Texture2D Glow { get; private set; }
         public static Texture2D LineParticle { get; private set; }
         public static Texture2D LineParticle2 { get; private set; }
-
+        public static Texture2D ScoreBar { get; private set; }
 
 
         public static void Load(ContentManager content)
@@ -44,6 +44,7 @@ namespace NeonShooter
             LineParticle = content.Load<Texture2D>("Particles/Laser");
             LineParticle2 = content.Load<Texture2D>("Particles/LaserBig");
             Glow = content.Load<Texture2D>("Particles/Glow");
+            ScoreBar = content.Load<Texture2D>("Graphics/ScoreBar");
         }
     }
 }

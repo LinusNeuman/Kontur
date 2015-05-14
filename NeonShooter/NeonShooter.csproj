@@ -31,7 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
-    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <AndroidLinkSkip />
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
     <BundleAssemblies>False</BundleAssemblies>
@@ -106,6 +106,7 @@
     <Compile Include="Joystick.cs" />
     <Compile Include="JoystickKnob.cs" />
     <Compile Include="JoystickManager.cs" />
+    <Compile Include="LoadingScreen.cs" />
     <Compile Include="MathUtil.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="ParticleManager.cs" />
@@ -167,6 +168,8 @@
     <AndroidAsset Include="Assets\Content\Buttons\Mainmenu.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\GameoverBg.xnb" />
     <AndroidAsset Include="Assets\Content\Enemies\Wanderer.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\ScoreBar.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\Loading.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -176,9 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Layout\" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\Splash.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Styles.xml" />
@@ -192,7 +192,12 @@
     <Content Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </Content>
-    <AndroidResource Include="Resources\Drawable\icon.png" />
+    <AndroidResource Include="Resources\Drawable\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable\Splash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Binaries.3.2.0\build\MonoAndroid\MonoGame.Binaries.targets" Condition="Exists('..\packages\MonoGame.Binaries.3.2.0\build\MonoAndroid\MonoGame.Binaries.targets')" />

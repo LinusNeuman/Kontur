@@ -80,7 +80,7 @@ namespace NeonShooter
 
             
             mGooglePlayClient = builder.Build();
-            mGooglePlayClient.Connect();
+            //mGooglePlayClient.Connect();
             
 
             //builder.SetViewForPopups(view);
@@ -113,8 +113,8 @@ namespace NeonShooter
             base.OnStart();
 
 
-            System.Console.WriteLine("Is connecting..");
-            mGooglePlayClient.Connect();
+            //System.Console.WriteLine("Is connecting..");
+            //mGooglePlayClient.Connect();
         }
 
         protected void onStop()
@@ -150,7 +150,7 @@ namespace NeonShooter
 
         public void OnConnected(Bundle bundle) 
         {
-            System.Console.WriteLine("Connected");
+            System.Console.WriteLine("Connected-ish");
 
         }
 
@@ -189,6 +189,11 @@ namespace NeonShooter
             {
                 return mGooglePlayClient;
             }
+        }
+
+        public void ConnectP()
+        {
+            mGooglePlayClient.Connect();
         }
     }
 }
