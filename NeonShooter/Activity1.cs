@@ -101,7 +101,7 @@ namespace NeonShooter
 
         protected void OnResume()
         {
-
+            
             base.OnResume();
         }
 

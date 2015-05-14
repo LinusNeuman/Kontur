@@ -45,7 +45,7 @@ namespace NeonShooter
         public static Vector2 tempScale;
         public static float aspectRatio;
 
-        Menu menu;
+        public Menu menu;
         Upgrades upgrades;
         Pause pause;
         GameOver gameOver;

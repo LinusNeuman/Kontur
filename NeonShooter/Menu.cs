@@ -109,6 +109,7 @@ namespace NeonShooter
         public void Update(ContentManager Content)
         {
             HandleTouchInput(Content);
+            System.Console.WriteLine("PlayTxt Disposed: " + PlayTxt.IsDisposed.ToString());
 
         }
 

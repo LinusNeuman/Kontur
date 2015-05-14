@@ -101,6 +101,8 @@ namespace NeonShooter
 
                             EntityManager.ResetGame();
 
+                         
+                            GameRoot.Instance.menu = new Menu();
                             Menu.Load(Content);
                             Sound.LoadTheme(Content);
 

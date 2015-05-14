@@ -101,8 +101,16 @@ namespace NeonShooter
                     moveJoystick.knob.x = MathHelper.Clamp(moveJoystick.knob.x, moveJoystick.my_x, moveJoystick.texture.Width + moveJoystick.my_x);
                     moveJoystick.knob.y = MathHelper.Clamp(moveJoystick.knob.y, 1080 - moveJoystick.texture.Height - moveJoystick.my_y, 1080 - moveJoystick.my_y);
 
-                    moveJoystick.direction.X = moveJoystick.knob.x - moveJoystick.x;
-                    moveJoystick.direction.Y = moveJoystick.knob.y - moveJoystick.y;
+                    Vector2 maxValue;
+                    maxValue.X =moveJoystick.my_x - moveJoystick.texture.Width + moveJoystick.my_x;
+                    maxValue.Y = (1080 - moveJoystick.texture.Height - moveJoystick.my_y) - (1080 - moveJoystick.my_y);
+
+                    moveJoystick.direction.X =  ((moveJoystick.knob.x - moveJoystick.x) / maxValue.X);
+                    moveJoystick.direction.Y = (moveJoystick.knob.y - moveJoystick.y) / maxValue.Y;
+
+                    //if (moveJoystick.direction != Vector2.Zero)
+                    //    moveJoystick.direction.Normalize();
+                    moveJoystick.direction *= 14;
                 }
 
                 //if ((gesture.Position * GameRoot.tempScale - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < Joystick.Width) // 160
