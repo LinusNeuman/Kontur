@@ -48,18 +48,40 @@ namespace NeonShooter
             Sound.LoadTheme(Content);
             Menu.Load(Content);
             Pause.Load(Content);
+            About.Load(Content);
             JoystickManager.Load(Content);
             JoystickManager.Initialize();
             GameOver.Load(Content);
 
+            GameRoot.Instance.about = new About();
             GameRoot.Instance.gameOver = new GameOver();
             GameRoot.Instance.menu = new Menu();
             GameRoot.Instance.upgrades = new Upgrades();
             GameRoot.Instance.pause = new Pause();
             GameRoot.UpdateTempScale();
 
+            Bullet.Load(Content);
+
+            PlayerShip.Load(Content);
+            EnemySpawner.Load(Content);
+            Upgrades.LoadButtons(Content);
+
+
+
+            Upgrades.Load(Content);
+            Upgrades.LoadButtons(Content);
+            Upgrades.ReloadButtons();
+
+            PlayerShip.Load(Content);
+            EnemySpawner.Load(Content);
+            Sound.Load(Content);
+            Bullet.Load(Content);
+
             GameRoot.Instance.loadingGame = false;
             hasStartedGameLoad = false;
+
+            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+            activity.ConnectP();
         }
 
         public static void Update(ContentManager Content)

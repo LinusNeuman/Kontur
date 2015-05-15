@@ -68,6 +68,26 @@ namespace NeonShooter
             
         }
 
+        public static void SetStatsAndSpec()
+        {
+            if (PlayerStatus.selectedShip == 0)
+            {
+                PlayerShip.Instance.image = PlayerSpdShip;
+            }
+            if (PlayerStatus.selectedShip == 1)
+            {
+                PlayerShip.Instance.image = PlayerTnkShip;
+            }
+            if (PlayerStatus.selectedShip == 2)
+            {
+                PlayerShip.Instance.image = PlayerStndShip;
+            }
+            if (PlayerStatus.selectedShip == 3)
+            {
+                PlayerShip.Instance.image = PlayerDmgShip;
+            }
+        }
+
         public static void Load(ContentManager content)
         {
             PlayerDmgShip = content.Load<Texture2D>("Player/DamageShip");

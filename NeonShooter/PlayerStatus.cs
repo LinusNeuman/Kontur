@@ -72,9 +72,6 @@ namespace NeonShooter
 
         private static void SaveHighScore(int score)
         {
-            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
-            if (activity.pGooglePlayClient.IsConnected)
-                GamesClass.Leaderboards.SubmitScore(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ", score);
             
             try 
             {
@@ -138,6 +135,7 @@ namespace NeonShooter
             if (PlayerStatus.IsGameOver)
             {
                 Menu.gameState = Menu.GameState.gameover;
+                GameOver.TransmitScore();
             }
 
             CheckAchievementProgress();

@@ -21,7 +21,7 @@ namespace NeonShooter
     public class PreviewShip
     {
         public Model model;
-        public Vector3 modelPosition = new Vector3(0f, 0f, 0f);
+        public Vector3 modelPosition = new Vector3(0f, 0.13f, 0f);
         public float modelRotation = 0.0f;
     }
 
@@ -61,14 +61,14 @@ namespace NeonShooter
             buttonList.Add(new Button()
             {
                 texture = GoBackButtonTxt,
-                Position = new Vector2(0 + 40, GameRoot.VirtualScreenSize.Y - GoBackButtonTxt.Height - 30),
+                Position = new Vector2(0, GameRoot.VirtualScreenSize.Y - GoBackButtonTxt.Height + 0),
                 bgameState = NeonShooter.Button.bGameState.menu,
             });
 
             buttonList.Add(new Button()
             {
                 texture = PlayButtonTxt,
-                Position = new Vector2(GameRoot.VirtualScreenSize.X - PlayButtonTxt.Width - 40, GameRoot.VirtualScreenSize.Y - PlayButtonTxt.Height - 30),
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - PlayButtonTxt.Width + 0, GameRoot.VirtualScreenSize.Y - PlayButtonTxt.Height + 0),
                 bgameState = NeonShooter.Button.bGameState.ingame,
             });
 
@@ -82,14 +82,14 @@ namespace NeonShooter
             buttonList.Add(new Button()
             {
                 texture = LeftArrowButtonTxt,
-                Position = new Vector2(0 + 345, GameRoot.VirtualScreenSize.Y - LeftArrowButtonTxt.Height - 400),
+                Position = new Vector2(0 + 345, GameRoot.VirtualScreenSize.Y - LeftArrowButtonTxt.Height - 470),
                 bgameState = NeonShooter.Button.bGameState.none,
             });
 
             buttonList.Add(new Button()
             {
                 texture = RightArrowButtonTxt,
-                Position = new Vector2(GameRoot.VirtualScreenSize.X - 680, GameRoot.VirtualScreenSize.Y - RightArrowButtonTxt.Height - 400),
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - 680, GameRoot.VirtualScreenSize.Y - RightArrowButtonTxt.Height - 470),
                 bgameState = NeonShooter.Button.bGameState.none,
             });
         }
@@ -166,19 +166,11 @@ namespace NeonShooter
 
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
                         {
-                            for (int g = 0; g < buttonList.Count; g++)
-                            {
-                                buttonList[g].texture.Dispose();
-                            }
-                            
-                            
-                            Sound.MainTheme.Dispose();
-                            Sound.Load(Content);
-                            Bullet.Load(Content);
+                           
+
                             PlayerStatus.selectedShip = selectedShip;
-                            PlayerShip.Load(Content);
+                            PlayerShip.SetStatsAndSpec();
                             EntityManager.Add(PlayerShip.Instance);
-                            EnemySpawner.Load(Content);
 
                             MediaPlayer.Volume = 0.8f;
                             MediaPlayer.Play(Sound.Music);

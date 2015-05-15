@@ -49,6 +49,7 @@ namespace NeonShooter
         public Upgrades upgrades;
         public Pause pause;
         public GameOver gameOver;
+        public About about;
 
         public bool loadingGame = true;
         public bool loadingLoad = true;
@@ -67,6 +68,7 @@ namespace NeonShooter
 
             graphics.IsFullScreen = true;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft; // | DisplayOrientation.LandscapeRight;
+            graphics.SynchronizeWithVerticalRetrace = false;
 
             Instance = this;
 
@@ -103,10 +105,7 @@ namespace NeonShooter
             ParticleManager2 = new ParticleManager<ParticleState>(1024 * 20, ParticleState.UpdateParticle);
 
 
-            // when load finishes
-            //NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
-            //activity.ConnectP();
-            // when load finishes
+
         }
 
         /// <summary>
@@ -238,6 +237,14 @@ namespace NeonShooter
                     case Menu.GameState.upgrades:
                         {
                             upgrades.Update(gameTime, Content);
+
+                            ParticleManager2.Update();
+                        }
+                        break;
+
+                    case Menu.GameState.about:
+                        {
+                            about.Update(Content);
 
                             ParticleManager2.Update();
                         }
@@ -380,6 +387,14 @@ namespace NeonShooter
                             DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
                             DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
                             pause.Draw(spriteBatch);
+                        }
+                        break;
+
+                    case Menu.GameState.about:
+                        {
+                            about.Draw(spriteBatch);
+
+                            ParticleManager2.Draw(spriteBatch);
                         }
                         break;
                 }

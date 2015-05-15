@@ -130,16 +130,8 @@ namespace NeonShooter
                     {
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
                         {
-                            for (int f = 0; f < buttonList.Count; f++)
-                            {
-                                buttonList[f].texture.Dispose();
-                            }
-                            Bullet.Load(Content);
-                      
-                            PlayerShip.Load(Content);
-                            EntityManager.Add(PlayerShip.Instance);
-                            EnemySpawner.Load(Content);
-                            Upgrades.LoadButtons(Content);
+                           
+                            
 
                             MediaPlayer.Play(Sound.Music);
                             MediaPlayer.IsRepeating = true;
@@ -158,17 +150,9 @@ namespace NeonShooter
 
                         if (buttonList[i].bgameState == Button.bGameState.upgrades)
                         {
-                            for (int g = 0; g < buttonList.Count; g++)
-                            {
-                                buttonList[g].texture.Dispose();
-                            }
-                            BgTxt.Dispose();
-
                             int f = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Preview");
                             GameRoot.Instance.bloom.Settings = BloomSettings.PresetSettings[f];
-                            Upgrades.Load(Content);
-                            Upgrades.LoadButtons(Content);
-                            Upgrades.ReloadButtons();
+
                             gameState = GameState.upgrades;
                         }
 

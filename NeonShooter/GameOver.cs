@@ -74,6 +74,13 @@ namespace NeonShooter
             HandleTouchInput(Content);
         }
 
+        public static void TransmitScore()
+        {
+            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+            if (activity.pGooglePlayClient.IsConnected)
+                GamesClass.Leaderboards.SubmitScore(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ", PlayerStatus.Score);
+        }
+
         public void HandleTouchInput(ContentManager Content)
         {
             while (TouchPanel.IsGestureAvailable)

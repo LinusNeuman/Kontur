@@ -101,32 +101,6 @@ namespace NeonShooter
 
                             EntityManager.ResetGame();
 
-                         
-                            
-                            Menu.Load(Content);
-                            Sound.LoadTheme(Content);
-
-                            Sound.Music.Dispose();
-                            Sound.Explosion.Dispose();
-                            Sound.Shot.Dispose();
-                            Sound.Spawn.Dispose();
-                            Bullet.BulletDamage.Dispose();
-                            Bullet.BulletSpeed.Dispose();
-                            Bullet.BulletStandard.Dispose();
-                            Bullet.BulletTank.Dispose();
-   
-
-                            PlayerShip.Pixel.Dispose();
-                            PlayerShip.PlayerDmgShip.Dispose();
-                            PlayerShip.PlayerSpdShip.Dispose();
-                            PlayerShip.PlayerStndShip.Dispose();
-                            PlayerShip.PlayerTnkShip.Dispose();
-
-                            EntityManager.ResetGame();
-
-                            EnemySpawner.Follower.Dispose();
-                            EnemySpawner.Wanderer.Dispose();
-
                             Menu.gameState = Menu.GameState.menu;
 
 

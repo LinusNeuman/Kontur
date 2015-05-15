@@ -110,7 +110,7 @@ namespace NeonShooter
 
                     //if (moveJoystick.direction != Vector2.Zero)
                     //    moveJoystick.direction.Normalize();
-                    moveJoystick.direction *= 14;
+                    moveJoystick.direction *= -14;
                 }
 
                 //if ((gesture.Position * GameRoot.tempScale - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < Joystick.Width) // 160
