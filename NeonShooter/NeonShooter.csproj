@@ -86,6 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.cs" />
     <Compile Include="AchievementManager.cs" />
     <Compile Include="Activity1.cs" />
     <Compile Include="Art.cs" />
@@ -147,7 +148,6 @@
     <AndroidAsset Include="Assets\Content\Fonts\FPSFont.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\GoBack.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\LeftArrow.xnb" />
-    <AndroidAsset Include="Assets\Content\Upgrades\PlayUpg.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\RightArrow.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\Buy.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\Credits.xnb" />
@@ -170,6 +170,8 @@
     <AndroidAsset Include="Assets\Content\Enemies\Wanderer.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\ScoreBar.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\Loading.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\About.xnb" />
+    <AndroidAsset Include="Assets\Content\Upgrades\PlayUpg.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
