@@ -62,6 +62,8 @@ namespace NeonShooter
 
             Bullet.Load(Content);
 
+            GameRoot.Instance.gridColor = new Color(255, 0, 0);
+
             PlayerShip.Load(Content);
             EnemySpawner.Load(Content);
             Upgrades.LoadButtons(Content);

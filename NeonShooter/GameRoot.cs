@@ -30,7 +30,16 @@ namespace NeonShooter
         public SpriteFont fpsFont;
 
 
+        public Color gridColor;
+
         Matrix SpriteScale;
+
+        public bool enableBloom = true;
+        public bool enableMusic = true;
+
+        public bool ShiftToBlue = false;
+        public bool ShiftToRed = false;
+        public bool ShiftToGreen = true;
 
         public BloomComponent bloom;
 
@@ -167,6 +176,12 @@ namespace NeonShooter
             }
         }
 
+        
+
+        
+
+        
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -190,6 +205,47 @@ namespace NeonShooter
                     case Menu.GameState.ingame:
                         {
 
+                            if (ShiftToRed == true)
+                            {
+                                if(gridColor.B > 0)
+                                gridColor.B -= 1;
+                                if(gridColor.R < 255)
+                                gridColor.R += 1;
+                                if (gridColor.R >= 254)
+                                {
+                                    ShiftToRed = false;
+                                    ShiftToGreen = true;
+                                }
+                            }
+
+                            if (ShiftToGreen == true)
+                            {
+                                if(gridColor.R > 0)
+                                gridColor.R -= 1;
+                                if(gridColor.G < 255)
+                                gridColor.G += 1;
+                                if (gridColor.G >= 254)
+                                {
+                                    ShiftToGreen = false;
+                                    ShiftToBlue = true;
+                                }
+                            }
+
+                            if (ShiftToBlue == true)
+                            {
+                                if(gridColor.G > 0)
+                                gridColor.G -= 1;
+                                if(gridColor.B < 255)
+                                gridColor.B += 1;
+                                if (gridColor.B >= 254)
+                                {
+                                    ShiftToBlue = false;
+                                    ShiftToRed = true;
+                                }
+                            }
+
+
+
                             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                             {
                                 MediaPlayer.Pause();
@@ -197,6 +253,7 @@ namespace NeonShooter
 
 
                             }
+
 
                             Input.Update();
 
@@ -237,6 +294,8 @@ namespace NeonShooter
                     case Menu.GameState.upgrades:
                         {
                             upgrades.Update(gameTime, Content);
+
+                        
 
                             ParticleManager2.Update();
                         }
@@ -280,7 +339,7 @@ namespace NeonShooter
                 {
                     case Menu.GameState.ingame:
                         {
-                            spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.Red);
+                            spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, gridColor);
                             EntityManager.Draw(spriteBatch);
                             ParticleManager.Draw(spriteBatch);
                             PlayerShip.Instance.joystickMgr.DrawSight(spriteBatch);
@@ -306,7 +365,7 @@ namespace NeonShooter
 
                     case Menu.GameState.pause:
                         {
-                            spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
+                            spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, gridColor);
                             EntityManager.Draw(spriteBatch);
                             ParticleManager.Draw(spriteBatch);
                             ParticleManager2.Draw(spriteBatch);

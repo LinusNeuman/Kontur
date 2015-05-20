@@ -30,7 +30,7 @@ namespace NeonShooter
 
         public static void Update()
         {
-            if (!PlayerShip.Instance.IsDead && EntityManager.Count < 200)
+            if (!PlayerShip.Instance.IsDead && EntityManager.Count < 15)
             {
                 if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.EnemyCount < 10)
                     EntityManager.Add(Enemy.CreateSeeker(GetSpawnPosition()));
@@ -40,8 +40,8 @@ namespace NeonShooter
             }
 
             // increase spawn rate
-            if (inverseSpawnChance > 20)
-                inverseSpawnChance -= 0.005f;
+            if (inverseSpawnChance > 15)
+                inverseSpawnChance -= 0.008f;
 
             
         }
@@ -57,9 +57,9 @@ namespace NeonShooter
             Vector2 pos;
             do
             {
-                pos = new Vector2(rand.Next((int)GameRoot.VirtualScreenSize.X - 50), rand.Next((int)GameRoot.VirtualScreenSize.Y - 50));
+                pos = new Vector2(rand.Next((int)GameRoot.VirtualScreenSize.X - 100), rand.Next((int)GameRoot.VirtualScreenSize.Y - 100));
             }
-            while (Vector2.DistanceSquared(pos, PlayerShip.Instance.Position) < 300 * 300);
+            while (Vector2.DistanceSquared(pos, PlayerShip.Instance.Position) < 400 * 300);
 
             return pos;
         }

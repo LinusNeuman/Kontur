@@ -129,7 +129,7 @@ namespace NeonShooter
             joystickMgr.Reset();
             framesUntilRespawn = PlayerStatus.IsGameOver ? 300 : 120;
 
-            Position = GameRoot.VirtualScreenSize / 2;
+            
 
             Color yellow = new Color(0.8f, 0.8f, 0.4f);
             for (int i = 0; i < 30; i++)
@@ -146,6 +146,7 @@ namespace NeonShooter
 
                 GameRoot.ParticleManager.CreateParticle(Art.LineParticle2, Position, color, 190, new Vector2(1.5f, 1.5f), state);
             }
+            Position = GameRoot.VirtualScreenSize / 2;
 
         }
 
@@ -199,7 +200,23 @@ namespace NeonShooter
             const float speed = 7f;
             Velocity = Input.GetMovementDirection();
             Position += Velocity;
-            Position = Vector2.Clamp(Position, Size / 2, GameRoot.VirtualScreenSize - Size / 2);
+            if(Position.X + image.Width < 0)
+            {
+                Position.X = 1920;
+            }
+            if (Position.X - image.Width >= 1920)
+            {
+                Position.X = 0;
+            }
+
+            if(Position.Y + image.Height < 0)
+            {
+                Position.Y = 1080;
+            }
+            if(Position.Y - image.Height > 1080)
+            {
+                Position.Y = 0;
+            }
 
             if (Velocity.LengthSquared() > 0)
                 Orientation = Velocity.ToAngle();

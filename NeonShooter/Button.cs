@@ -18,6 +18,7 @@ namespace NeonShooter
     {
         public Texture2D texture;
         public Vector2 Position;
+        public string Name;
 
 
         public enum bGameState

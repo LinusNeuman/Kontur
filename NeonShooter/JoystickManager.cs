@@ -101,6 +101,12 @@ namespace NeonShooter
                     moveJoystick.knob.x = MathHelper.Clamp(moveJoystick.knob.x, moveJoystick.my_x, moveJoystick.texture.Width + moveJoystick.my_x);
                     moveJoystick.knob.y = MathHelper.Clamp(moveJoystick.knob.y, 1080 - moveJoystick.texture.Height - moveJoystick.my_y, 1080 - moveJoystick.my_y);
 
+                  //  Vector2 distVect = new Vector2(MathHelper.Clamp(moveJoystick.knob.x, -1 * ((gesture.Position.X * GameRoot.tempScale.X) - (moveJoystick.knob.x)), (gesture.Position.X * GameRoot.tempScale.X) - (moveJoystick.knob.x)), MathHelper.Clamp(moveJoystick.knob.y, -1 * ((gesture.Position.Y * GameRoot.tempScale.Y) - (moveJoystick.knob.y)), (gesture.Position.Y * GameRoot.tempScale.Y) - (moveJoystick.knob.y)));
+
+                   // moveJoystick.knob.x = (int)distVect.X;
+                   // moveJoystick.knob.y = (int)distVect.Y;
+                    
+
                     Vector2 maxValue;
                     maxValue.X =moveJoystick.my_x - moveJoystick.texture.Width + moveJoystick.my_x;
                     maxValue.Y = (1080 - moveJoystick.texture.Height - moveJoystick.my_y) - (1080 - moveJoystick.my_y);
@@ -148,7 +154,7 @@ namespace NeonShooter
                     aimJoystick.knob.x = (int)(gesture.Position.X * GameRoot.tempScale.X);
                     aimJoystick.knob.y = (int)(gesture.Position.Y * GameRoot.tempScale.Y);
 
-                    aimJoystick.knob.x = MathHelper.Clamp(aimJoystick.knob.x, 1080 - aimJoystick.my_x - aimJoystick.texture.Width, 1080 - aimJoystick.my_x);
+                    aimJoystick.knob.x = MathHelper.Clamp(aimJoystick.knob.x, 1920 - moveJoystick.my_x - aimJoystick.texture.Width, 1920 - moveJoystick.my_x);
                     aimJoystick.knob.y = MathHelper.Clamp(aimJoystick.knob.y, 1080 - aimJoystick.texture.Height - aimJoystick.my_y, 1080 - aimJoystick.my_y);
 
                     aimJoystick.direction.X = aimJoystick.knob.x - aimJoystick.x;
