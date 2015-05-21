@@ -190,7 +190,6 @@ namespace NeonShooter
         protected override void Update(GameTime gameTime)
         {
             GameTime = gameTime;
-            System.Console.WriteLine("Loading screen loading: " + loadingLoad.ToString());
 
             if(loadingGame == true)
             {
