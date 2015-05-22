@@ -53,7 +53,7 @@ namespace NeonShooter
 
         public static PreviewShip previewShip;
 
-        int selectedShip = 2;
+        public static int selectedShip = 2;
 
         public static void ReloadButtons()
         {
@@ -172,10 +172,15 @@ namespace NeonShooter
                             PlayerShip.SetStatsAndSpec();
                             EntityManager.Add(PlayerShip.Instance);
 
-                            MediaPlayer.Volume = 0.8f;
-                            MediaPlayer.Play(Sound.Music);
+                            if (GameRoot.enableMusic == true)
+                            {
+                                MediaPlayer.Volume = 0.8f;
+                                MediaPlayer.Play(Sound.Music);
+
+                                MediaPlayer.IsRepeating = true;
+                            }
                             
-                            MediaPlayer.IsRepeating = true;
+                            
 
                             int f = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Default");
                             GameRoot.Instance.bloom.Settings = BloomSettings.PresetSettings[f];

@@ -34,7 +34,7 @@ namespace NeonShooter
         public int cooldownRemaining = 0;
         static Random rand = new Random();
 
-        int framesUntilRespawn = 0;
+        public int framesUntilRespawn = 0;
         public bool IsDead { get { return framesUntilRespawn > 0; } }
 
 
@@ -128,22 +128,22 @@ namespace NeonShooter
             PlayerStatus.RemoveLife();
             joystickMgr.Reset();
             framesUntilRespawn = PlayerStatus.IsGameOver ? 300 : 120;
+            JoystickManager.noDirection = true;
 
             
 
             Color yellow = new Color(0.8f, 0.8f, 0.4f);
             for (int i = 0; i < 30; i++)
             {
-                float speed = 18f * (1f - 1 / rand.NextFloat(1f, 10f));
-
-                Color color = Color.Lerp(Color.White, yellow, rand.NextFloat(0, 1));
+                float speed = 10f * (1f - 1 / rand.NextFloat(1f, 10f));
                 var state = new ParticleState()
                 {
-                    Velocity = rand.NextVector2(speed, speed),
+                    Velocity = rand.NextVector2(1, 7),
                     Type = ParticleType.None,
-                    LengthMultiplier = 1
+                    LengthMultiplier = 1f
                 };
 
+                Color color = Color.Lerp(yellow, yellow, rand.NextFloat(0, 1));
                 GameRoot.ParticleManager.CreateParticle(Art.LineParticle2, Position, color, 190, new Vector2(1.5f, 1.5f), state);
             }
             Position = GameRoot.VirtualScreenSize / 2;
@@ -154,6 +154,7 @@ namespace NeonShooter
         {
             if (IsDead)
             {
+                
                 if (--framesUntilRespawn == 0)
                 {
                     if (PlayerStatus.Lives == 0)
@@ -161,7 +162,7 @@ namespace NeonShooter
                         PlayerStatus.Reset();
                         Position = GameRoot.VirtualScreenSize / 2;
                     }
-                    
+                    JoystickManager.noDirection = false;
                     return;
                 }
 

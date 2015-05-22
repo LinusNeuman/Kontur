@@ -36,6 +36,8 @@ namespace NeonShooter
         public Vector2 SightPos;
         public float SightRot;
 
+        public static bool noDirection;
+
         public JoystickManager()
         {
             instance = this;
@@ -117,6 +119,11 @@ namespace NeonShooter
                     //if (moveJoystick.direction != Vector2.Zero)
                     //    moveJoystick.direction.Normalize();
                     moveJoystick.direction *= -14;
+
+                    if(noDirection == true)
+                    {
+                        moveJoystick.direction = Vector2.Zero;
+                    }
                 }
 
                 //if ((gesture.Position * GameRoot.tempScale - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < Joystick.Width) // 160
@@ -159,6 +166,11 @@ namespace NeonShooter
 
                     aimJoystick.direction.X = aimJoystick.knob.x - aimJoystick.x;
                     aimJoystick.direction.Y = aimJoystick.knob.y - aimJoystick.y;
+
+                    if (noDirection == true)
+                    {
+                        aimJoystick.direction = Vector2.Zero;
+                    }
                 }
 
                 if (gesture.Position.X * GameRoot.tempScale.X < GameRoot.VirtualScreenSize.X / 2 - 50)

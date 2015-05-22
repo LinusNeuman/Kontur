@@ -143,7 +143,6 @@
     <AndroidAsset Include="Assets\Content\Buttons\Play.xnb" />
     <AndroidAsset Include="Assets\Content\Buttons\Settings.xnb" />
     <AndroidAsset Include="Assets\Content\Buttons\About.xnb" />
-    <AndroidAsset Include="Assets\Content\Buttons\Highscores.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\MainMenuBG.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\UpgradesMenuBG.xnb" />
     <AndroidAsset Include="Assets\Content\Fonts\FPSFont.xnb" />
@@ -165,9 +164,6 @@
     <AndroidAsset Include="Assets\Content\Bullets\BulletSpeed.xnb" />
     <AndroidAsset Include="Assets\Content\Particles\LaserBig.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\gridBackground.xnb" />
-    <AndroidAsset Include="Assets\Content\Buttons\Restart.xnb" />
-    <AndroidAsset Include="Assets\Content\Buttons\Mainmenu.xnb" />
-    <AndroidAsset Include="Assets\Content\Graphics\GameoverBg.xnb" />
     <AndroidAsset Include="Assets\Content\Enemies\Wanderer.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\ScoreBar.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\Loading.xnb" />
@@ -176,6 +172,11 @@
     <AndroidAsset Include="Assets\Content\Settings\Box.xnb" />
     <AndroidAsset Include="Assets\Content\Settings\CheckedBox.xnb" />
     <AndroidAsset Include="Assets\Content\Settings\Settings.xnb" />
+    <AndroidAsset Include="Assets\Content\Buttons\Highscores.xnb" />
+    <AndroidAsset Include="Assets\Content\GameOver\MainMenu.xnb" />
+    <AndroidAsset Include="Assets\Content\GameOver\Restart.xnb" />
+    <AndroidAsset Include="Assets\Content\GameOver\GameOver.xnb" />
+    <AndroidAsset Include="Assets\Content\Fonts\Score.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -193,8 +194,8 @@
     <AndroidAsset Include="Assets\Content\Sound\explosion.wav" />
     <AndroidAsset Include="Assets\Content\Sound\shoot.wav" />
     <AndroidAsset Include="Assets\Content\Sound\spawn.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\LBS_LGA_ANTHEM.mp3" />
     <AndroidAsset Include="Assets\Content\Sound\8bit.mp3" />
+    <AndroidAsset Include="Assets\Content\Sound\CombatMode.mp3" />
     <Content Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </Content>

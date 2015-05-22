@@ -34,8 +34,8 @@ namespace NeonShooter
 
         Matrix SpriteScale;
 
-        public bool enableBloom = true;
-        public bool enableMusic = true;
+        public static bool enableBloom = true;
+        public static bool enableMusic = true;
 
         public bool ShiftToBlue = false;
         public bool ShiftToRed = false;
@@ -59,6 +59,7 @@ namespace NeonShooter
         public Pause pause;
         public GameOver gameOver;
         public About about;
+        public Settings settings;
 
         public bool loadingGame = true;
         public bool loadingLoad = true;
@@ -207,10 +208,10 @@ namespace NeonShooter
                             if (ShiftToRed == true)
                             {
                                 if(gridColor.B > 0)
-                                gridColor.B -= 1;
-                                if(gridColor.R < 255)
-                                gridColor.R += 1;
-                                if (gridColor.R >= 254)
+                                gridColor.B -= 2;
+                                if(gridColor.R < 253)
+                                gridColor.R += 2;
+                                if (gridColor.R >= 253)
                                 {
                                     ShiftToRed = false;
                                     ShiftToGreen = true;
@@ -220,10 +221,10 @@ namespace NeonShooter
                             if (ShiftToGreen == true)
                             {
                                 if(gridColor.R > 0)
-                                gridColor.R -= 1;
-                                if(gridColor.G < 255)
-                                gridColor.G += 1;
-                                if (gridColor.G >= 254)
+                                gridColor.R -= 2;
+                                if(gridColor.G < 253)
+                                gridColor.G += 2;
+                                if (gridColor.G >= 251)
                                 {
                                     ShiftToGreen = false;
                                     ShiftToBlue = true;
@@ -233,10 +234,10 @@ namespace NeonShooter
                             if (ShiftToBlue == true)
                             {
                                 if(gridColor.G > 0)
-                                gridColor.G -= 1;
-                                if(gridColor.B < 255)
-                                gridColor.B += 1;
-                                if (gridColor.B >= 254)
+                                gridColor.G -= 2;
+                                if(gridColor.B < 253)
+                                gridColor.B += 2;
+                                if (gridColor.B >= 253)
                                 {
                                     ShiftToBlue = false;
                                     ShiftToRed = true;
@@ -247,6 +248,7 @@ namespace NeonShooter
 
                             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                             {
+                                if(GameRoot.enableMusic)
                                 MediaPlayer.Pause();
                                 Menu.gameState = Menu.GameState.pause;
 
@@ -308,6 +310,14 @@ namespace NeonShooter
                         }
                         break;
 
+
+                    case Menu.GameState.settings:
+                        {
+                            settings.Update(Content);
+
+                            ParticleManager2.Update();
+                        }
+                        break;
                 }
             }
 
@@ -320,7 +330,15 @@ namespace NeonShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            bloom.BeginDraw();
+            if (enableBloom)
+            {
+                bloom.BeginDraw();
+                
+            }
+            if(enableBloom == false)
+            {
+                base.Draw(gameTime);
+            }
 
             
             graphics.GraphicsDevice.Clear(Color.Black);
@@ -354,7 +372,6 @@ namespace NeonShooter
 
                     case Menu.GameState.gameover:
                         {
-                            spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, Color.White);
                             //EntityManager.Draw(spriteBatch);
 
                             //  ParticleManager.Draw(spriteBatch);
@@ -385,8 +402,11 @@ namespace NeonShooter
 
             
             spriteBatch.End();
-            
-            base.Draw(gameTime);
+
+            if (enableBloom == true)
+            {
+                base.Draw(gameTime);
+            }
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
     null, DepthStencilState.None, null, null, SpriteScale);
@@ -430,20 +450,16 @@ namespace NeonShooter
                     case Menu.GameState.gameover:
                         {
                             gameOver.Draw(spriteBatch);
-                            string text = "Game Over\n" +
-                                "Your Score: " + PlayerStatus.Score + "\n" +
-                                "High Score: " + PlayerStatus.HighScore;
-
-                            Vector2 textSize = Art.Font.MeasureString(text);
-                            spriteBatch.DrawString(Art.Font, text, VirtualScreenSize / 2 - textSize / 2, Color.White);
+                            spriteBatch.DrawString(Art.ScoreFont, PlayerStatus.Score.ToString(), new Vector2(VirtualScreenSize.X / 2 - (Art.ScoreFont.MeasureString(PlayerStatus.Score.ToString()).X / 2),400), Color.White);
                         }
                         break;
 
                     case Menu.GameState.pause:
                         {
-                            spriteBatch.DrawString(Art.Font, "Lives: " + PlayerStatus.Lives, new Vector2(5), Color.White);
-                            DrawRightAlignedString("Score: " + PlayerStatus.Score, 5);
-                            DrawRightAlignedString("Multiplier: " + PlayerStatus.Multiplier, 35 + font.MeasureString("Score: ").Y);
+                            spriteBatch.Draw(Art.ScoreBar, Vector2.Zero, Color.White);
+                            spriteBatch.DrawString(Art.Font, PlayerStatus.Lives.ToString(), new Vector2(1920 - 75, 12), Color.White);
+                            spriteBatch.DrawString(Art.Font, PlayerStatus.Score.ToString(), new Vector2(705, 12), Color.White);
+                            spriteBatch.DrawString(Art.Font, PlayerStatus.Multiplier.ToString(), new Vector2(380, 12), Color.White);
                             pause.Draw(spriteBatch);
                         }
                         break;
@@ -455,22 +471,19 @@ namespace NeonShooter
                             ParticleManager2.Draw(spriteBatch);
                         }
                         break;
+
+                    case Menu.GameState.settings:
+                        {
+                            settings.Draw(spriteBatch);
+
+                            ParticleManager2.Draw(spriteBatch);
+                        }
+                        break;
                 }
 
 
 
-                var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-                _frameCounter.Update(deltaTime);
-
-                var fps = string.Format("{0} Current FPS", _frameCounter.CurrentFramesPerSecond);
-                var avgfps = string.Format("{0} Average FPS", _frameCounter.AverageFramesPerSecond);
-
-                if (showFPS)
-                {
-                    spriteBatch.DrawString(fpsFont, fps, new Vector2(0, 40), Color.White);
-                    spriteBatch.DrawString(fpsFont, avgfps, new Vector2(0, 80), Color.White);
-                }
+              
             }
 
             spriteBatch.End();

@@ -39,6 +39,11 @@ namespace NeonShooter
         private static float multiplierTimeLeft;
         private static int scoreForExtraLife;
 
+        public static bool checked1Million;
+        public static bool checked50K;
+        public static bool checked100K;
+        public static bool checked100Kills;
+
         public static int selectedShip;
 
         private const string highScoreFilename = "highscores.txt";
@@ -47,7 +52,6 @@ namespace NeonShooter
         public static bool achkilledbyblackhole;
         public static int achscore;
         public static int achlifetime;
-        public static int achtimer;
 
         public static int credits;
 
@@ -95,6 +99,11 @@ namespace NeonShooter
             achlifetime = 0;
             achscore = 0;
             achkilledbyblackhole = false;
+
+            checked100K = false;
+            checked100Kills = false;
+            checked1Million = false;
+            checked50K = false;
         }
 
         public static void Reset()
@@ -143,26 +152,29 @@ namespace NeonShooter
 
         public static void CheckAchievementProgress()
         {
-            achtimer += (int)GameRoot.GameTime.ElapsedGameTime.TotalMinutes;
-
-            if (achtimer >= 5)
+            if(Score >= 1000000 && checked1Million == false)
             {
-                AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.Survive);
+                AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.Million);
+                checked1Million = true;
             }
 
-            if(Score >= 50000)
+
+            if (Score >= 50000 && checked50K == false)
             {
                 AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.FiftyKScore);
+                checked50K = true;
             }
 
-            if (Score >= 100000)
+            if (Score >= 100000 && checked100K == false)
             {
                 AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.OneHundredKScore);
+                checked100K = true;
             }
 
-            if (achkills >= 100)
+            if (achkills >= 100 && checked100Kills == false)
             {
                 AchievementManager.pInstance.UnlockAchievement(AchievementManager.Achievements.OneHundredKills);
+                checked100Kills = true;
             }
         }
 
@@ -175,6 +187,7 @@ namespace NeonShooter
             while (Score >= scoreForExtraLife)
             {
                 scoreForExtraLife += 20000;
+                if(Lives < 3)
                 Lives++;
             }
         }

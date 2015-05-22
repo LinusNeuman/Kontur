@@ -50,13 +50,13 @@ namespace NeonShooter
             buttonList.Add(new Button()
             {
                 texture = RestartTxt,
-                Position = new Vector2(0 + RestartTxt.Width + 200, GameRoot.VirtualScreenSize.Y - RestartTxt.Height - 300),
+                Position = new Vector2(211 - 66, GameRoot.VirtualScreenSize.Y - RestartTxt.Height - 300),
                 bgameState = NeonShooter.Button.bGameState.ingame,
             });
             buttonList.Add(new Button()
             {
                 texture = MainmenuTxt,
-                Position = new Vector2(GameRoot.VirtualScreenSize.X - MainmenuTxt.Width - 500, GameRoot.VirtualScreenSize.Y - MainmenuTxt.Height - 300),
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - MainmenuTxt.Width - 211 + 66, GameRoot.VirtualScreenSize.Y - MainmenuTxt.Height - 300),
                 bgameState = NeonShooter.Button.bGameState.menu,
             });
         }
@@ -64,9 +64,9 @@ namespace NeonShooter
 
         public static void Load(ContentManager content)
         {
-            RestartTxt = content.Load<Texture2D>("Buttons/Restart");
-            MainmenuTxt = content.Load<Texture2D>("Buttons/Mainmenu");
-            BgTxt = content.Load<Texture2D>("Graphics/GameoverBg");
+            RestartTxt = content.Load<Texture2D>("GameOver/Restart");
+            MainmenuTxt = content.Load<Texture2D>("GameOver/MainMenu");
+            BgTxt = content.Load<Texture2D>("GameOver/GameOver");
         }
 
         public void Update(ContentManager Content)
@@ -95,34 +95,21 @@ namespace NeonShooter
                     {
                         if (buttonList[i].bgameState == Button.bGameState.menu)
                         {
-                            PlayerShip.Instance.Kill();
+                            EntityManager.ResetGame();
                             PlayerShip.Instance.ResetGame();
 
-                            EntityManager.ResetGame();
+                            PlayerStatus.selectedShip = Upgrades.selectedShip;
+                            PlayerShip.SetStatsAndSpec();
+                            EntityManager.Add(PlayerShip.Instance);
 
-                            Menu.Load(Content);
-                            Sound.LoadTheme(Content);
-
-                            Sound.Music.Dispose();
-                            Sound.Explosion.Dispose();
-                            Sound.Shot.Dispose();
-                            Sound.Spawn.Dispose();
-                            Bullet.BulletDamage.Dispose();
-                            Bullet.BulletSpeed.Dispose();
-                            Bullet.BulletStandard.Dispose();
-                            Bullet.BulletTank.Dispose();
+                            PlayerShip.Instance.framesUntilRespawn = 0;
+                            JoystickManager.noDirection = false;
+                            GameRoot.ParticleManager.Reset();
 
 
-                            PlayerShip.Pixel.Dispose();
-                            PlayerShip.PlayerDmgShip.Dispose();
-                            PlayerShip.PlayerSpdShip.Dispose();
-                            PlayerShip.PlayerStndShip.Dispose();
-                            PlayerShip.PlayerTnkShip.Dispose();
 
-                            EntityManager.ResetGame();
-
-                            EnemySpawner.Follower.Dispose();
-                            EnemySpawner.Wanderer.Dispose();
+                            MediaPlayer.Volume = 0.8f;
+                            MediaPlayer.Play(Sound.MainTheme);
 
                             Menu.gameState = Menu.GameState.menu;
 
@@ -132,27 +119,23 @@ namespace NeonShooter
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
                         {
 
-                            for (int g = 0; g < buttonList.Count; g++)
-                            {
-                                buttonList[g].texture.Dispose();
-                            }
-
-
-                            Sound.MainTheme.Dispose();
-                            Sound.Load(Content);
-                            Bullet.Load(Content);
-                      
-                            PlayerShip.Load(Content);
                             EntityManager.ResetGame();
-                            EnemySpawner.Load(Content);
+                            PlayerShip.Instance.ResetGame();
+
+                            PlayerStatus.selectedShip = Upgrades.selectedShip;
+                            PlayerShip.SetStatsAndSpec();
+                            EntityManager.Add(PlayerShip.Instance);
+
+                            PlayerShip.Instance.framesUntilRespawn = 0;
+                            JoystickManager.noDirection = false;
+                            GameRoot.ParticleManager.Reset();
 
                             MediaPlayer.Volume = 0.8f;
                             MediaPlayer.Play(Sound.Music);
 
-                            MediaPlayer.IsRepeating = true;
+                            
 
-                            int f = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Default2");
-                            GameRoot.Instance.bloom.Settings = BloomSettings.PresetSettings[f];
+                            MediaPlayer.IsRepeating = true;
 
 
 

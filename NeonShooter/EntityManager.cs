@@ -58,6 +58,9 @@ namespace NeonShooter
         {
             bullets.Clear();
             enemies.Clear();
+            addedEntities.Clear();
+            entities.Clear();
+            
          
             EnemySpawner.Reset();
         }

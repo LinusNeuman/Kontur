@@ -52,12 +52,14 @@ namespace NeonShooter
             JoystickManager.Load(Content);
             JoystickManager.Initialize();
             GameOver.Load(Content);
+            Settings.Load(Content);
 
             GameRoot.Instance.about = new About();
             GameRoot.Instance.gameOver = new GameOver();
             GameRoot.Instance.menu = new Menu();
             GameRoot.Instance.upgrades = new Upgrades();
             GameRoot.Instance.pause = new Pause();
+            GameRoot.Instance.settings = new Settings();
             GameRoot.UpdateTempScale();
 
             Bullet.Load(Content);

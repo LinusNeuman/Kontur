@@ -57,14 +57,16 @@ namespace NeonShooter
             buttonList.Add(new Button()
             {
                 texture = BoxTxt,
-                Position = new Vector2(0 + 40, GameRoot.VirtualScreenSize.Y - GoBackTxt.Height + 0),
-                bgameState = NeonShooter.Button.bGameState.menu,
+                Position = new Vector2(1230-60, 444-66),
+                Name = "Enable_Bloom",
+                bgameState = NeonShooter.Button.bGameState.none,
             });
             buttonList.Add(new Button()
             {
                 texture = BoxTxt,
-                Position = new Vector2(0 + 40, GameRoot.VirtualScreenSize.Y - GoBackTxt.Height + 0),
-                bgameState = NeonShooter.Button.bGameState.menu,
+                Position = new Vector2(500 - 60, 444-66),
+                Name = "Disable_Music",
+                bgameState = NeonShooter.Button.bGameState.none,
             });
         }
 
@@ -103,12 +105,38 @@ namespace NeonShooter
 
                         if (buttonList[i].Name == "Enable_Bloom")
                         {
-                            Menu.gameState = Menu.GameState.menu;
+                            if (GameRoot.enableBloom == true)
+                            {
+                                GameRoot.enableBloom = false;
+                                buttonList[i].texture = CheckedBoxTxt;
+
+                                return;
+                            }
+                            if(GameRoot.enableBloom == false)
+                            {
+                                GameRoot.enableBloom = true;
+                                buttonList[i].texture = BoxTxt;
+                            }
                         }
 
                         if (buttonList[i].Name == "Disable_Music")
                         {
-                            Menu.gameState = Menu.GameState.menu;
+                            if (GameRoot.enableMusic == true)
+                            {
+                                GameRoot.enableMusic = false;
+                                buttonList[i].texture = CheckedBoxTxt;
+
+                                MediaPlayer.Stop();
+
+                                return;
+                            }
+                            if (GameRoot.enableMusic == false)
+                            {
+                                GameRoot.enableMusic = true;
+                                buttonList[i].texture = BoxTxt;
+
+                                MediaPlayer.Play(Sound.MainTheme);
+                            }
                         }
                     }
                     else

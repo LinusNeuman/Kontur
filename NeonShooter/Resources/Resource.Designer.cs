@@ -1937,6 +1937,9 @@ namespace NeonShooter
 			// aapt resource value: 0x7f06003c
 			public const int achievement_100k = 2131099708;
 			
+			// aapt resource value: 0x7f060042
+			public const int achievement_1_Million = 2131099714;
+			
 			// aapt resource value: 0x7f06003d
 			public const int achievement_50k = 2131099709;
 			

@@ -96,12 +96,22 @@ namespace NeonShooter
                     {
                         if (buttonList[i].bgameState == Button.bGameState.menu)
                         {
-                            PlayerShip.Instance.Kill();
-                            PlayerShip.Instance.ResetGame();
-
                             EntityManager.ResetGame();
+                            PlayerShip.Instance.ResetGame();
+                            PlayerShip.SetStatsAndSpec();
 
+                            PlayerShip.Instance.framesUntilRespawn = 0;
+                            JoystickManager.noDirection = false;
+                            GameRoot.ParticleManager.Reset();
+
+
+                            if (GameRoot.enableMusic == true)
+                            {
+                                MediaPlayer.Volume = 0.8f;
+                                MediaPlayer.Play(Sound.MainTheme);
+                            }
                             Menu.gameState = Menu.GameState.menu;
+
 
 
                         }
