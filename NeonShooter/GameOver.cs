@@ -97,10 +97,7 @@ namespace NeonShooter
                         {
                             EntityManager.ResetGame();
                             PlayerShip.Instance.ResetGame();
-
-                            PlayerStatus.selectedShip = Upgrades.selectedShip;
                             PlayerShip.SetStatsAndSpec();
-                            EntityManager.Add(PlayerShip.Instance);
 
                             PlayerShip.Instance.framesUntilRespawn = 0;
                             JoystickManager.noDirection = false;

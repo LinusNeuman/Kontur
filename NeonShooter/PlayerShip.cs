@@ -30,14 +30,15 @@ namespace NeonShooter
 
         #endregion
 
-        const int cooldownFrames = 8;
+        public static float cooldownFrames = 8;
         public int cooldownRemaining = 0;
         static Random rand = new Random();
 
         public int framesUntilRespawn = 0;
         public bool IsDead { get { return framesUntilRespawn > 0; } }
 
-
+        public static float playerSpeed;
+        public static float playerAccuracy;
 
         private static PlayerShip instance;
         public static PlayerShip Instance
@@ -73,18 +74,30 @@ namespace NeonShooter
             if (PlayerStatus.selectedShip == 0)
             {
                 PlayerShip.Instance.image = PlayerSpdShip;
+                playerSpeed = 14 * 1.3f;
+                cooldownFrames = 8 * 0.7f;
+                playerAccuracy = 0.12f; //0.06
             }
             if (PlayerStatus.selectedShip == 1)
             {
                 PlayerShip.Instance.image = PlayerTnkShip;
+                playerSpeed = 14 * 0.7f;
+                cooldownFrames = 8 * 1.3f;
+                playerAccuracy = 0.01f;
             }
             if (PlayerStatus.selectedShip == 2)
             {
                 PlayerShip.Instance.image = PlayerStndShip;
+                playerSpeed = 14 * 1f;
+                cooldownFrames = 8 * 1f;
+                playerAccuracy = 0.06f;
             }
             if (PlayerStatus.selectedShip == 3)
             {
                 PlayerShip.Instance.image = PlayerDmgShip;
+                playerSpeed = 14 * 1f;
+                cooldownFrames = 8 * 0.9f;
+                playerAccuracy = 0.08f;
             }
         }
 
@@ -179,11 +192,11 @@ namespace NeonShooter
             var aim = Input.GetAimDirection(); // get aim
             if (aim.LengthSquared() > 0 && cooldownRemaining <= 0 && !IsDead)
             {
-                cooldownRemaining = cooldownFrames;
+                cooldownRemaining = (int)cooldownFrames;
                 float aimAngle = aim.ToAngle();
                 Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, aimAngle);
 
-                float randomSpread = rand.NextFloat(-0.06f, 0.06f) + rand.NextFloat(-0.06f, 0.06f);
+                float randomSpread = rand.NextFloat(-playerAccuracy, playerAccuracy) + rand.NextFloat(-playerAccuracy, playerAccuracy);
                 Vector2 vel = MathUtil.FromPolar(aimAngle + randomSpread, 20f);
 
                 //Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
@@ -198,7 +211,7 @@ namespace NeonShooter
             if (cooldownRemaining > 0)
                 cooldownRemaining--;
 
-            const float speed = 7f;
+            
             Velocity = Input.GetMovementDirection();
             Position += Velocity;
             if(Position.X + image.Width < 0)

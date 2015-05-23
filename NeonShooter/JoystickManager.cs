@@ -118,7 +118,7 @@ namespace NeonShooter
 
                     //if (moveJoystick.direction != Vector2.Zero)
                     //    moveJoystick.direction.Normalize();
-                    moveJoystick.direction *= -14;
+                    moveJoystick.direction *= -PlayerShip.playerSpeed;
 
                     if(noDirection == true)
                     {

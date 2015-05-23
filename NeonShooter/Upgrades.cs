@@ -41,6 +41,9 @@ namespace NeonShooter
         public static Texture2D RightArrowButtonTxt { get; private set; }
         public static Texture2D PlayButtonTxt { get; private set; }
         public static Texture2D DamageShipInfoTxt { get; private set; }
+        public static Texture2D StandardShipInfoTxt { get; private set; }
+        public static Texture2D TankShipInfoTxt { get; private set; }
+        public static Texture2D SpeedShipInfoTxt { get; private set; }
 
         #endregion
 
@@ -72,12 +75,12 @@ namespace NeonShooter
                 bgameState = NeonShooter.Button.bGameState.ingame,
             });
 
-            buttonList.Add(new Button()
-            {
-                texture = BuyButtonTxt,
-                Position = new Vector2(0 + 1035, GameRoot.VirtualScreenSize.Y - BuyButtonTxt.Height - 27),
-                bgameState = NeonShooter.Button.bGameState.none,
-            });
+            //buttonList.Add(new Button()
+            //{
+            //    texture = BuyButtonTxt,
+            //    Position = new Vector2(0 + 1035, GameRoot.VirtualScreenSize.Y - BuyButtonTxt.Height - 27),
+            //    bgameState = NeonShooter.Button.bGameState.none,
+            //});
 
             buttonList.Add(new Button()
             {
@@ -119,7 +122,10 @@ namespace NeonShooter
             PlayButtonTxt = content.Load<Texture2D>("Upgrades/PlayUpg");
             LeftArrowButtonTxt = content.Load<Texture2D>("Upgrades/LeftArrow");
             RightArrowButtonTxt = content.Load<Texture2D>("Upgrades/RightArrow");
-            DamageShipInfoTxt = content.Load<Texture2D>("Upgrades/DamageShipInfo");
+            DamageShipInfoTxt = content.Load<Texture2D>("Upgrades/Info/DamageShip");
+            StandardShipInfoTxt = content.Load<Texture2D>("Upgrades/Info/StandardShip");
+            TankShipInfoTxt = content.Load<Texture2D>("Upgrades/Info/TankShip");
+            SpeedShipInfoTxt = content.Load<Texture2D>("Upgrades/Info/SpeedShip");
         }
 
         public void Update(GameTime gameTime, ContentManager Content)
@@ -272,9 +278,16 @@ namespace NeonShooter
                 spriteBatch.Draw(buttonList[i].texture, buttonList[i].Position, Color.White);
             }
 
-            spriteBatch.Draw(CreditsButtonTxt, new Vector2(0+721,971), Color.White);
-            spriteBatch.Draw(DamageShipInfoTxt, new Vector2(0+ 721, 682), Color.White);
-
+            //spriteBatch.Draw(CreditsButtonTxt, new Vector2(0+721,971), Color.White);
+            if (selectedShip == 0)
+                spriteBatch.Draw(SpeedShipInfoTxt, new Vector2(GameRoot.VirtualScreenSize.X/2 - SpeedShipInfoTxt.Width/2, 652), Color.White);
+            if (selectedShip == 1)
+                spriteBatch.Draw(TankShipInfoTxt, new Vector2(GameRoot.VirtualScreenSize.X / 2 - TankShipInfoTxt.Width/2, 652), Color.White);
+            if (selectedShip == 2)
+                spriteBatch.Draw(StandardShipInfoTxt, new Vector2(GameRoot.VirtualScreenSize.X / 2 - StandardShipInfoTxt.Width/2, 652), Color.White);
+            if (selectedShip == 3)
+                spriteBatch.Draw(DamageShipInfoTxt, new Vector2(GameRoot.VirtualScreenSize.X / 2 - DamageShipInfoTxt.Width/2, 652), Color.White);
+            // 676, 652
         }
     }
 }

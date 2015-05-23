@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.bice.kontur" android:installLocation="auto" android:versionCode="10" android:versionName="LBS Game Awards 1.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.bice.kontur" android:installLocation="auto" android:versionName="LBS Game Awards 1.1" android:versionCode="11">
 	<uses-sdk android:minSdkVersion="15" />
 	<application android:label="Kontur" android:icon="@drawable/icon">
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />

@@ -35,11 +35,11 @@ namespace NeonShooter
             }
             if (PlayerStatus.selectedShip == 1)
             {
-                image = BulletTank;
+                image = BulletStandard;
             }
             if (PlayerStatus.selectedShip == 2)
             {
-                image = BulletStandard;
+                image = BulletTank;
             }
             if (PlayerStatus.selectedShip == 3)
             {

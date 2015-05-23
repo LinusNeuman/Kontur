@@ -151,7 +151,6 @@
     <AndroidAsset Include="Assets\Content\Upgrades\RightArrow.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\Buy.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\Credits.xnb" />
-    <AndroidAsset Include="Assets\Content\Upgrades\DamageShipInfo.xnb" />
     <AndroidAsset Include="Assets\Content\3D\damage.xnb" />
     <AndroidAsset Include="Assets\Content\3D\speed.xnb" />
     <AndroidAsset Include="Assets\Content\3D\standard.xnb" />
@@ -177,6 +176,10 @@
     <AndroidAsset Include="Assets\Content\GameOver\Restart.xnb" />
     <AndroidAsset Include="Assets\Content\GameOver\GameOver.xnb" />
     <AndroidAsset Include="Assets\Content\Fonts\Score.xnb" />
+    <AndroidAsset Include="Assets\Content\Upgrades\Info\DamageShip.xnb" />
+    <AndroidAsset Include="Assets\Content\Upgrades\Info\SpeedShip.xnb" />
+    <AndroidAsset Include="Assets\Content\Upgrades\Info\StandardShip.xnb" />
+    <AndroidAsset Include="Assets\Content\Upgrades\Info\TankShip.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
