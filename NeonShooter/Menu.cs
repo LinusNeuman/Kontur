@@ -84,21 +84,24 @@ namespace NeonShooter
             buttonList.Add(new Button()
             {
                 texture = AboutTxt,
-                Position = new Vector2(GameRoot.VirtualScreenSize.X - AboutTxt.Width - 400, GameRoot.VirtualScreenSize.Y - AboutTxt.Height - 200),
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - AboutTxt.Width - 400 - 50 , GameRoot.VirtualScreenSize.Y - AboutTxt.Height - 200),
                 bgameState = NeonShooter.Button.bGameState.about,
             });
 
             MediaPlayer.Play(Sound.MainTheme);
             MediaPlayer.IsRepeating = true;
+
+            
         }
 
         public static void Reload()
         {
-            
+
         }
 
         public static void Load(ContentManager Content)
         {
+            
             PlayTxt = Content.Load<Texture2D>("Buttons/Play");
             SettingsTxt = Content.Load<Texture2D>("Buttons/Settings");
             AboutTxt = Content.Load<Texture2D>("Buttons/About");
@@ -126,16 +129,8 @@ namespace NeonShooter
                     {
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
                         {
-                            for (int f = 0; f < buttonList.Count; f++)
-                            {
-                                buttonList[f].texture.Dispose();
-                            }
-                            Bullet.Load(Content);
-                            BlackHole.Load(Content);
-                            PlayerShip.Load(Content);
-                            EntityManager.Add(PlayerShip.Instance);
-                            EnemySpawner.Load(Content);
-                            Upgrades.LoadButtons(Content);
+                           
+                            
 
                             MediaPlayer.Play(Sound.Music);
                             MediaPlayer.IsRepeating = true;
@@ -154,17 +149,9 @@ namespace NeonShooter
 
                         if (buttonList[i].bgameState == Button.bGameState.upgrades)
                         {
-                            for (int g = 0; g < buttonList.Count; g++)
-                            {
-                                buttonList[g].texture.Dispose();
-                            }
-                            BgTxt.Dispose();
-
                             int f = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Preview");
                             GameRoot.Instance.bloom.Settings = BloomSettings.PresetSettings[f];
-                            Upgrades.Load(Content);
-                            Upgrades.LoadButtons(Content);
-                            Upgrades.ReloadButtons();
+
                             gameState = GameState.upgrades;
                         }
 
@@ -177,7 +164,8 @@ namespace NeonShooter
                         {
                             NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
                             if (activity.pGooglePlayClient.IsConnected)
-                                activity.StartActivityForResult(GamesClass.Leaderboards.GetAllLeaderboardsIntent(activity.pGooglePlayClient), Activity1.REQUEST_LEADERBOARD);
+                                activity.StartActivityForResult(GamesClass.Leaderboards.GetLeaderboardIntent(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ"), Activity1.REQUEST_LEADERBOARD);
+                                //activity.StartActivityForResult(GamesClass.Leaderboards.GetAllLeaderboardsIntent(activity.pGooglePlayClient), Activity1.REQUEST_LEADERBOARD);
                         }
                     }
                     else
@@ -189,7 +177,7 @@ namespace NeonShooter
 
                             for (int o = 0; o < 4; o++)
                             {
-                                float speed = 6f * (1f - 1 / rand.NextFloat(1f, 6f));
+                                float speed = 10f * (1f - 1 / rand.NextFloat(1f, 6f));
 
                                 Color color = Color.Lerp(Color.White, yellow, rand.NextFloat(0, 1));
 
@@ -197,11 +185,12 @@ namespace NeonShooter
                                 {
                                     Velocity = rand.NextVector2(speed, speed),
                                     Type = ParticleType.None,
-                                    LengthMultiplier = 0.5f
+                                    LengthMultiplier = 1f
                                 };
 
-                                GameRoot.ParticleManager2.CreateParticle(Art.LineParticle, gesture.Position * GameRoot.tempScale, color, 190, new Vector2(1f, 1f), state);
+                                GameRoot.ParticleManager2.CreateParticle(Art.LineParticle2, gesture.Position * GameRoot.tempScale, color, 190, new Vector2(1.5f, 1.5f), state);
                             }
+
                         }
                     }
                 }

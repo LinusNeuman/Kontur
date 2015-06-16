@@ -59,20 +59,7 @@ namespace NeonShooter
             //collision for player with edges
 
 
-            if(particle.State.Type != ParticleType.IgnoreGravity)
-            {
-                for (int i = 0; i < EntityManager.BlackHoles.Count; i++)
-                {
-                    var dPos = EntityManager.BlackHoles[i].Position - pos;
-                    float distance = dPos.Length();
-                    var n = dPos / distance;
-                    vel += 10000 * n / (distance * distance + 10000);
-
-                    // tangential acceleration for nearby particles
-                    if (distance < 400)
-                        vel += 45 * new Vector2(n.Y, -n.X) / (distance + 100);
-                }
-            }
+      
 
             particle.Position += vel;
             particle.Orientation = vel.ToAngle();

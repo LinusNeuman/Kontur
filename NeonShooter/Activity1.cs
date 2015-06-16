@@ -6,6 +6,7 @@ using Android.Widget;
 // test for google play services
 using Android.Media;
 using Android.Gms;
+using Android.Gms.Analytics;
 using Android.Gms.Common;
 using Android.Gms.Games;
 using Android.Gms.Games.LeaderBoard;
@@ -33,6 +34,9 @@ namespace NeonShooter
         , IGoogleApiClientOnConnectionFailedListener
         , AudioManager.IOnAudioFocusChangeListener
     {
+
+        public static GoogleAnalytics analytics;
+        public static Tracker tracker;
 
         // Aribitrary numbers just used for identifying requests to the Google services.
         public static int REQUEST_CODE_RESOLVE_ERR = 9000;
@@ -63,6 +67,16 @@ namespace NeonShooter
             //    .Create();
 
 
+            analytics = GoogleAnalytics.GetInstance(this);
+            analytics.SetLocalDispatchPeriod(1800);
+
+            tracker = analytics.NewTracker("UA-39772266-5");
+            tracker.EnableExceptionReporting(true);
+            tracker.EnableAdvertisingIdCollection(true);
+            tracker.EnableAutoActivityTracking(true);
+
+    
+
             GoogleApiClientBuilder builder = new GoogleApiClientBuilder(this)
                 .AddApi(GamesClass.Api)
                 .AddScope(GamesClass.ScopeGames)
@@ -80,7 +94,7 @@ namespace NeonShooter
 
             
             mGooglePlayClient = builder.Build();
-            mGooglePlayClient.Connect();
+            //mGooglePlayClient.Connect();
             
 
             //builder.SetViewForPopups(view);
@@ -101,20 +115,20 @@ namespace NeonShooter
 
         protected void OnResume()
         {
-
+            
             base.OnResume();
         }
 
 
-      
+        
 
         protected void onStart()
         {
             base.OnStart();
 
 
-            System.Console.WriteLine("Is connecting..");
-            mGooglePlayClient.Connect();
+            //System.Console.WriteLine("Is connecting..");
+            //mGooglePlayClient.Connect();
         }
 
         protected void onStop()
@@ -150,7 +164,7 @@ namespace NeonShooter
 
         public void OnConnected(Bundle bundle) 
         {
-            System.Console.WriteLine("Connected");
+            System.Console.WriteLine("Connected-ish");
 
         }
 
@@ -189,6 +203,11 @@ namespace NeonShooter
             {
                 return mGooglePlayClient;
             }
+        }
+
+        public void ConnectP()
+        {
+            mGooglePlayClient.Connect();
         }
     }
 }

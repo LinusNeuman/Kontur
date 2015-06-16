@@ -32,6 +32,12 @@ namespace NeonShooter
             }
         }
 
+        public void Reset()
+        {
+            particleList.Count = 0;
+            
+        }
+
         public class Particle
         {
             public Texture2D Texture;

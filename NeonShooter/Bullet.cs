@@ -35,11 +35,11 @@ namespace NeonShooter
             }
             if (PlayerStatus.selectedShip == 1)
             {
-                image = BulletTank;
+                image = BulletStandard;
             }
             if (PlayerStatus.selectedShip == 2)
             {
-                image = BulletStandard;
+                image = BulletTank;
             }
             if (PlayerStatus.selectedShip == 3)
             {
@@ -70,17 +70,24 @@ namespace NeonShooter
             Position += Velocity;
 
             //delete the bullets that go outside the screen
-
-            if(Position.X > GameRoot.VirtualScreenSize.X || Position.X < 0 || Position.Y > GameRoot.VirtualScreenSize.Y || Position.Y < 0)
+            if(Position.X + image.Width < 0)
             {
                 IsExpired = true;
-
-                for (int i = 0; i < 15; i++)
-                {
-                    GameRoot.ParticleManager.CreateParticle(Art.LineParticle, Position, Color.LightBlue, 50, new Vector2(1, 1),
-                        new ParticleState() { Velocity = rand.NextVector2(0, 9), Type = ParticleType.Bullet, LengthMultiplier = 1 });
-                }
             }
+            if(Position.X - image.Width > 1920)
+            {
+                IsExpired = true;
+            }
+
+            if (Position.Y + image.Height < 0)
+            {
+                IsExpired = true;
+            }
+            if (Position.Y - image.Height > 1080)
+            {
+                IsExpired = true;
+            }
+           
         }
     }
 }

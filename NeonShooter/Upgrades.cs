@@ -21,7 +21,7 @@ namespace NeonShooter
     public class PreviewShip
     {
         public Model model;
-        public Vector3 modelPosition = new Vector3(0f, 0f, 0f);
+        public Vector3 modelPosition = new Vector3(0f, 0.13f, 0f);
         public float modelRotation = 0.0f;
     }
 
@@ -41,6 +41,9 @@ namespace NeonShooter
         public static Texture2D RightArrowButtonTxt { get; private set; }
         public static Texture2D PlayButtonTxt { get; private set; }
         public static Texture2D DamageShipInfoTxt { get; private set; }
+        public static Texture2D StandardShipInfoTxt { get; private set; }
+        public static Texture2D TankShipInfoTxt { get; private set; }
+        public static Texture2D SpeedShipInfoTxt { get; private set; }
 
         #endregion
 
@@ -53,7 +56,7 @@ namespace NeonShooter
 
         public static PreviewShip previewShip;
 
-        int selectedShip = 2;
+        public static int selectedShip = 2;
 
         public static void ReloadButtons()
         {
@@ -61,35 +64,35 @@ namespace NeonShooter
             buttonList.Add(new Button()
             {
                 texture = GoBackButtonTxt,
-                Position = new Vector2(0 + 40, GameRoot.VirtualScreenSize.Y - GoBackButtonTxt.Height - 30),
+                Position = new Vector2(0, GameRoot.VirtualScreenSize.Y - GoBackButtonTxt.Height + 0),
                 bgameState = NeonShooter.Button.bGameState.menu,
             });
 
             buttonList.Add(new Button()
             {
                 texture = PlayButtonTxt,
-                Position = new Vector2(GameRoot.VirtualScreenSize.X - PlayButtonTxt.Width - 40, GameRoot.VirtualScreenSize.Y - PlayButtonTxt.Height - 30),
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - PlayButtonTxt.Width + 0, GameRoot.VirtualScreenSize.Y - PlayButtonTxt.Height + 0),
                 bgameState = NeonShooter.Button.bGameState.ingame,
             });
 
-            buttonList.Add(new Button()
-            {
-                texture = BuyButtonTxt,
-                Position = new Vector2(0 + 1035, GameRoot.VirtualScreenSize.Y - BuyButtonTxt.Height - 27),
-                bgameState = NeonShooter.Button.bGameState.none,
-            });
+            //buttonList.Add(new Button()
+            //{
+            //    texture = BuyButtonTxt,
+            //    Position = new Vector2(0 + 1035, GameRoot.VirtualScreenSize.Y - BuyButtonTxt.Height - 27),
+            //    bgameState = NeonShooter.Button.bGameState.none,
+            //});
 
             buttonList.Add(new Button()
             {
                 texture = LeftArrowButtonTxt,
-                Position = new Vector2(0 + 345, GameRoot.VirtualScreenSize.Y - LeftArrowButtonTxt.Height - 400),
+                Position = new Vector2(0 + 345, GameRoot.VirtualScreenSize.Y - LeftArrowButtonTxt.Height - 470),
                 bgameState = NeonShooter.Button.bGameState.none,
             });
 
             buttonList.Add(new Button()
             {
                 texture = RightArrowButtonTxt,
-                Position = new Vector2(GameRoot.VirtualScreenSize.X - 680, GameRoot.VirtualScreenSize.Y - RightArrowButtonTxt.Height - 400),
+                Position = new Vector2(GameRoot.VirtualScreenSize.X - 680, GameRoot.VirtualScreenSize.Y - RightArrowButtonTxt.Height - 470),
                 bgameState = NeonShooter.Button.bGameState.none,
             });
         }
@@ -119,7 +122,10 @@ namespace NeonShooter
             PlayButtonTxt = content.Load<Texture2D>("Upgrades/PlayUpg");
             LeftArrowButtonTxt = content.Load<Texture2D>("Upgrades/LeftArrow");
             RightArrowButtonTxt = content.Load<Texture2D>("Upgrades/RightArrow");
-            DamageShipInfoTxt = content.Load<Texture2D>("Upgrades/DamageShipInfo");
+            DamageShipInfoTxt = content.Load<Texture2D>("Upgrades/Info/DamageShip");
+            StandardShipInfoTxt = content.Load<Texture2D>("Upgrades/Info/StandardShip");
+            TankShipInfoTxt = content.Load<Texture2D>("Upgrades/Info/TankShip");
+            SpeedShipInfoTxt = content.Load<Texture2D>("Upgrades/Info/SpeedShip");
         }
 
         public void Update(GameTime gameTime, ContentManager Content)
@@ -166,25 +172,21 @@ namespace NeonShooter
 
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
                         {
-                            for (int g = 0; g < buttonList.Count; g++)
+                           
+
+                            PlayerStatus.selectedShip = selectedShip;
+                            PlayerShip.SetStatsAndSpec();
+                            EntityManager.Add(PlayerShip.Instance);
+
+                            if (GameRoot.enableMusic == true)
                             {
-                                buttonList[g].texture.Dispose();
+                                MediaPlayer.Volume = 0.8f;
+                                MediaPlayer.Play(Sound.Music);
+
+                                MediaPlayer.IsRepeating = true;
                             }
                             
                             
-                            Sound.MainTheme.Dispose();
-                            Sound.Load(Content);
-                            Bullet.Load(Content);
-                            BlackHole.Load(Content);
-                            PlayerStatus.selectedShip = selectedShip;
-                            PlayerShip.Load(Content);
-                            EntityManager.Add(PlayerShip.Instance);
-                            EnemySpawner.Load(Content);
-
-                            MediaPlayer.Volume = 0.8f;
-                            MediaPlayer.Play(Sound.Music);
-                            
-                            MediaPlayer.IsRepeating = true;
 
                             int f = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Default");
                             GameRoot.Instance.bloom.Settings = BloomSettings.PresetSettings[f];
@@ -276,9 +278,16 @@ namespace NeonShooter
                 spriteBatch.Draw(buttonList[i].texture, buttonList[i].Position, Color.White);
             }
 
-            spriteBatch.Draw(CreditsButtonTxt, new Vector2(0+721,971), Color.White);
-            spriteBatch.Draw(DamageShipInfoTxt, new Vector2(0+ 721, 682), Color.White);
-
+            //spriteBatch.Draw(CreditsButtonTxt, new Vector2(0+721,971), Color.White);
+            if (selectedShip == 0)
+                spriteBatch.Draw(SpeedShipInfoTxt, new Vector2(GameRoot.VirtualScreenSize.X/2 - SpeedShipInfoTxt.Width/2, 652), Color.White);
+            if (selectedShip == 1)
+                spriteBatch.Draw(TankShipInfoTxt, new Vector2(GameRoot.VirtualScreenSize.X / 2 - TankShipInfoTxt.Width/2, 652), Color.White);
+            if (selectedShip == 2)
+                spriteBatch.Draw(StandardShipInfoTxt, new Vector2(GameRoot.VirtualScreenSize.X / 2 - StandardShipInfoTxt.Width/2, 652), Color.White);
+            if (selectedShip == 3)
+                spriteBatch.Draw(DamageShipInfoTxt, new Vector2(GameRoot.VirtualScreenSize.X / 2 - DamageShipInfoTxt.Width/2, 652), Color.White);
+            // 676, 652
         }
     }
 }

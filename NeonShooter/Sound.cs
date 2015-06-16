@@ -33,7 +33,7 @@ namespace NeonShooter
 
         public static void Load(ContentManager content)
         {
-            Music = content.Load<Song>("Sound/LBS_LGA_ANTHEM");
+            Music = content.Load<Song>("Sound/CombatMode");
             explosions = content.Load<SoundEffect>("Sound/explosion");
             shots = content.Load<SoundEffect>("Sound/shoot");
             spawns = content.Load<SoundEffect>("Sound/spawn"); 

@@ -98,6 +98,24 @@ namespace BloomPostprocess
             renderTarget2 = new RenderTarget2D(GraphicsDevice, width, height, false, format, DepthFormat.None);
         }
 
+        void GraphicsOrientation_Changed(object sender, EventArgs e)
+        {
+            PresentationParameters pp = GraphicsDevice.PresentationParameters;
+
+            int width = pp.BackBufferWidth;
+            int height = pp.BackBufferHeight;
+
+            SurfaceFormat format = pp.BackBufferFormat;
+
+            sceneRenderTarget = new RenderTarget2D(GraphicsDevice, width, height, false, format, DepthFormat.None, pp.MultiSampleCount, RenderTargetUsage.DiscardContents);
+
+            width /= 2;
+            height /= 2;
+
+            renderTarget1 = new RenderTarget2D(GraphicsDevice, width, height, false, format, DepthFormat.None);
+            renderTarget2 = new RenderTarget2D(GraphicsDevice, width, height, false, format, DepthFormat.None);
+        }
+
         /// <summary>
         /// Load your graphics content.
         /// </summary>
@@ -106,7 +124,7 @@ namespace BloomPostprocess
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             GraphicsDevice.DeviceReset += GraphicsDevice_DeviceReset;
-
+            Game.Window.OrientationChanged += GraphicsOrientation_Changed;
 
             bloomExtractEffect = Game.Content.Load<Effect>("FX/BloomExtract");
             bloomCombineEffect = Game.Content.Load<Effect>("FX/BloomCombine");

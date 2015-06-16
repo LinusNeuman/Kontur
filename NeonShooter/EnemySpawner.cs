@@ -20,8 +20,7 @@ namespace NeonShooter
         #region Textures
 
         public static Texture2D Follower { get; private set; } // change names
-        public static Texture2D Wanderer_Part1 { get; private set; }
-        public static Texture2D Wanderer_Part2 { get; private set; }
+        public static Texture2D Wanderer { get; private set; }
 
         #endregion
 
@@ -31,20 +30,18 @@ namespace NeonShooter
 
         public static void Update()
         {
-            if (!PlayerShip.Instance.IsDead && EntityManager.Count < 200)
+            if (!PlayerShip.Instance.IsDead && EntityManager.Count < 15)
             {
                 if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.EnemyCount < 10)
                     EntityManager.Add(Enemy.CreateSeeker(GetSpawnPosition()));
                 if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.EnemyCount < 10)
                     EntityManager.Add(Enemy.CreateWanderer(GetSpawnPosition()));
 
-                if (EntityManager.BlackHoleCount < 1 && rand.Next((int)inverseBlackHoleChance) == 0)
-                    EntityManager.Add(new BlackHole(GetSpawnPosition()));
             }
 
             // increase spawn rate
-            if (inverseSpawnChance > 20)
-                inverseSpawnChance -= 0.005f;
+            if (inverseSpawnChance > 15)
+                inverseSpawnChance -= 0.008f;
 
             
         }
@@ -52,8 +49,7 @@ namespace NeonShooter
         public static void Load(ContentManager content)
         {
             Follower = content.Load<Texture2D>("Enemies/Follower");
-            Wanderer_Part1 = content.Load<Texture2D>("Enemies/WandererLvl1");
-            Wanderer_Part2 = content.Load<Texture2D>("Enemies/WandererLvl1Small");
+            Wanderer = content.Load<Texture2D>("Enemies/Wanderer");
         }
 
         private static Vector2 GetSpawnPosition()
@@ -61,9 +57,9 @@ namespace NeonShooter
             Vector2 pos;
             do
             {
-                pos = new Vector2(rand.Next((int)GameRoot.VirtualScreenSize.X - 50), rand.Next((int)GameRoot.VirtualScreenSize.Y - 50));
+                pos = new Vector2(rand.Next((int)GameRoot.VirtualScreenSize.X - 100), rand.Next((int)GameRoot.VirtualScreenSize.Y - 100));
             }
-            while (Vector2.DistanceSquared(pos, PlayerShip.Instance.Position) < 300 * 300);
+            while (Vector2.DistanceSquared(pos, PlayerShip.Instance.Position) < 400 * 300);
 
             return pos;
         }

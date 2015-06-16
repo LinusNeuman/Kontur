@@ -36,6 +36,8 @@ namespace NeonShooter
         public Vector2 SightPos;
         public float SightRot;
 
+        public static bool noDirection;
+
         public JoystickManager()
         {
             instance = this;
@@ -67,9 +69,9 @@ namespace NeonShooter
         {
             HandleTouchInput();
 
-            moveJoystick.Update();
-            aimJoystick.Update();
-
+            //moveJoystick.Update();
+            //aimJoystick.Update();
+   
 
             Vector2 tempDir = aimJoystick.direction;
             tempDir.Normalize();
@@ -89,40 +91,92 @@ namespace NeonShooter
 
                 #region MoveJoy
 
-                if ((gesture.Position * GameRoot.tempScale - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < Joystick.Width / 2) // 160
-                {
+               
 
+                if(gesture.Position.X * GameRoot.tempScale.X < GameRoot.VirtualScreenSize.X / 2 - 50)
+                {
                     moveJoystick.fingerIsDown = true;
 
                     moveJoystick.knob.x = (int)(gesture.Position.X * GameRoot.tempScale.X);
                     moveJoystick.knob.y = (int)(gesture.Position.Y * GameRoot.tempScale.Y);
 
-                    moveJoystick.direction.X = moveJoystick.knob.x - moveJoystick.x; // To calculate we need the position _relative_ to the centre of the joystick. 
-                    moveJoystick.direction.Y = moveJoystick.knob.y - moveJoystick.y;
+                    moveJoystick.knob.x = MathHelper.Clamp(moveJoystick.knob.x, moveJoystick.my_x, moveJoystick.texture.Width + moveJoystick.my_x);
+                    moveJoystick.knob.y = MathHelper.Clamp(moveJoystick.knob.y, 1080 - moveJoystick.texture.Height - moveJoystick.my_y, 1080 - moveJoystick.my_y);
+
+                  //  Vector2 distVect = new Vector2(MathHelper.Clamp(moveJoystick.knob.x, -1 * ((gesture.Position.X * GameRoot.tempScale.X) - (moveJoystick.knob.x)), (gesture.Position.X * GameRoot.tempScale.X) - (moveJoystick.knob.x)), MathHelper.Clamp(moveJoystick.knob.y, -1 * ((gesture.Position.Y * GameRoot.tempScale.Y) - (moveJoystick.knob.y)), (gesture.Position.Y * GameRoot.tempScale.Y) - (moveJoystick.knob.y)));
+
+                   // moveJoystick.knob.x = (int)distVect.X;
+                   // moveJoystick.knob.y = (int)distVect.Y;
+                    
+
+                    Vector2 maxValue;
+                    maxValue.X =moveJoystick.my_x - moveJoystick.texture.Width + moveJoystick.my_x;
+                    maxValue.Y = (1080 - moveJoystick.texture.Height - moveJoystick.my_y) - (1080 - moveJoystick.my_y);
+
+                    moveJoystick.direction.X =  ((moveJoystick.knob.x - moveJoystick.x) / maxValue.X);
+                    moveJoystick.direction.Y = (moveJoystick.knob.y - moveJoystick.y) / maxValue.Y;
+
+                    //if (moveJoystick.direction != Vector2.Zero)
+                    //    moveJoystick.direction.Normalize();
+                    moveJoystick.direction *= -PlayerShip.playerSpeed;
+
+                    if(noDirection == true)
+                    {
+                        moveJoystick.direction = Vector2.Zero;
+                    }
                 }
-                if ((gesture.Position * GameRoot.tempScale - new Vector2(moveJoystick.x, moveJoystick.y)).Length() > Joystick.Width / 2)
+
+                //if ((gesture.Position * GameRoot.tempScale - new Vector2(moveJoystick.x, moveJoystick.y)).Length() < Joystick.Width) // 160
+                //{
+
+                //    moveJoystick.fingerIsDown = true;
+
+                //    moveJoystick.knob.x = (int)(gesture.Position.X * GameRoot.tempScale.X);
+                //    moveJoystick.knob.y = (int)(gesture.Position.Y * GameRoot.tempScale.Y);
+
+                //    moveJoystick.direction.X = moveJoystick.knob.x - moveJoystick.x; // To calculate we need the position _relative_ to the centre of the joystick. 
+                //    moveJoystick.direction.Y = moveJoystick.knob.y - moveJoystick.y;
+                //}
+                //if ((gesture.Position * GameRoot.tempScale - new Vector2(moveJoystick.x, moveJoystick.y)).Length() > Joystick.Width)
+                //{
+                //    moveJoystick.fingerIsDown = false;
+                    
+                //}
+                if (gesture.Position.X * GameRoot.tempScale.X > GameRoot.VirtualScreenSize.X / 2 - 50)
                 {
                     moveJoystick.fingerIsDown = false;
+
                 }
 
                 #endregion
 
                 #region AimJoy
 
-                if ((gesture.Position * GameRoot.tempScale - new Vector2(aimJoystick.x, aimJoystick.y)).Length() < Joystick.Width / 2) // 160
-                {
 
+
+                if (gesture.Position.X * GameRoot.tempScale.X > GameRoot.VirtualScreenSize.X / 2 + 50)
+                {
                     aimJoystick.fingerIsDown = true;
 
                     aimJoystick.knob.x = (int)(gesture.Position.X * GameRoot.tempScale.X);
                     aimJoystick.knob.y = (int)(gesture.Position.Y * GameRoot.tempScale.Y);
 
-                    aimJoystick.direction.X = aimJoystick.knob.x - aimJoystick.x; // To calculate we need the position _relative_ to the centre of the joystick. 
+                    aimJoystick.knob.x = MathHelper.Clamp(aimJoystick.knob.x, 1920 - moveJoystick.my_x - aimJoystick.texture.Width, 1920 - moveJoystick.my_x);
+                    aimJoystick.knob.y = MathHelper.Clamp(aimJoystick.knob.y, 1080 - aimJoystick.texture.Height - aimJoystick.my_y, 1080 - aimJoystick.my_y);
+
+                    aimJoystick.direction.X = aimJoystick.knob.x - aimJoystick.x;
                     aimJoystick.direction.Y = aimJoystick.knob.y - aimJoystick.y;
+
+                    if (noDirection == true)
+                    {
+                        aimJoystick.direction = Vector2.Zero;
+                    }
                 }
-                if ((gesture.Position * GameRoot.tempScale - new Vector2(aimJoystick.x, aimJoystick.y)).Length() > Joystick.Width / 2) // 160
+
+                if (gesture.Position.X * GameRoot.tempScale.X < GameRoot.VirtualScreenSize.X / 2 - 50)
                 {
                     aimJoystick.fingerIsDown = false;
+
                 }
 
                 #endregion

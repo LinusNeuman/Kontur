@@ -31,7 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
-    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <AndroidLinkSkip />
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
     <BundleAssemblies>False</BundleAssemblies>
@@ -57,7 +57,7 @@
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <BundleAssemblies>False</BundleAssemblies>
     <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
-    <AndroidSupportedAbis>armeabi-v7a,x86</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
@@ -86,10 +86,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.cs" />
     <Compile Include="AchievementManager.cs" />
     <Compile Include="Activity1.cs" />
     <Compile Include="Art.cs" />
-    <Compile Include="BlackHole.cs" />
     <Compile Include="BloomComponent.cs" />
     <Compile Include="BloomSettings.cs" />
     <Compile Include="Bullet.cs" />
@@ -101,11 +101,13 @@
     <Compile Include="EntityManager.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FramCounter.cs" />
+    <Compile Include="GameOver.cs" />
     <Compile Include="GameRoot.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Joystick.cs" />
     <Compile Include="JoystickKnob.cs" />
     <Compile Include="JoystickManager.cs" />
+    <Compile Include="LoadingScreen.cs" />
     <Compile Include="MathUtil.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="ParticleManager.cs" />
@@ -115,6 +117,7 @@
     <Compile Include="PlayerStatus.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Sound.cs" />
     <Compile Include="Upgrades.cs" />
   </ItemGroup>
@@ -129,8 +132,6 @@
     <AndroidAsset Include="Assets\Content\Bullets\BulletDamage.xnb" />
     <AndroidAsset Include="Assets\Content\Bullets\BulletStandard.xnb" />
     <AndroidAsset Include="Assets\Content\Bullets\BulletTank.xnb" />
-    <AndroidAsset Include="Assets\Content\Enemies\WandererLvl1Small.xnb" />
-    <AndroidAsset Include="Assets\Content\Enemies\WandererLvl1.xnb" />
     <AndroidAsset Include="Assets\Content\Player\TankShip.xnb" />
     <AndroidAsset Include="Assets\Content\Player\DamageShip.xnb" />
     <AndroidAsset Include="Assets\Content\Player\SpeedShip.xnb" />
@@ -142,17 +143,14 @@
     <AndroidAsset Include="Assets\Content\Buttons\Play.xnb" />
     <AndroidAsset Include="Assets\Content\Buttons\Settings.xnb" />
     <AndroidAsset Include="Assets\Content\Buttons\About.xnb" />
-    <AndroidAsset Include="Assets\Content\Buttons\Highscores.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\MainMenuBG.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\UpgradesMenuBG.xnb" />
     <AndroidAsset Include="Assets\Content\Fonts\FPSFont.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\GoBack.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\LeftArrow.xnb" />
-    <AndroidAsset Include="Assets\Content\Upgrades\PlayUpg.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\RightArrow.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\Buy.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\Credits.xnb" />
-    <AndroidAsset Include="Assets\Content\Upgrades\DamageShipInfo.xnb" />
     <AndroidAsset Include="Assets\Content\3D\damage.xnb" />
     <AndroidAsset Include="Assets\Content\3D\speed.xnb" />
     <AndroidAsset Include="Assets\Content\3D\standard.xnb" />
@@ -165,18 +163,43 @@
     <AndroidAsset Include="Assets\Content\Bullets\BulletSpeed.xnb" />
     <AndroidAsset Include="Assets\Content\Particles\LaserBig.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\gridBackground.xnb" />
+    <AndroidAsset Include="Assets\Content\Enemies\Wanderer.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\ScoreBar.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\Loading.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\About.xnb" />
+    <AndroidAsset Include="Assets\Content\Upgrades\PlayUpg.xnb" />
+    <AndroidAsset Include="Assets\Content\Settings\Box.xnb" />
+    <AndroidAsset Include="Assets\Content\Settings\CheckedBox.xnb" />
+    <AndroidAsset Include="Assets\Content\Settings\Settings.xnb" />
+    <AndroidAsset Include="Assets\Content\Buttons\Highscores.xnb" />
+    <AndroidAsset Include="Assets\Content\GameOver\MainMenu.xnb" />
+    <AndroidAsset Include="Assets\Content\GameOver\Restart.xnb" />
+    <AndroidAsset Include="Assets\Content\GameOver\GameOver.xnb" />
+    <AndroidAsset Include="Assets\Content\Fonts\Score.xnb" />
+    <AndroidAsset Include="Assets\Content\Upgrades\Info\DamageShip.xnb" />
+    <AndroidAsset Include="Assets\Content\Upgrades\Info\SpeedShip.xnb" />
+    <AndroidAsset Include="Assets\Content\Upgrades\Info\StandardShip.xnb" />
+    <AndroidAsset Include="Assets\Content\Upgrades\Info\TankShip.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Bad_Overheat.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_2Bullets.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_2xMultiplier.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_CircleShoot.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_Shield.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_Slowmotion.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_Speed.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Outlines\Bad_Ring.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Outlines\Good_Ring.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Values\Strings.xml" />
+    <AndroidResource Include="Resources\Values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Layout\" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\Splash.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Styles.xml" />
@@ -185,12 +208,17 @@
     <AndroidAsset Include="Assets\Content\Sound\explosion.wav" />
     <AndroidAsset Include="Assets\Content\Sound\shoot.wav" />
     <AndroidAsset Include="Assets\Content\Sound\spawn.wav" />
-    <AndroidAsset Include="Assets\Content\Sound\LBS_LGA_ANTHEM.mp3" />
     <AndroidAsset Include="Assets\Content\Sound\8bit.mp3" />
+    <AndroidAsset Include="Assets\Content\Sound\CombatMode.mp3" />
     <Content Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
     </Content>
-    <AndroidResource Include="Resources\Drawable\icon.png" />
+    <AndroidResource Include="Resources\Drawable\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable\Splash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Binaries.3.2.0\build\MonoAndroid\MonoGame.Binaries.targets" Condition="Exists('..\packages\MonoGame.Binaries.3.2.0\build\MonoAndroid\MonoGame.Binaries.targets')" />

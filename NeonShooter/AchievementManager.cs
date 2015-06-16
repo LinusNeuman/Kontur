@@ -35,7 +35,7 @@ namespace NeonShooter
             OneHundredKills, // Kill over 100 enemies in one game
             BlackHole, // Get killed by a black hole
             Survive, // Survive for 5 minutes
-
+            Million,
             Count,
         }
 
@@ -81,6 +81,7 @@ namespace NeonShooter
                 { (Int32)Achievements.OneHundredKills,        new AchievementData(Resource.String.achievement_100_explosions) }, 
                 { (Int32)Achievements.BlackHole,           new AchievementData(Resource.String.achievement_dangerous_void) }, 
                 { (Int32)Achievements.Survive,              new AchievementData(Resource.String.achievement_survivor) }, 
+                { (Int32)Achievements.Million,              new AchievementData(Resource.String.achievement_1_Million) }, 
             };
             
 

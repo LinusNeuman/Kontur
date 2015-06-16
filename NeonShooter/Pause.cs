@@ -96,37 +96,26 @@ namespace NeonShooter
                     {
                         if (buttonList[i].bgameState == Button.bGameState.menu)
                         {
-                            PlayerShip.Instance.Kill();
+                            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+                            if (activity.pGooglePlayClient.IsConnected)
+                                GamesClass.Leaderboards.SubmitScore(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ", PlayerStatus.Score);
+
+                            EntityManager.ResetGame();
                             PlayerShip.Instance.ResetGame();
+                            PlayerShip.SetStatsAndSpec();
 
-                            EntityManager.ResetGame();
+                            PlayerShip.Instance.framesUntilRespawn = 0;
+                            JoystickManager.noDirection = false;
+                            GameRoot.ParticleManager.Reset();
 
-                            Menu.Load(Content);
-                            Sound.LoadTheme(Content);
 
-                            Sound.Music.Dispose();
-                            Sound.Explosion.Dispose();
-                            Sound.Shot.Dispose();
-                            Sound.Spawn.Dispose();
-                            Bullet.BulletDamage.Dispose();
-                            Bullet.BulletSpeed.Dispose();
-                            Bullet.BulletStandard.Dispose();
-                            Bullet.BulletTank.Dispose();
-                            BlackHole.BlackHoleTxt.Dispose();
-
-                            PlayerShip.Pixel.Dispose();
-                            PlayerShip.PlayerDmgShip.Dispose();
-                            PlayerShip.PlayerSpdShip.Dispose();
-                            PlayerShip.PlayerStndShip.Dispose();
-                            PlayerShip.PlayerTnkShip.Dispose();
-
-                            EntityManager.ResetGame();
-
-                            EnemySpawner.Follower.Dispose();
-                            EnemySpawner.Wanderer_Part1.Dispose();
-                            EnemySpawner.Wanderer_Part2.Dispose();
-
+                            if (GameRoot.enableMusic == true)
+                            {
+                                MediaPlayer.Volume = 0.8f;
+                                MediaPlayer.Play(Sound.MainTheme);
+                            }
                             Menu.gameState = Menu.GameState.menu;
+
 
 
                         }

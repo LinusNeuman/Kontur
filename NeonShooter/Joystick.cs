@@ -19,8 +19,8 @@ namespace NeonShooter
     {
         public bool fingerIsDown;
 
-        private int my_x;
-        private int my_y;
+        public int my_x;
+        public int my_y;
 
         public JoystickKnob knob; // import and represent the joystickKnob.
 
@@ -62,11 +62,22 @@ namespace NeonShooter
         public void Update()
         {
             HandleTouchInput();
+
         }
+
+      
 
         public void Reset()
         {
             fingerIsDown = false;
+            knob.x = knob.originX;
+            knob.y = knob.originY;
+
+            direction = Vector2.Zero;
+        }
+
+        public void Nullify()
+        {
             knob.x = knob.originX;
             knob.y = knob.originY;
 
