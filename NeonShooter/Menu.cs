@@ -38,6 +38,7 @@ namespace NeonShooter
         public static Texture2D AboutTxt { get; private set; }
         public static Texture2D SettingsTxt { get; private set; }
         public static Texture2D BgTxt { get; private set; }
+        public static Texture2D FacebookBtn { get; private set; }
 
         #endregion
 
@@ -87,6 +88,12 @@ namespace NeonShooter
                 Position = new Vector2(GameRoot.VirtualScreenSize.X - AboutTxt.Width - 400 - 50 , GameRoot.VirtualScreenSize.Y - AboutTxt.Height - 200),
                 bgameState = NeonShooter.Button.bGameState.about,
             });
+            buttonList.Add(new Button()
+            {
+                texture = FacebookBtn,
+                Position = new Vector2(35, GameRoot.VirtualScreenSize.Y - FacebookBtn.Height - 30),
+                bgameState = NeonShooter.Button.bGameState.none,
+            });
 
             MediaPlayer.Play(Sound.MainTheme);
             MediaPlayer.IsRepeating = true;
@@ -107,6 +114,7 @@ namespace NeonShooter
             AboutTxt = Content.Load<Texture2D>("Buttons/About");
             HighscoresTxt = Content.Load<Texture2D>("Buttons/Highscores");
             BgTxt = Content.Load<Texture2D>("Graphics/MainMenuBG");
+            FacebookBtn = Content.Load<Texture2D>("Graphics/FacebookBtn");
         }
 
         public void Update(ContentManager Content)
@@ -158,6 +166,15 @@ namespace NeonShooter
                         if (buttonList[i].bgameState == Button.bGameState.about)
                         {
                             gameState = GameState.about;
+                        }
+
+                        if (buttonList[i].texture == FacebookBtn)
+                        {
+                            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+
+                            var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("https://www.facebook.com/KonturGame"));
+                            activity.StartActivity(intent);
+                            
                         }
 
                         if (buttonList[i].bgameState == Button.bGameState.leaderboards)

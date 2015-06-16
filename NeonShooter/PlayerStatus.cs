@@ -113,7 +113,7 @@ namespace NeonShooter
 
             Score = 0;
             Multiplier = 1;
-            Lives = 3;
+            Lives = 2;
             scoreForExtraLife = 2000;
             multiplierTimeLeft = 2;
 
