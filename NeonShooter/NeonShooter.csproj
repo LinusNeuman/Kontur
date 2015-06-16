@@ -180,12 +180,23 @@
     <AndroidAsset Include="Assets\Content\Upgrades\Info\SpeedShip.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\Info\StandardShip.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\Info\TankShip.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Bad_Overheat.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_2Bullets.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_2xMultiplier.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_CircleShoot.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_Shield.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_Slowmotion.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_Speed.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Outlines\Bad_Ring.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Outlines\Good_Ring.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Values\Strings.xml" />
+    <AndroidResource Include="Resources\Values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Layout\" />

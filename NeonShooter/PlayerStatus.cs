@@ -184,12 +184,7 @@ namespace NeonShooter
                 return;
 
             Score += basePoints * Multiplier;
-            while (Score >= scoreForExtraLife)
-            {
-                scoreForExtraLife += 20000;
-                if(Lives < 3)
-                Lives++;
-            }
+            
         }
 
         public static void IncreaseMultiplier()

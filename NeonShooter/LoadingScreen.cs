@@ -15,6 +15,7 @@ using Android.Gms.Plus;
 using Android.Gms.Plus.Model.People;
 using Android.Gms.Common.Apis;
 using Android.Views;
+using Android.Gms.Analytics;
 using Microsoft.Xna.Framework.Content;
 // test for in app billing
 
@@ -86,6 +87,17 @@ namespace NeonShooter
 
             NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
             activity.ConnectP();
+
+            GoogleAnalytics analytics = GoogleAnalytics.GetInstance(activity);
+            Tracker tracker = analytics.NewTracker("UA-39772266-5");
+
+            tracker.SetScreenName("main menu");
+
+            tracker.Send(new HitBuilders.EventBuilder()
+                .SetCategory("UX")
+                .SetAction("click")
+                .SetLabel("submit")
+                .Build());
         }
 
         public static void Update(ContentManager Content)

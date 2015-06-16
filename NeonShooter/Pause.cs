@@ -96,6 +96,10 @@ namespace NeonShooter
                     {
                         if (buttonList[i].bgameState == Button.bGameState.menu)
                         {
+                            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+                            if (activity.pGooglePlayClient.IsConnected)
+                                GamesClass.Leaderboards.SubmitScore(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ", PlayerStatus.Score);
+
                             EntityManager.ResetGame();
                             PlayerShip.Instance.ResetGame();
                             PlayerShip.SetStatsAndSpec();

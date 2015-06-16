@@ -6,6 +6,7 @@ using Android.Widget;
 // test for google play services
 using Android.Media;
 using Android.Gms;
+using Android.Gms.Analytics;
 using Android.Gms.Common;
 using Android.Gms.Games;
 using Android.Gms.Games.LeaderBoard;
@@ -33,6 +34,9 @@ namespace NeonShooter
         , IGoogleApiClientOnConnectionFailedListener
         , AudioManager.IOnAudioFocusChangeListener
     {
+
+        public static GoogleAnalytics analytics;
+        public static Tracker tracker;
 
         // Aribitrary numbers just used for identifying requests to the Google services.
         public static int REQUEST_CODE_RESOLVE_ERR = 9000;
@@ -62,6 +66,16 @@ namespace NeonShooter
             //    .SetGravityForPopups((int)(GravityFlags.Bottom | GravityFlags.CenterHorizontal))
             //    .Create();
 
+
+            analytics = GoogleAnalytics.GetInstance(this);
+            analytics.SetLocalDispatchPeriod(1800);
+
+            tracker = analytics.NewTracker("UA-39772266-5");
+            tracker.EnableExceptionReporting(true);
+            tracker.EnableAdvertisingIdCollection(true);
+            tracker.EnableAutoActivityTracking(true);
+
+    
 
             GoogleApiClientBuilder builder = new GoogleApiClientBuilder(this)
                 .AddApi(GamesClass.Api)
@@ -106,7 +120,7 @@ namespace NeonShooter
         }
 
 
-      
+        
 
         protected void onStart()
         {
