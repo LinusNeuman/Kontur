@@ -55,7 +55,7 @@ namespace NeonShooter
 
         public static int credits;
 
-        public static enum Effects
+        public enum Effects
         {
 
         }
