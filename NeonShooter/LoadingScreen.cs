@@ -69,6 +69,7 @@ namespace NeonShooter
 
             PlayerShip.Load(Content);
             EnemySpawner.Load(Content);
+            PowerUpSpawner.Load(Content);
             Upgrades.LoadButtons(Content);
 
 
@@ -77,8 +78,8 @@ namespace NeonShooter
             Upgrades.LoadButtons(Content);
             Upgrades.ReloadButtons();
 
-            PlayerShip.Load(Content);
-            EnemySpawner.Load(Content);
+            //PlayerShip.Load(Content);
+            //EnemySpawner.Load(Content);
             Sound.Load(Content);
             Bullet.Load(Content);
 

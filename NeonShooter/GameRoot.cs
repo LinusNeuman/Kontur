@@ -259,12 +259,15 @@ namespace NeonShooter
                             Input.Update();
 
                             EnemySpawner.Update();
+                            PowerUpSpawner.Update();
 
                             PlayerStatus.Update(); // do not update when paused
 
                             EntityManager.Update();
 
                             ParticleManager.Update();
+
+                           
 
                         }
                         break;
@@ -358,8 +361,10 @@ namespace NeonShooter
                         {
                             spriteBatch.Draw(Art.TitleScreenBg, Vector2.Zero, gridColor);
                             EntityManager.Draw(spriteBatch);
+
                             ParticleManager.Draw(spriteBatch);
                             PlayerShip.Instance.joystickMgr.DrawSight(spriteBatch);
+                            PowerUpManager.Update();
 
                         }
                         break;
@@ -430,7 +435,9 @@ namespace NeonShooter
                             spriteBatch.DrawString(Art.Font, PlayerStatus.Lives.ToString(), new Vector2(1920 - 75, 12), Color.White);
                             spriteBatch.DrawString(Art.Font, PlayerStatus.Score.ToString(), new Vector2(705, 12), Color.White);
                             spriteBatch.DrawString(Art.Font, PlayerStatus.Multiplier.ToString(), new Vector2(380, 12), Color.White);
+                            PowerUpManager.Draw(spriteBatch);
 
+                            
 
                         }
                         break;
@@ -460,6 +467,7 @@ namespace NeonShooter
                             spriteBatch.DrawString(Art.Font, PlayerStatus.Lives.ToString(), new Vector2(1920 - 75, 12), Color.White);
                             spriteBatch.DrawString(Art.Font, PlayerStatus.Score.ToString(), new Vector2(705, 12), Color.White);
                             spriteBatch.DrawString(Art.Font, PlayerStatus.Multiplier.ToString(), new Vector2(380, 12), Color.White);
+                            PowerUpManager.Draw(spriteBatch);
                             pause.Draw(spriteBatch);
                         }
                         break;

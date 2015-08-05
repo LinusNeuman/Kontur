@@ -55,6 +55,11 @@ namespace NeonShooter
 
         public static int credits;
 
+        public static enum Effects
+        {
+
+        }
+
         private static int LoadHighScore()
         {
             int score = 0;
@@ -91,6 +96,14 @@ namespace NeonShooter
         {
             HighScore = LoadHighScore();
             Reset();
+        }
+
+        public static void GiveEffect(int id)
+        {
+            if(id == 0)
+            {
+
+            }
         }
 
         public static void ResetAchievementData()

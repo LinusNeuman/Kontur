@@ -17,7 +17,7 @@ namespace NeonShooter
 {
     static class PowerUpManager
     {
-        static List<PowerUp> powerups = new List<PowerUp>();
+        public static List<PowerUp> powerups = new List<PowerUp>();
 
 
 
@@ -63,8 +63,9 @@ namespace NeonShooter
             //handle collision between the player and enemies
             for (int i = 0; i < powerups.Count; i++)
             {
-                if (powerups[i].IsActive && IsColliding(PlayerShip.Instance, powerups[i]))
+                if (powerups[i].IsActive && IsColliding2(powerups[i], PlayerShip.Instance))
                 {
+                    PlayerStatus.GiveEffect(powerups[i].ID);
                     // give player power up
                     powerups.ForEach(x => x.WasShot());
                     break;
@@ -80,8 +81,8 @@ namespace NeonShooter
 
             HandleCollisions();
 
-            foreach (var entity in entities)
-                entity.Update();
+            foreach (var powerup in powerups)
+                powerup.Update();
 
             isUpdating = false;
 
@@ -91,25 +92,28 @@ namespace NeonShooter
             addedEntities.Clear();
 
             // remove all expired entities.
-            entities = entities.Where(x => !x.IsExpired).ToList();
-
-            bullets = bullets.Where(x => !x.IsExpired).ToList();
-            enemies = enemies.Where(x => !x.IsExpired).ToList();
+            powerups = powerups.Where(x => !x.isExpired).ToList();
 
 
 
         }
 
-        private static bool IsColliding(Entity a, Entity b)
+        private static bool IsColliding(PowerUp a, PowerUp b)
         {
-            float radius = a.Radius + b.Radius;
-            return !a.IsExpired && !b.IsExpired && Vector2.DistanceSquared(a.Position, b.Position) < radius * radius;
+            float radius = a.radius + b.radius;
+            return !a.isExpired && !b.isExpired && Vector2.DistanceSquared(a.position, b.position) < radius * radius;
+        }
+
+        private static bool IsColliding2(PowerUp a, Entity b)
+        {
+            float radius = a.radius + b.Radius;
+            return !a.isExpired && !b.IsExpired && Vector2.DistanceSquared(a.position, b.Position) < radius * radius;
         }
 
         public static void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var entity in entities)
-                entity.Draw(spriteBatch);
+            foreach (var powerup in powerups)
+                powerup.Draw(spriteBatch);
         }
     }
 }

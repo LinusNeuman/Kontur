@@ -31,6 +31,7 @@ namespace NeonShooter
             Position = position;
             Radius = image.Width / 2f;
             color = Color.Transparent;
+            timeUntilStart = 60;
         }
 
         public void HandleCollision(Enemy other)

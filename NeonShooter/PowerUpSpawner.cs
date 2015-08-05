@@ -27,6 +27,8 @@ namespace NeonShooter
         public static Texture2D Good_Slowmotion { get; private set; }
         public static Texture2D Good_Speed { get; private set; }
         public static Texture2D Good_ExtraLife { get; private set; }
+        public static Texture2D Ring_Good { get; private set; }
+        public static Texture2D Ring_Bad { get; private set; }
 
         #endregion
 
@@ -37,20 +39,41 @@ namespace NeonShooter
 
         public static void Update()
         {
-            if (!PlayerShip.Instance.IsDead && PowerUpManager.Count < 1)
+            if (!PlayerShip.Instance.IsDead && PowerUpManager.Count < 3)
             {
                 if (rand.Next((int)inverseSpawnChance) == 0 && PowerUpManager.Count < 1)
-                    PowerUpManager.Add(PowerUp.Create_1_OverHeat(GetSpawnPosition()));
-                if (rand.Next((int)inverseSpawnChance) == 0 && PowerUpManager.Count < 1)
-                    //PowerUpManager.Add(Enemy.CreateWanderer(GetSpawnPosition()));
+                    Spawn();
 
             }
 
             // increase spawn rate
-            if (inverseSpawnChance > 15)
+            if (inverseSpawnChance > 300)
                 inverseSpawnChance -= 0.002f;
 
 
+        }
+
+        public static void Spawn()
+        {
+            int chooser = 0;
+            Random r = new Random();
+            chooser = r.Next(7);
+            if (chooser == 0)
+                PowerUpManager.Add(PowerUp.Create_1_OverHeat(GetSpawnPosition()));
+            if (chooser == 1)
+                PowerUpManager.Add(PowerUp.Create_2_2Bullets(GetSpawnPosition()));
+            if (chooser == 2)
+                PowerUpManager.Add(PowerUp.Create_3_2xMultiplier(GetSpawnPosition()));
+            if (chooser == 3)
+                PowerUpManager.Add(PowerUp.Create_4_CircleShoot(GetSpawnPosition()));
+            if (chooser == 4)
+                PowerUpManager.Add(PowerUp.Create_5_Shield(GetSpawnPosition()));
+            if (chooser == 5)
+                PowerUpManager.Add(PowerUp.Create_6_Slowmotion(GetSpawnPosition()));
+            if (chooser == 6)
+                PowerUpManager.Add(PowerUp.Create_7_Speed(GetSpawnPosition()));
+            if (chooser == 7)
+                PowerUpManager.Add(PowerUp.Create_8_ExtraLife(GetSpawnPosition()));
         }
 
         public static void Load(ContentManager content)
@@ -63,16 +86,15 @@ namespace NeonShooter
             Good_Slowmotion = content.Load<Texture2D>("PowerUps/Icons/Good_Slowmotion");
             Good_Speed = content.Load<Texture2D>("PowerUps/Icons/Good_Speed");
             Good_ExtraLife = content.Load<Texture2D>("PowerUps/Icons/Good_ExtraLife");
+            Ring_Bad = content.Load<Texture2D>("PowerUps/Outlines/Bad_Ring");
+            Ring_Good = content.Load<Texture2D>("PowerUps/Outlines/Good_Ring");
         }
 
         private static Vector2 GetSpawnPosition()
         {
             Vector2 pos;
-            do
-            {
-                pos = new Vector2(rand.Next((int)GameRoot.VirtualScreenSize.X - 100), rand.Next((int)GameRoot.VirtualScreenSize.Y - 100));
-            }
-            while (Vector2.DistanceSquared(pos, PlayerShip.Instance.Position) < 100 * 300);
+            pos.X = rand.Next(100, (int)GameRoot.VirtualScreenSize.X - 100);
+            pos.Y = rand.Next(100, (int)GameRoot.VirtualScreenSize.Y - 100);
 
             return pos;
         }
