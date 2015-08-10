@@ -58,6 +58,7 @@ namespace NeonShooter
 
         public static void Spawn()
         {
+            PowerUpManager.Add(PowerUp.Create_2_2Bullets(GetSpawnPosition()));
             int chooser = 0;
             Random r = new Random();
             chooser = r.Next(10);

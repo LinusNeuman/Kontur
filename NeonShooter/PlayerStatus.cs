@@ -66,6 +66,8 @@ namespace NeonShooter
 
         public static int selectedShip;
 
+        public static bool doubleBullets;
+
         private const string highScoreFilename = "highscores.txt";
 
         public static int achkills;
@@ -86,7 +88,7 @@ namespace NeonShooter
 
                 if (appliedEffects[i].id == 1)
                 {
-                    // apply the good: 2 bullets
+                    doubleBullets = true; // never resets
                 }
 
                 if (appliedEffects[i].id == 2)
@@ -187,22 +189,26 @@ namespace NeonShooter
         {
             for (int i = 0; i < appliedEffects.Count; i++)
             {
-                if (appliedEffects[i].id == id)
-                {
-                    appliedEffects[i].duration = duration;
-                }
+                //if (appliedEffects[i].id == id)
+               // {
+                //    appliedEffects[i].duration = duration;
+                //}
 
-                if (appliedEffects[i].id == 10)
-                {
-                    // increase v-credits by one
-                }
+                //if (appliedEffects[i].id == 10)
+                //{
+                //    // increase v-credits by one
+                //}
 
-                if (appliedEffects[i].id != id && appliedEffects[i].id != 10)
-                {
-                    appliedEffects.Add(new AppliedEffects(id, duration));
-                }
+                //if (appliedEffects[i].id != id && appliedEffects[i].id != 10)
+                //{
+                //    appliedEffects.Add(new AppliedEffects(id, duration));
+                //}
             }
+
             
+                appliedEffects.Add(new AppliedEffects(id, duration));
+            
+
         }
 
         public static void ResetAchievementData()
