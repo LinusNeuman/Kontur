@@ -24,6 +24,24 @@ using Android.Views;
 
 namespace NeonShooter
 {
+    public class AppliedEffects
+    {
+        public int id;
+        public float duration;
+        public float lifePercent;
+        public bool isExpired;
+
+        public AppliedEffects(int ID, float Duration)
+        {
+            duration = Duration;
+            id = ID;
+
+            lifePercent = 1f;
+        }
+
+        
+    }
+
     static class PlayerStatus
     {
         // time it takes for multiplier to go away
@@ -38,6 +56,8 @@ namespace NeonShooter
 
         private static float multiplierTimeLeft;
         private static int scoreForExtraLife;
+
+        public static List<AppliedEffects> appliedEffects = new List<AppliedEffects>();
 
         public static bool checked1Million;
         public static bool checked50K;
@@ -55,9 +75,74 @@ namespace NeonShooter
 
         public static int credits;
 
-        public enum Effects
+        public static void UpdateAppliedEffects()
         {
+            for (int i = 0; i < appliedEffects.Count; i++)
+            {
+                if(appliedEffects[i].id == 0)
+                {
+                    // apply the bad: overheat
+                }
 
+                if (appliedEffects[i].id == 1)
+                {
+                    // apply the good: 2 bullets
+                }
+
+                if (appliedEffects[i].id == 2)
+                {
+                    // apply the good: 2xmultiplier
+                }
+
+                if (appliedEffects[i].id == 3)
+                {
+                    // apply the good: circleshoot
+                }
+
+                if (appliedEffects[i].id == 4)
+                {
+                    // apply the good: Shield
+                }
+
+                if (appliedEffects[i].id == 5)
+                {
+                    // apply the good: slowmotion
+                }
+
+                if (appliedEffects[i].id == 6)
+                {
+                    // apply the good: speed
+                }
+
+                if (appliedEffects[i].id == 7)
+                {
+                    // apply the good: extra life
+                }
+
+                if (appliedEffects[i].id == 8)
+                {
+                    // apply the bad: 2x enemy
+                }
+
+                if (appliedEffects[i].id == 9)
+                {
+                    // apply the bad: enemy speed
+                }
+
+                if (appliedEffects[i].id == 10)
+                {
+                    // apply the good: v credit
+                }
+
+                appliedEffects[i].lifePercent -= 1f / appliedEffects[i].duration;
+
+                if(appliedEffects[i].lifePercent <= 0)
+                {
+                    appliedEffects[i].isExpired = true;
+                }
+
+                appliedEffects = appliedEffects.Where(x => !x.isExpired).ToList();
+            }
         }
 
         private static int LoadHighScore()
@@ -98,12 +183,26 @@ namespace NeonShooter
             Reset();
         }
 
-        public static void GiveEffect(int id)
+        public static void GiveEffect(int id, int duration)
         {
-            if(id == 0)
+            for (int i = 0; i < appliedEffects.Count; i++)
             {
+                if (appliedEffects[i].id == id)
+                {
+                    appliedEffects[i].duration = duration;
+                }
 
+                if (appliedEffects[i].id == 10)
+                {
+                    // increase v-credits by one
+                }
+
+                if (appliedEffects[i].id != id && appliedEffects[i].id != 10)
+                {
+                    appliedEffects.Add(new AppliedEffects(id, duration));
+                }
             }
+            
         }
 
         public static void ResetAchievementData()
@@ -135,6 +234,8 @@ namespace NeonShooter
 
         public static void Update()
         {
+            UpdateAppliedEffects();
+
             if (Multiplier > 1)
             {
                 //if((multiplierTimeLeft -= (float)GameRoot.GameTime.ElapsedGameTime.TotalSeconds) <= 3)

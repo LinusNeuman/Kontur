@@ -19,6 +19,9 @@ namespace NeonShooter
     {
         #region Textures
 
+        public static Texture2D Good_VCred { get; private set; }
+        public static Texture2D Bad_2xEnemy { get; private set; }
+        public static Texture2D Bad_EnemySpd { get; private set; }
         public static Texture2D Bad_Overheat { get; private set; }
         public static Texture2D Good_2Bullets { get; private set; }
         public static Texture2D Good_2xMultiplier { get; private set; }
@@ -57,7 +60,7 @@ namespace NeonShooter
         {
             int chooser = 0;
             Random r = new Random();
-            chooser = r.Next(7);
+            chooser = r.Next(10);
             if (chooser == 0)
                 PowerUpManager.Add(PowerUp.Create_1_OverHeat(GetSpawnPosition()));
             if (chooser == 1)
@@ -74,10 +77,28 @@ namespace NeonShooter
                 PowerUpManager.Add(PowerUp.Create_7_Speed(GetSpawnPosition()));
             if (chooser == 7)
                 PowerUpManager.Add(PowerUp.Create_8_ExtraLife(GetSpawnPosition()));
+            if (chooser == 8)
+                PowerUpManager.Add(PowerUp.Create_9_2xEnemy(GetSpawnPosition()));
+            if (chooser == 9)
+                PowerUpManager.Add(PowerUp.Create_10_EnemySpd(GetSpawnPosition()));
+            if (chooser == 10)
+            {
+                Random f = new Random();
+                int chooser2 = 0;
+                chooser2 = f.Next(2);
+                if (chooser2 == 1) // place powerups here that should be hard to get
+                {
+                    PowerUpManager.Add(PowerUp.Create_11_VCred(GetSpawnPosition()));
+                }
+            }
+            
         }
 
         public static void Load(ContentManager content)
         {
+            Good_VCred = content.Load<Texture2D>("PowerUps/Icons/Good_VCred");
+            Bad_EnemySpd = content.Load<Texture2D>("PowerUps/Icons/Bad_EnemySpd");
+            Bad_2xEnemy = content.Load<Texture2D>("PowerUps/Icons/Bad_2xEnemy");
             Bad_Overheat = content.Load<Texture2D>("PowerUps/Icons/Bad_Overheat");
             Good_2Bullets = content.Load<Texture2D>("PowerUps/Icons/Good_2Bullets");
             Good_2xMultiplier = content.Load<Texture2D>("PowerUps/Icons/Good_2xMultiplier");
