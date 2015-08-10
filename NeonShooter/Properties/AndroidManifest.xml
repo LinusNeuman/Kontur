@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.bice.kontur" android:installLocation="auto" android:versionCode="13" android:versionName="1.2 Beta">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.bice.kontur" android:installLocation="auto" android:versionCode="14" android:versionName="1.2 Beta WX">
 	<uses-sdk android:minSdkVersion="15" />
 	<application android:label="Kontur" android:icon="@drawable/icon">
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />

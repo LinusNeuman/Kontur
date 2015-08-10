@@ -70,6 +70,9 @@
     <DevInstrumentationEnabled>False</DevInstrumentationEnabled>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facebook">
+      <HintPath>..\Components\facebook-sdk-6.2.2\lib\android\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="GooglePlayServicesLib">
       <HintPath>..\lib\GooglePlayServicesLib.dll</HintPath>
     </Reference>
@@ -229,6 +232,12 @@
     <AndroidResource Include="Resources\Drawable\Splash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="facebook-sdk">
+      <Visible>False</Visible>
+      <Version>6.2.2</Version>
+    </XamarinComponentReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Binaries.3.2.0\build\MonoAndroid\MonoGame.Binaries.targets" Condition="Exists('..\packages\MonoGame.Binaries.3.2.0\build\MonoAndroid\MonoGame.Binaries.targets')" />

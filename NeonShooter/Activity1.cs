@@ -18,6 +18,9 @@ using Android.Views;
 // test for in app billing
 // using play.billing.v3;
 
+using Facebook;
+using FacebookMonoDroid;
+
 namespace NeonShooter
 {
     [Activity(Label = "Kontur"
@@ -28,15 +31,22 @@ namespace NeonShooter
         , LaunchMode = Android.Content.PM.LaunchMode.SingleTask
         , ScreenOrientation = ScreenOrientation.Landscape
         , ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden)]
+    [IntentFilter(new[] { Intent.ActionView },
+        Categories = new[] { Intent.CategoryLauncher, "my.custom.category" }
+        , DataHost = "kontur", DataScheme ="bice" )]
     public class Activity1
         : Microsoft.Xna.Framework.AndroidGameActivity
         , IGoogleApiClientConnectionCallbacks
         , IGoogleApiClientOnConnectionFailedListener
         , AudioManager.IOnAudioFocusChangeListener
+        
+
+        
     {
 
         public static GoogleAnalytics analytics;
         public static Tracker tracker;
+        public static FacebookClient fb;
 
         // Aribitrary numbers just used for identifying requests to the Google services.
         public static int REQUEST_CODE_RESOLVE_ERR = 9000;
@@ -67,6 +77,23 @@ namespace NeonShooter
             //    .Create();
 
 
+            Intent intent = new Intent();
+            String action = intent.Action;
+            Android.Net.Uri target = intent.Data;
+
+            if (target != null)
+            {
+                // got here via Facebook deep link
+                // once I'm done parsing the URI and deciding
+                // which part of my app I should point the client to
+                // I fire an intent for a new activity and
+                // call finish() the current activity (MainActivity)
+            }
+            else
+            {
+                // activity was created in a normal fashion
+            }
+
             analytics = GoogleAnalytics.GetInstance(this);
             analytics.SetLocalDispatchPeriod(1800);
 
@@ -75,7 +102,10 @@ namespace NeonShooter
             tracker.EnableAdvertisingIdCollection(true);
             tracker.EnableAutoActivityTracking(true);
 
-    
+            fb = new FacebookClient("8b3951c81a31bd783c4d00a1214336ab");
+            fb.AppId = "121684084842764";
+            fb.AppSecret = "8053a52fa2b96874747509b46530f295";
+            
 
             GoogleApiClientBuilder builder = new GoogleApiClientBuilder(this)
                 .AddApi(GamesClass.Api)
@@ -109,7 +139,7 @@ namespace NeonShooter
 
         protected void OnPause()
         {
-            
+
             base.OnPause();
         }
 
