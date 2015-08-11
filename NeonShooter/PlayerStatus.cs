@@ -37,6 +37,8 @@ namespace NeonShooter
             id = ID;
 
             lifePercent = 1f;
+
+
         }
 
         
@@ -77,6 +79,20 @@ namespace NeonShooter
 
         public static int credits;
 
+        public static bool FindAE(AppliedEffects ae, int id)
+        {
+
+            if (ae.id == id)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
         public static void UpdateAppliedEffects()
         {
             for (int i = 0; i < appliedEffects.Count; i++)
@@ -88,7 +104,7 @@ namespace NeonShooter
 
                 if (appliedEffects[i].id == 1)
                 {
-                    doubleBullets = true; // never resets
+                    // double bullets
                 }
 
                 if (appliedEffects[i].id == 2)
@@ -189,25 +205,21 @@ namespace NeonShooter
         {
             for (int i = 0; i < appliedEffects.Count; i++)
             {
-                //if (appliedEffects[i].id == id)
-               // {
-                //    appliedEffects[i].duration = duration;
-                //}
+                if (appliedEffects[i].id == id)
+                {
+                    appliedEffects[i].duration = duration;
+                }
 
-                //if (appliedEffects[i].id == 10)
-                //{
-                //    // increase v-credits by one
-                //}
+                if (appliedEffects[i].id == 10)
+                {
+                    // increase v-credits by one
+                }
 
-                //if (appliedEffects[i].id != id && appliedEffects[i].id != 10)
-                //{
-                //    appliedEffects.Add(new AppliedEffects(id, duration));
-                //}
-            }
-
-            
-                appliedEffects.Add(new AppliedEffects(id, duration));
-            
+                if (appliedEffects[i].id != id && appliedEffects[i].id != 10)
+                {
+                    appliedEffects.Add(new AppliedEffects(id, duration));
+                }
+            }    
 
         }
 

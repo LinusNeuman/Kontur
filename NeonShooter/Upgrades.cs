@@ -16,6 +16,19 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using BloomPostprocess;
 
+// test for google play services
+using Android.Gms;
+using Android.Gms.Common;
+using Android.Gms.Games;
+using Android.Gms.Games.LeaderBoard;
+using Android.Gms.Plus;
+using Android.Gms.Plus.Model.People;
+using Android.Gms.Common.Apis;
+using Android.Views;
+using Android.Gms.Analytics;
+using Microsoft.Xna.Framework.Content;
+// test for in app billing
+
 namespace NeonShooter
 {
     public class PreviewShip
@@ -191,7 +204,21 @@ namespace NeonShooter
                             int f = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Default");
                             GameRoot.Instance.bloom.Settings = BloomSettings.PresetSettings[f];
 
-             
+                            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+                            activity.ConnectP();
+
+                            GoogleAnalytics analytics = GoogleAnalytics.GetInstance(activity);
+                            Tracker tracker = analytics.NewTracker("UA-39772266-5");
+
+                            tracker.SetScreenName("In-Game");
+
+                            tracker.Send(new HitBuilders.EventBuilder()
+                                .SetCategory("UX")
+                                .SetAction("Started playing")
+                                .SetLabel("submit")
+                                .Build());
+
+                            
 
                             Menu.gameState = Menu.GameState.ingame;
                         }

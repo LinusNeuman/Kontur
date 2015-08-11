@@ -92,11 +92,11 @@ namespace NeonShooter
             GoogleAnalytics analytics = GoogleAnalytics.GetInstance(activity);
             Tracker tracker = analytics.NewTracker("UA-39772266-5");
 
-            tracker.SetScreenName("main menu");
+            tracker.SetScreenName("Main Menu");
 
             tracker.Send(new HitBuilders.EventBuilder()
                 .SetCategory("UX")
-                .SetAction("click")
+                .SetAction("Started the game")
                 .SetLabel("submit")
                 .Build());
         }
