@@ -81,16 +81,7 @@ namespace NeonShooter
 
         public static bool FindAE(AppliedEffects ae, int id)
         {
-
-            if (ae.id == id)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+            return ae.id == id;
         }
 
         public static void UpdateAppliedEffects()
