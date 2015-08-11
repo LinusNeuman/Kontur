@@ -203,11 +203,13 @@ namespace NeonShooter
 
         public static void GiveEffect(int id, int duration)
         {
+            
+
             for (int i = 0; i < appliedEffects.Count; i++)
             {
                 if (appliedEffects[i].id == id)
                 {
-                    appliedEffects[i].duration = duration;
+                    appliedEffects[i].lifePercent = 1f;
                 }
 
                 if (appliedEffects[i].id == 10)
@@ -215,11 +217,14 @@ namespace NeonShooter
                     // increase v-credits by one
                 }
 
-                if (appliedEffects[i].id != id && appliedEffects[i].id != 10)
+                if (appliedEffects[i].id != id && appliedEffects[i].id != 10 && appliedEffects.Count > 0)
                 {
                     appliedEffects.Add(new AppliedEffects(id, duration));
                 }
-            }    
+            }
+
+            if (appliedEffects.Count == 0)
+                appliedEffects.Add(new AppliedEffects(id, duration));
 
         }
 

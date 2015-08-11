@@ -199,11 +199,10 @@ namespace NeonShooter
                 float randomSpread = rand.NextFloat(-playerAccuracy, playerAccuracy) + rand.NextFloat(-playerAccuracy, playerAccuracy);
                 Vector2 vel = MathUtil.FromPolar(aimAngle + randomSpread, 20f);
 
-                
-                //int ndx = PlayerStatus.appliedEffects.FindIndex(PlayerStatus.FindAE(,1);
-                //Console.WriteLine("Index of first computer book: {0}", ndx);
 
-                if (PlayerStatus.appliedEffects.Exists(x => x.id == 1))
+
+
+                if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 1)))
                 {
                     PlayerStatus.doubleBullets = true;
                 }
@@ -211,18 +210,6 @@ namespace NeonShooter
                 {
                     PlayerStatus.doubleBullets = false;
                 }
-
-
-
-                //int index = PlayerStatus.appliedEffects.FindIndex(x => x.id == 1);
-                //if (index == 1)
-                //{
-                //    PlayerStatus.doubleBullets = true;
-                //}
-                //if (index == 0)
-                //{
-                //    PlayerStatus.doubleBullets = false;
-                //}
 
                 if (PlayerStatus.doubleBullets == false)
                 {
