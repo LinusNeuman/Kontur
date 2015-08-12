@@ -199,37 +199,39 @@ namespace NeonShooter
                 float randomSpread = rand.NextFloat(-playerAccuracy, playerAccuracy) + rand.NextFloat(-playerAccuracy, playerAccuracy);
                 Vector2 vel = MathUtil.FromPolar(aimAngle + randomSpread, 20f);
 
+                
 
-
-
-                if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 1)))
+                if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 0)))
                 {
-                    PlayerStatus.doubleBullets = true;
-                }
-                else
-                {
-                    PlayerStatus.doubleBullets = false;
-                }
+                    if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 1)))
+                    {
+                        PlayerStatus.doubleBullets = true;
+                    }
+                    else
+                    {
+                        PlayerStatus.doubleBullets = false;
+                    }
 
-                if (PlayerStatus.doubleBullets == false)
-                {
-                    //Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
-                    Vector2 offset = Vector2.Zero;
-                    EntityManager.Add(new Bullet(Position + offset, vel));
+                    if (PlayerStatus.doubleBullets == false)
+                    {
+                        //Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
+                        Vector2 offset = Vector2.Zero;
+                        EntityManager.Add(new Bullet(Position + offset, vel));
 
-                    //offset= Vector2.Transform(new Vector2(25, 16), aimQuat);
-                    //EntityManager.Add(new Bullet(Position + offset, vel));
+                        //offset= Vector2.Transform(new Vector2(25, 16), aimQuat);
+                        //EntityManager.Add(new Bullet(Position + offset, vel));
+                    }
+                    if (PlayerStatus.doubleBullets == true)
+                    {
+                        Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
+                        EntityManager.Add(new Bullet(Position + offset, vel));
+
+                        offset = Vector2.Transform(new Vector2(25, 16), aimQuat);
+                        EntityManager.Add(new Bullet(Position + offset, vel));
+                    }
+
+                    Sound.Shot.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0); // change pitch
                 }
-                if(PlayerStatus.doubleBullets == true)
-                {
-                    Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
-                    EntityManager.Add(new Bullet(Position + offset, vel));
-
-                    offset= Vector2.Transform(new Vector2(25, 16), aimQuat);
-                    EntityManager.Add(new Bullet(Position + offset, vel));
-                }
-
-                Sound.Shot.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0); // change pitch
             }
             if (cooldownRemaining > 0)
                 cooldownRemaining--;

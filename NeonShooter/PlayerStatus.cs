@@ -203,18 +203,23 @@ namespace NeonShooter
                     appliedEffects[i].lifePercent = 1f;
                 }
 
-                if (appliedEffects[i].id == 10)
-                {
-                    // increase v-credits by one
-                }
-
-                if (appliedEffects[i].id != id && appliedEffects[i].id != 10 && appliedEffects.Count > 0)
+                if (appliedEffects[i].id != id && appliedEffects[i].id != 10 && appliedEffects[i].id != 7 && appliedEffects.Count > 0)
                 {
                     appliedEffects.Add(new AppliedEffects(id, duration));
                 }
             }
 
-            if (appliedEffects.Count == 0)
+            if (id == 10)
+            {
+                // increase v-credits by one
+            }
+
+            if (id == 7)
+            {
+                Lives += 1;
+            }
+
+            if (appliedEffects.Count == 0 && id != 10 && id != 7)
                 appliedEffects.Add(new AppliedEffects(id, duration));
 
         }
