@@ -28,7 +28,7 @@ namespace NeonShooter
         public static Texture2D Good_2xMultiplier { get; private set; }
         public static Texture2D Good_CircleShoot { get; private set; }
         public static Texture2D Good_Shield { get; private set; }
-        public static Texture2D Good_Slowmotion { get; private set; }
+        public static Texture2D Bad_HalfSpeed { get; private set; }
         public static Texture2D Good_Speed { get; private set; }
         public static Texture2D Good_ExtraLife { get; private set; }
         public static Texture2D Ring_Good { get; private set; }
@@ -73,7 +73,7 @@ namespace NeonShooter
             if (chooser == 4)
                 PowerUpManager.Add(PowerUp.Create_5_Shield(GetSpawnPosition()));
             if (chooser == 5)
-                PowerUpManager.Add(PowerUp.Create_6_Slowmotion(GetSpawnPosition()));
+                PowerUpManager.Add(PowerUp.Create_6_HalfSpeed(GetSpawnPosition()));
             if (chooser == 6)
                 PowerUpManager.Add(PowerUp.Create_7_Speed(GetSpawnPosition()));
             if (chooser == 7)
@@ -106,7 +106,7 @@ namespace NeonShooter
             Good_2xMultiplier = content.Load<Texture2D>("PowerUps/Icons/Good_2xMultiplier");
             Good_CircleShoot = content.Load<Texture2D>("PowerUps/Icons/Good_CircleShoot");
             Good_Shield = content.Load<Texture2D>("PowerUps/Icons/Good_Shield");
-            Good_Slowmotion = content.Load<Texture2D>("PowerUps/Icons/Good_Slowmotion");
+            Bad_HalfSpeed = content.Load<Texture2D>("PowerUps/Icons/Bad_HalfSpeed");
             Good_Speed = content.Load<Texture2D>("PowerUps/Icons/Good_Speed");
             Good_ExtraLife = content.Load<Texture2D>("PowerUps/Icons/Good_ExtraLife");
             Ring_Bad = content.Load<Texture2D>("PowerUps/Outlines/Bad_Ring");

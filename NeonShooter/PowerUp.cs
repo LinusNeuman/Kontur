@@ -116,9 +116,9 @@ namespace NeonShooter
             return powerup;
         }
 
-        public static PowerUp Create_6_Slowmotion(Vector2 position) // overheat
+        public static PowerUp Create_6_HalfSpeed(Vector2 position) // overheat
         {
-            var powerup = new PowerUp(PowerUpSpawner.Good_Slowmotion, position, false, 5, 600);
+            var powerup = new PowerUp(PowerUpSpawner.Bad_HalfSpeed, position, true, 5, 400);
             Sound.Spawn.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0);
 
             return powerup;

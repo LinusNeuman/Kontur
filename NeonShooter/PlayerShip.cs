@@ -192,11 +192,25 @@ namespace NeonShooter
             joystickMgr.Update();
             if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 6)))
             {
+                if(playerSpeed < 14*1.3f)
                 playerSpeed *= 1.1f;
             }
             if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 6)))
             {
-                SetStatsAndSpec();
+                if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 5)))
+                    SetStatsAndSpec();
+            }
+
+            if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 5)))
+            {
+                if (playerSpeed >= 14)
+                    playerSpeed *= 0.8f;
+            }
+
+            if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 5)))
+            {
+                if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 6)))
+                    SetStatsAndSpec();
             }
 
             var aim = Input.GetAimDirection(); // get aim

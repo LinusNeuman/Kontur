@@ -214,6 +214,7 @@ namespace NeonShooter
 
             if (id == 7)
             {
+                if(Lives < 2)
                 Lives += 1;
             }
 

@@ -206,6 +206,7 @@
     <AndroidAsset Include="Assets\Content\PowerUps\Icons\Bad_2xEnemy.xnb" />
     <AndroidAsset Include="Assets\Content\PowerUps\Icons\Good_VCred.xnb" />
     <AndroidAsset Include="Assets\Content\PowerUps\Outlines\Player_Shield.xnb" />
+    <AndroidAsset Include="Assets\Content\PowerUps\Icons\Bad_HalfSpeed.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

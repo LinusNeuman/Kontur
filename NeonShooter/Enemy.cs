@@ -92,7 +92,7 @@ namespace NeonShooter
         {
             var enemy = new Enemy(EnemySpawner.Follower, position);
             enemy.AddBehaviour(enemy.FollowPlayer());
-            enemy.PointValue = 100;
+            enemy.PointValue = 1500;
 
             Sound.Spawn.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0);
 
@@ -103,7 +103,7 @@ namespace NeonShooter
         {
             var enemy = new Enemy(EnemySpawner.Wanderer, position);
             enemy.AddBehaviour(enemy.MoveRandomly());
-            enemy.PointValue = 50;
+            enemy.PointValue = 800;
 
             Sound.Spawn.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0);
 
@@ -154,7 +154,15 @@ namespace NeonShooter
         {
             while (true)
             {
-                Velocity += (PlayerShip.Instance.Position - Position).ScaleTo(acceleration);
+                if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 9)))
+                {
+                    Velocity += ((PlayerShip.Instance.Position - Position).ScaleTo(acceleration)) * 1.05f;
+                }
+                if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 9)))
+                {
+                    Velocity += (PlayerShip.Instance.Position - Position).ScaleTo(acceleration);
+                }
+                
                 if (Velocity != Vector2.Zero)
                 Orientation = Velocity.ToAngle();
 

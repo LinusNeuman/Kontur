@@ -30,18 +30,27 @@ namespace NeonShooter
 
         public static void Update()
         {
-            if (!PlayerShip.Instance.IsDead && EntityManager.Count < 20)
+            if (!PlayerShip.Instance.IsDead && EntityManager.Count < 18)
             {
-                if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.EnemyCount < 15)
-                    EntityManager.Add(Enemy.CreateSeeker(GetSpawnPosition()));
-                if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.EnemyCount < 5)
-                    EntityManager.Add(Enemy.CreateWanderer(GetSpawnPosition()));
+                if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 8)))
+                {
 
+                    if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.EnemyCount < 10)
+                        EntityManager.Add(Enemy.CreateSeeker(GetSpawnPosition()));
+                    if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.EnemyCount < 8)
+                        EntityManager.Add(Enemy.CreateWanderer(GetSpawnPosition()));
+                }
+
+                if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 8)))
+                {
+                    if (rand.Next((int)inverseSpawnChance) == 0 && EntityManager.EnemyCount < 20)
+                        EntityManager.Add(Enemy.CreateSeeker(GetSpawnPosition()));
+                }
             }
 
             // increase spawn rate
-            if (inverseSpawnChance > 15)
-                inverseSpawnChance -= 0.02f;
+            if (inverseSpawnChance > 30)
+                inverseSpawnChance -= 0.016f;
 
             
         }
