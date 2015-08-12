@@ -187,11 +187,29 @@ namespace NeonShooter
                 //Menu.gameState = Menu.GameState.gameover;
             }
 
+
+
             joystickMgr.Update();
+            if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 6)))
+            {
+                playerSpeed *= 1.1f;
+            }
+            if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 6)))
+            {
+                SetStatsAndSpec();
+            }
 
             var aim = Input.GetAimDirection(); // get aim
             if (aim.LengthSquared() > 0 && cooldownRemaining <= 0 && !IsDead)
             {
+                if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 3)))
+                {
+                    SetStatsAndSpec();
+                }
+                if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 3)))
+                {
+                    cooldownFrames = 16;
+                }
                 cooldownRemaining = (int)cooldownFrames;
                 float aimAngle = aim.ToAngle();
                 Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, aimAngle);
@@ -199,39 +217,56 @@ namespace NeonShooter
                 float randomSpread = rand.NextFloat(-playerAccuracy, playerAccuracy) + rand.NextFloat(-playerAccuracy, playerAccuracy);
                 Vector2 vel = MathUtil.FromPolar(aimAngle + randomSpread, 20f);
 
-                
 
-                if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 0)))
+
+                    if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 0)))
+                    {
+                        if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 3)))
+                        {
+                            if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 1)))
+                            {
+                                //Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
+                                Vector2 offset = Vector2.Zero;
+                                EntityManager.Add(new Bullet(Position + offset, vel));
+
+                                //offset= Vector2.Transform(new Vector2(25, 16), aimQuat);
+                                //EntityManager.Add(new Bullet(Position + offset, vel));
+                            }
+                            if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 1)))
+                            {
+                                Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
+                                EntityManager.Add(new Bullet(Position + offset, vel));
+
+                                offset = Vector2.Transform(new Vector2(25, 16), aimQuat);
+                                EntityManager.Add(new Bullet(Position + offset, vel));
+                            }
+                        }
+
+                    }
+
+                if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 3)))
                 {
-                    if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 1)))
-                    {
-                        PlayerStatus.doubleBullets = true;
-                    }
-                    else
-                    {
-                        PlayerStatus.doubleBullets = false;
-                    }
+                    aimAngle = aim.ToAngle();
+                    aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, aimAngle);
+                    Vector2 offset = Vector2.Zero;
 
-                    if (PlayerStatus.doubleBullets == false)
-                    {
-                        //Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
-                        Vector2 offset = Vector2.Zero;
-                        EntityManager.Add(new Bullet(Position + offset, vel));
 
-                        //offset= Vector2.Transform(new Vector2(25, 16), aimQuat);
-                        //EntityManager.Add(new Bullet(Position + offset, vel));
-                    }
-                    if (PlayerStatus.doubleBullets == true)
-                    {
-                        Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
-                        EntityManager.Add(new Bullet(Position + offset, vel));
 
-                        offset = Vector2.Transform(new Vector2(25, 16), aimQuat);
-                        EntityManager.Add(new Bullet(Position + offset, vel));
-                    }
 
-                    Sound.Shot.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0); // change pitch
-                }
+                    vel = MathUtil.FromPolar(0, 25f);
+                    EntityManager.Add(new Bullet(Position + offset, vel));
+                    vel = MathUtil.FromPolar(10, 25f);
+                    EntityManager.Add(new Bullet(Position + offset, vel));
+                    vel = MathUtil.FromPolar(20, 25f);
+                    EntityManager.Add(new Bullet(Position + offset, vel));
+                    vel = MathUtil.FromPolar(30, 25f);
+                    EntityManager.Add(new Bullet(Position + offset, vel));
+                    vel = MathUtil.FromPolar(40, 25f);
+                    EntityManager.Add(new Bullet(Position + offset, vel));
+               }
+
+                Sound.Shot.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0); // change pitch
+
             }
             if (cooldownRemaining > 0)
                 cooldownRemaining--;
@@ -307,10 +342,16 @@ namespace NeonShooter
         public override void Draw(SpriteBatch spriteBatch)
         {
 
+            // make the size of the black hole pulsate
+            float scale = 1f + 0.1f * (float)Math.Sin(2 * GameRoot.GameTime.TotalGameTime.TotalSeconds);
             
+            if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 4)))
+            {
+                spriteBatch.Draw(PowerUpSpawner.Player_Shield, new Vector2(Position.X, Position.Y), null, null, new Vector2(PowerUpSpawner.Player_Shield.Width / 2, PowerUpSpawner.Player_Shield.Height / 2), 0f, new Vector2(scale, scale), Color.Purple, SpriteEffects.None, 0f);
+            }
             //joystickMgr.Draw(spriteBatch);
 
-            if(!IsDead)
+            if (!IsDead)
                 base.Draw(spriteBatch);
         }
     }

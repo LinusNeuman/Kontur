@@ -77,7 +77,7 @@ namespace NeonShooter
 
         public static PowerUp Create_1_OverHeat(Vector2 position) // overheat
         {
-            var powerup = new PowerUp(PowerUpSpawner.Bad_Overheat, position, true, 0, 600);
+            var powerup = new PowerUp(PowerUpSpawner.Bad_Overheat, position, true, 0, 800);
 
             Sound.Spawn.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0);
 
@@ -86,7 +86,7 @@ namespace NeonShooter
 
         public static PowerUp Create_2_2Bullets(Vector2 position) // overheat
         {
-            var powerup = new PowerUp(PowerUpSpawner.Good_2Bullets, position, false, 1, 600);
+            var powerup = new PowerUp(PowerUpSpawner.Good_2Bullets, position, false, 1, 350);
             Sound.Spawn.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0);
 
             return powerup;
@@ -102,7 +102,7 @@ namespace NeonShooter
 
         public static PowerUp Create_4_CircleShoot(Vector2 position) // overheat
         {
-            var powerup = new PowerUp(PowerUpSpawner.Good_CircleShoot, position, false, 3, 600);
+            var powerup = new PowerUp(PowerUpSpawner.Good_CircleShoot, position, false, 3, 350);
             Sound.Spawn.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0);
 
             return powerup;
@@ -110,7 +110,7 @@ namespace NeonShooter
 
         public static PowerUp Create_5_Shield(Vector2 position) // overheat
         {
-            var powerup = new PowerUp(PowerUpSpawner.Good_Shield, position, false, 4, 600);
+            var powerup = new PowerUp(PowerUpSpawner.Good_Shield, position, false, 4, 350);
             Sound.Spawn.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0);
 
             return powerup;

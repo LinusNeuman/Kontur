@@ -79,14 +79,14 @@ namespace NeonShooter
             for (int i = 0; i < enemies.Count; i++)
                 for (int j = i + 1; j < enemies.Count; j++)
                 {
-                    if(IsColliding(enemies[i], enemies[j]))
+                    if (IsColliding(enemies[i], enemies[j]))
                     {
                         enemies[i].HandleCollision(enemies[j]);
                         enemies[j].HandleCollision(enemies[i]);
                     }
                 }
 
-            
+
             for (int i = 0; i < enemies.Count; i++)
                 for (int j = 0; j < bullets.Count; j++)
                 {
@@ -96,17 +96,20 @@ namespace NeonShooter
                         bullets[j].IsExpired = true;
                         PlayerStatus.achkills += 1;
                     }
-                    
+
                 }
 
             //handle collision between the player and enemies
-            for (int i = 0; i < enemies.Count; i++)
+            if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 4)))
             {
-                if (enemies[i].IsActive && IsColliding(PlayerShip.Instance, enemies[i]))
+                for (int i = 0; i < enemies.Count; i++)
                 {
-                    EntityManager.KillPlayer();
-                    enemies.ForEach(x => x.WasShot());
-                    break;
+                    if (enemies[i].IsActive && IsColliding(PlayerShip.Instance, enemies[i]))
+                    {
+                        EntityManager.KillPlayer();
+                        enemies.ForEach(x => x.WasShot());
+                        break;
+                    }
                 }
             }
 

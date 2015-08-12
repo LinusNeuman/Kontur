@@ -55,7 +55,7 @@ namespace NeonShooter
             Position += Velocity;
             Position = Vector2.Clamp(Position, Size / 2, GameRoot.VirtualScreenSize - Size / 2);
 
-            Velocity *= 0.8f;
+            Velocity *= 0.87f;
         }
 
         public void WasShot()

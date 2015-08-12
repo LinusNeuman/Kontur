@@ -68,8 +68,6 @@ namespace NeonShooter
 
         public static int selectedShip;
 
-        public static bool doubleBullets;
-
         private const string highScoreFilename = "highscores.txt";
 
         public static int achkills;
@@ -316,8 +314,11 @@ namespace NeonShooter
             if (PlayerShip.Instance.IsDead)
                 return;
 
-            Score += basePoints * Multiplier;
-            
+            if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 2)))
+                Score += (basePoints * Multiplier);
+            if (PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 2)))
+                Score += (basePoints * Multiplier) * 2;
+
         }
 
         public static void IncreaseMultiplier()

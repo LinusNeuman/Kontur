@@ -19,6 +19,7 @@ namespace NeonShooter
     {
         #region Textures
 
+        public static Texture2D Player_Shield { get; private set; }
         public static Texture2D Good_VCred { get; private set; }
         public static Texture2D Bad_2xEnemy { get; private set; }
         public static Texture2D Bad_EnemySpd { get; private set; }
@@ -96,6 +97,7 @@ namespace NeonShooter
 
         public static void Load(ContentManager content)
         {
+            Player_Shield = content.Load<Texture2D>("PowerUps/Outlines/Player_Shield");
             Good_VCred = content.Load<Texture2D>("PowerUps/Icons/Good_VCred");
             Bad_EnemySpd = content.Load<Texture2D>("PowerUps/Icons/Bad_EnemySpd");
             Bad_2xEnemy = content.Load<Texture2D>("PowerUps/Icons/Bad_2xEnemy");
