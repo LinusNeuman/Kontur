@@ -108,6 +108,7 @@ namespace NeonShooter
                             JoystickManager.noDirection = false;
                             GameRoot.ParticleManager.Reset();
 
+                            PowerUpManager.ResetGame();
 
                             if (GameRoot.enableMusic == true)
                             {

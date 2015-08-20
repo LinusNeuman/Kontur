@@ -254,6 +254,8 @@ namespace NeonShooter
                                 offset = Vector2.Transform(new Vector2(25, 16), aimQuat);
                                 EntityManager.Add(new Bullet(Position + offset, vel));
                             }
+
+                        Sound.Shot.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0); // change pitch
                         }
 
                     }
@@ -277,9 +279,11 @@ namespace NeonShooter
                     EntityManager.Add(new Bullet(Position + offset, vel));
                     vel = MathUtil.FromPolar(40, 25f);
                     EntityManager.Add(new Bullet(Position + offset, vel));
-               }
 
-                Sound.Shot.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0); // change pitch
+                    Sound.Shot.Play(0.4f, rand.NextFloat(-0.2f, 0.2f), 0); // change pitch
+                }
+
+                
 
             }
             if (cooldownRemaining > 0)

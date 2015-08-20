@@ -51,7 +51,7 @@ namespace NeonShooter
         private const int maxMultiplier = 5;
 
         public static int Lives { get; private set; }
-        public static int Score { get; private set; }
+        public static int Score { get; set; }
         public static int Multiplier { get; private set; }
         public static int HighScore { get; private set; }
         public static bool IsGameOver { get { return Lives == 0; } }
@@ -171,18 +171,7 @@ namespace NeonShooter
 
        
 
-        private static void SaveHighScore(int score)
-        {
-            
-            try 
-            {
-                File.WriteAllText(highScoreFilename, score.ToString());
-            }     
-            catch(Exception e) 
-            {
-                System.Console.WriteLine("Error: " + e.ToString());
-            }
-        }
+        
 
         static PlayerStatus()
         {
@@ -238,8 +227,6 @@ namespace NeonShooter
 
         public static void Reset()
         {
-            if (Score > HighScore)
-                SaveHighScore(HighScore = Score);
 
             Score = 0;
             Multiplier = 1;

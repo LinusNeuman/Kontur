@@ -103,7 +103,7 @@ namespace NeonShooter
                             JoystickManager.noDirection = false;
                             GameRoot.ParticleManager.Reset();
 
-
+                            PowerUpManager.ResetGame();
 
                             MediaPlayer.Volume = 0.8f;
                             MediaPlayer.Play(Sound.MainTheme);
@@ -126,6 +126,8 @@ namespace NeonShooter
                             PlayerShip.Instance.framesUntilRespawn = 0;
                             JoystickManager.noDirection = false;
                             GameRoot.ParticleManager.Reset();
+
+                            PowerUpManager.ResetGame();
 
                             MediaPlayer.Volume = 0.8f;
                             MediaPlayer.Play(Sound.Music);

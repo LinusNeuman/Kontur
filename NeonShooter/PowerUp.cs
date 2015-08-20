@@ -173,7 +173,6 @@ namespace NeonShooter
 
         public void Kill()
         {
-            System.Console.WriteLine("Alpha: " + color.A.ToString());
             color.A -= 1;
             if (color.A <= 5)
                 isExpired = true;

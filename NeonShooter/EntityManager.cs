@@ -107,7 +107,9 @@ namespace NeonShooter
                     if (enemies[i].IsActive && IsColliding(PlayerShip.Instance, enemies[i]))
                     {
                         EntityManager.KillPlayer();
+                        PlayerStatus.Score -= 25000;
                         enemies.ForEach(x => x.WasShot());
+                        PowerUpManager.ResetGame();
                         break;
                     }
                 }
