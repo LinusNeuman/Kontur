@@ -51,7 +51,7 @@ namespace NeonShooter
 
         public void Kill()
         {
-            
+            position.Y -= 0.2f;
             contentColor.A -= 2;
             if (contentColor.A <= 5)
                 isExpired = true;
@@ -59,11 +59,11 @@ namespace NeonShooter
 
         public void Update()
         {
-            position.Y -= 0.5f;
+            
 
             if (timeUntilStart <= 0)
             {
-                
+                position.Y -= 0.08f;
 
                 percentLife -= 1f / duration;
 
