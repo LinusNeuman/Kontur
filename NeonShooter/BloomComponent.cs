@@ -116,6 +116,8 @@ namespace BloomPostprocess
             renderTarget2 = new RenderTarget2D(GraphicsDevice, width, height, false, format, DepthFormat.None);
         }
 
+        
+
         /// <summary>
         /// Load your graphics content.
         /// </summary>

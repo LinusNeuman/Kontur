@@ -138,6 +138,8 @@ namespace NeonShooter
 
         public void Kill()
         {
+
+            PlayerMessageHandler.Add(PlayerMessage.Died_Message());
             PlayerStatus.RemoveLife();
             joystickMgr.Reset();
             framesUntilRespawn = PlayerStatus.IsGameOver ? 300 : 120;

@@ -78,6 +78,8 @@ namespace NeonShooter
             Upgrades.LoadButtons(Content);
             Upgrades.ReloadButtons();
 
+            PlayerMessageHandler.Load(Content);
+
             //PlayerShip.Load(Content);
             //EnemySpawner.Load(Content);
             Sound.Load(Content);

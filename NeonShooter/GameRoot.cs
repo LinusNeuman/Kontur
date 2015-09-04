@@ -267,7 +267,7 @@ namespace NeonShooter
 
                             ParticleManager.Update();
 
-                           
+                            PlayerMessageHandler.Update();
 
                         }
                         break;
@@ -364,8 +364,6 @@ namespace NeonShooter
 
                             ParticleManager.Draw(spriteBatch);
                             PlayerShip.Instance.joystickMgr.DrawSight(spriteBatch);
-                            PowerUpManager.Update();
-
                         }
                         break;
 
@@ -436,8 +434,8 @@ namespace NeonShooter
                             spriteBatch.DrawString(Art.Font, PlayerStatus.Score.ToString(), new Vector2(705, 12), Color.White);
                             spriteBatch.DrawString(Art.Font, PlayerStatus.Multiplier.ToString(), new Vector2(380, 12), Color.White);
                             PowerUpManager.Draw(spriteBatch);
+                            PlayerMessageHandler.Draw(spriteBatch);
 
-                            
 
                         }
                         break;
