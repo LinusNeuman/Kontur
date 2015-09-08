@@ -82,7 +82,7 @@ namespace NeonShooter
         {
             for (int i = 0; i < pMessages.Count; i++)
             {
-                spriteBatch.DrawString(pMessages[i].contentfont, pMessages[i].contentMessage, new Vector2(pMessages[i].position.X, pMessages[i].position.Y - (i*50)), pMessages[i].contentColor);
+                spriteBatch.DrawString(pMessages[i].contentfont, pMessages[i].contentMessage, new Vector2(pMessages[i].position.X, pMessages[i].position.Y + (i*50)), pMessages[i].contentColor);
             }
         }
     }

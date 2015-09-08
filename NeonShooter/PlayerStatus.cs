@@ -82,68 +82,111 @@ namespace NeonShooter
             return ae.id == id;
         }
 
+        public static bool FindpM(PlayerMessage pM, string cm)
+        {
+            return pM.recieveMessage == cm;
+        }
+
+        public static void SendPowerUpMessage(int id)
+        {
+            if (id == 0)
+            {
+                if (!PlayerMessageHandler.pMessages.Exists(pM => PlayerStatus.FindpM(pM, "Overheat")))
+                {
+                    PlayerMessageHandler.Add(PlayerMessage.PowerUp_Message("Overheat", true));
+                }
+            }
+
+            if (id == 1)
+            {
+                if (!PlayerMessageHandler.pMessages.Exists(pM => PlayerStatus.FindpM(pM, "2x Bullets")))
+                {
+                    PlayerMessageHandler.Add(PlayerMessage.PowerUp_Message("2x Bullets", false));
+                }
+            }
+
+            if (id == 2)
+            {
+                if (!PlayerMessageHandler.pMessages.Exists(pM => PlayerStatus.FindpM(pM, "2x Multiplier")))
+                {
+                    PlayerMessageHandler.Add(PlayerMessage.PowerUp_Message("2x Multiplier", false));
+                }
+            }
+
+            if (id == 3)
+            {
+                if (!PlayerMessageHandler.pMessages.Exists(pM => PlayerStatus.FindpM(pM, "Circle Shoot")))
+                {
+                    PlayerMessageHandler.Add(PlayerMessage.PowerUp_Message("Circle Shoot", false));
+                }
+            }
+
+            if (id == 4)
+            {
+                if (!PlayerMessageHandler.pMessages.Exists(pM => PlayerStatus.FindpM(pM, "Shield")))
+                {
+                    PlayerMessageHandler.Add(PlayerMessage.PowerUp_Message("Shield", false));
+                }
+            }
+
+            if (id == 5)
+            {
+                if (!PlayerMessageHandler.pMessages.Exists(pM => PlayerStatus.FindpM(pM, "Half Speed")))
+                {
+                    PlayerMessageHandler.Add(PlayerMessage.PowerUp_Message("Half Speed", true));
+                }
+            }
+
+            if (id == 6)
+            {
+                if (!PlayerMessageHandler.pMessages.Exists(pM => PlayerStatus.FindpM(pM, "2x Speed")))
+                {
+                    PlayerMessageHandler.Add(PlayerMessage.PowerUp_Message("2x Speed", false));
+                }
+            }
+
+            if (id == 7)
+            {
+                if (!PlayerMessageHandler.pMessages.Exists(pM => PlayerStatus.FindpM(pM, "Extra Life")))
+                {
+                    PlayerMessageHandler.Add(PlayerMessage.PowerUp_Message("Extra Life", false));
+                }
+            }
+
+            if (id == 8)
+            {
+                if (!PlayerMessageHandler.pMessages.Exists(pM => PlayerStatus.FindpM(pM, "2x Enemies")))
+                {
+                    PlayerMessageHandler.Add(PlayerMessage.PowerUp_Message("2x Enemies", true));
+                }
+            }
+
+            if (id == 9)
+            {
+                if (!PlayerMessageHandler.pMessages.Exists(pM => PlayerStatus.FindpM(pM, "2x Enemy Speed")))
+                {
+                    PlayerMessageHandler.Add(PlayerMessage.PowerUp_Message("2x Enemy Speed", true));
+                }
+            }
+
+            if (id == 10)
+            {
+                if (!PlayerMessageHandler.pMessages.Exists(pM => PlayerStatus.FindpM(pM, "One V-Credit")))
+                {
+                    PlayerMessageHandler.Add(PlayerMessage.PowerUp_Message("One V-Credit", false));
+                }
+            }
+        }
+
+
         public static void UpdateAppliedEffects()
         {
             for (int i = 0; i < appliedEffects.Count; i++)
             {
-                if(appliedEffects[i].id == 0)
-                {
-                    // apply the bad: overheat
-                }
-
-                if (appliedEffects[i].id == 1)
-                {
-                    // double bullets
-                }
-
-                if (appliedEffects[i].id == 2)
-                {
-                    // apply the good: 2xmultiplier
-                }
-
-                if (appliedEffects[i].id == 3)
-                {
-                    // apply the good: circleshoot
-                }
-
-                if (appliedEffects[i].id == 4)
-                {
-                    // apply the good: Shield
-                }
-
-                if (appliedEffects[i].id == 5)
-                {
-                    // apply the good: slowmotion
-                }
-
-                if (appliedEffects[i].id == 6)
-                {
-                    // apply the good: speed
-                }
-
-                if (appliedEffects[i].id == 7)
-                {
-                    // apply the good: extra life
-                }
-
-                if (appliedEffects[i].id == 8)
-                {
-                    // apply the bad: 2x enemy
-                }
-
-                if (appliedEffects[i].id == 9)
-                {
-                    // apply the bad: enemy speed
-                }
-
-                if (appliedEffects[i].id == 10)
-                {
-                    // apply the good: v credit
-                }
 
                 appliedEffects[i].lifePercent -= 1f / appliedEffects[i].duration;
 
-                if(appliedEffects[i].lifePercent <= 0)
+                if (appliedEffects[i].lifePercent <= 0)
                 {
                     appliedEffects[i].isExpired = true;
                 }
@@ -227,7 +270,7 @@ namespace NeonShooter
 
         public static void Reset()
         {
-
+            PlayerMessageHandler.ResetGame();
             Score = 0;
             Multiplier = 1;
             Lives = 2;

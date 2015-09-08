@@ -66,6 +66,7 @@ namespace NeonShooter
                 if (powerups[i].IsActive && IsColliding2(powerups[i], PlayerShip.Instance))
                 {
                     PlayerStatus.GiveEffect(powerups[i].ID, powerups[i].duration);
+                    PlayerStatus.SendPowerUpMessage(powerups[i].ID);
                     // give player power up
                     powerups.ForEach(x => x.WasShot());
                     break;

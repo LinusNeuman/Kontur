@@ -266,6 +266,7 @@ namespace NeonShooter
                             EntityManager.Update();
 
                             ParticleManager.Update();
+                            PowerUpManager.Update();
 
                             PlayerMessageHandler.Update();
 

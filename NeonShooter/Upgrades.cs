@@ -229,6 +229,11 @@ namespace NeonShooter
                             {
                                 selectedShip -= 1;
                             }
+
+                            else if(selectedShip == 0)
+                            {
+                                selectedShip = 3;
+                            }
                         }
 
                         if (buttonList[i].texture == RightArrowButtonTxt)
@@ -236,6 +241,11 @@ namespace NeonShooter
                             if (selectedShip < 3)
                             {
                                 selectedShip += 1;
+                            }
+
+                            else if (selectedShip == 3)
+                            {
+                                selectedShip = 0;
                             }
                         }
                     }

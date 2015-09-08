@@ -24,10 +24,13 @@ namespace NeonShooter
         public SpriteFont contentfont;
         public Color contentColor;
         public int duration;
+        public Color chooseColor;
+
+        public string recieveMessage;
 
         public Vector2 position;
 
-        public PlayerMessage(int Duration, string Message)
+        public PlayerMessage(int Duration, string Message, Color choosecol)
         {
             contentfont = PlayerMessageHandler.mediumFont;
             contentColor = Color.Transparent;
@@ -35,17 +38,28 @@ namespace NeonShooter
 
             contentMessage = Message;
             percentLife = 1f;
-
+            chooseColor = choosecol;
             duration = Duration;
 
             position = new Vector2(1920 / 2 - contentfont.MeasureString(contentMessage).X / 2,
-                   1080 - 50 - contentfont.MeasureString(contentMessage).Y / 2);
+                   1080 - 80 - contentfont.MeasureString(contentMessage).Y / 2);
         }
 
         public static PlayerMessage Died_Message()
         {
-            var pmessage = new PlayerMessage(60, "You died!");
+            var pmessage = new PlayerMessage(60, "You died!", Color.Red);
 
+            return pmessage;
+        }
+
+        public static PlayerMessage PowerUp_Message(string name, bool bad)
+        {
+            var pmessage = new PlayerMessage(50, "Picked up " + name, Color.Cyan);
+            pmessage.recieveMessage = name;
+            if (bad == true)
+            {
+                pmessage = new PlayerMessage(50, "Picked up " + name, Color.Red);
+            }
             return pmessage;
         }
 
@@ -73,7 +87,7 @@ namespace NeonShooter
             else
             {
                 timeUntilStart--;
-                contentColor = Color.White * (1 - timeUntilStart / 60f);
+                contentColor = chooseColor * (1 - timeUntilStart / 60f);
             }
         }
     }
