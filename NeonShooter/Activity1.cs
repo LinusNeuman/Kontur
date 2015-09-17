@@ -154,11 +154,8 @@ namespace NeonShooter
         protected async void GetProducts()
         {
             _products = await _serviceConnection.BillingHandler.QueryInventoryAsync(new List<string> {
-                    ReservedTestProductIDs.Purchased,
-                    ReservedTestProductIDs.Canceled,
-                    ReservedTestProductIDs.Refunded,
-                    ReservedTestProductIDs.Unavailable,
-                    "all_ships_unlocked"
+                    "all_ships_unlocked",
+                    ReservedTestProductIDs.Purchased
                 }, ItemType.Product);
             // Were any products returned?
             if (_products == null)
@@ -216,10 +213,13 @@ namespace NeonShooter
                 return;
             }
 
-            if (_serviceConnection.Connected)
+            if (_serviceConnection != null)
             {
-                // Ask the open service connection's billing handler to process this request
-                _serviceConnection.BillingHandler.HandleActivityResult(requestCode, resultCode, data);
+                if (_serviceConnection.Connected)
+                {
+                    // Ask the open service connection's billing handler to process this request
+                    _serviceConnection.BillingHandler.HandleActivityResult(requestCode, resultCode, data);
+                }
             }
 
             // TODO: Use a call back to update the purchased items
@@ -272,7 +272,7 @@ namespace NeonShooter
 
         public void BuyProduct()
         {
-            _serviceConnection.BillingHandler.BuyProduct(_products[4]);
+            _serviceConnection.BillingHandler.BuyProduct(_products[1]);
         }
 
         public void ConnectP()
