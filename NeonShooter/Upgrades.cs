@@ -206,7 +206,8 @@ namespace NeonShooter
 
                             NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
                             activity.ConnectP();
-
+                            if (activity.pGooglePlayClient.IsConnected)
+                                activity.ConnectIAB();
                             GoogleAnalytics analytics = GoogleAnalytics.GetInstance(activity);
                             Tracker tracker = analytics.NewTracker("UA-39772266-5");
 
@@ -225,6 +226,7 @@ namespace NeonShooter
 
                         if(buttonList[i].texture == LeftArrowButtonTxt)
                         {
+                            
                             if (selectedShip > 0)
                             {
                                 selectedShip -= 1;

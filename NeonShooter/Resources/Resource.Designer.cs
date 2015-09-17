@@ -27,6 +27,7 @@ namespace NeonShooter
 		public static void UpdateIdValues()
 		{
 			global::FacebookMonoDroid.Resource.String.library_name = global::NeonShooter.Resource.String.library_name;
+			global::Xamarin.InAppBilling.Resource.String.library_name = global::NeonShooter.Resource.String.library_name;
 		}
 		
 		public partial class Animation
