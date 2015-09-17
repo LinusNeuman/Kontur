@@ -155,7 +155,6 @@ namespace NeonShooter
         {
             _products = await _serviceConnection.BillingHandler.QueryInventoryAsync(new List<string> {
                     "all_ships_unlocked",
-                    ReservedTestProductIDs.Purchased
                 }, ItemType.Product);
             // Were any products returned?
             if (_products == null)
@@ -272,7 +271,7 @@ namespace NeonShooter
 
         public void BuyProduct()
         {
-            _serviceConnection.BillingHandler.BuyProduct(_products[1]);
+            _serviceConnection.BillingHandler.BuyProduct(_products[0]);
         }
 
         public void ConnectP()
