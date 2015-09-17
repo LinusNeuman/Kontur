@@ -435,6 +435,7 @@ namespace NeonShooter
                             spriteBatch.DrawString(Art.Font, PlayerStatus.Lives.ToString(), new Vector2(1920 - 75, 12), Color.White);
                             spriteBatch.DrawString(Art.Font, PlayerStatus.Score.ToString(), new Vector2(705, 12), Color.White);
                             spriteBatch.DrawString(Art.Font, PlayerStatus.Multiplier.ToString(), new Vector2(380, 12), Color.White);
+                            spriteBatch.DrawString(Art.Font, PlayerStatus.VCredits.ToString(), new Vector2(1485, 12), Color.White);
                             PowerUpManager.Draw(spriteBatch);
                             
 

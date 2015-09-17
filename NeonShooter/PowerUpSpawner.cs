@@ -83,15 +83,7 @@ namespace NeonShooter
             if (chooser == 9)
                 PowerUpManager.Add(PowerUp.Create_10_EnemySpd(GetSpawnPosition()));
             if (chooser == 10)
-            {
-                Random f = new Random();
-                int chooser2 = 0;
-                chooser2 = f.Next(2);
-                if (chooser2 == 1) // place powerups here that should be hard to get
-                {
-                    PowerUpManager.Add(PowerUp.Create_11_VCred(GetSpawnPosition()));
-                }
-            }
+                PowerUpManager.Add(PowerUp.Create_11_VCred(GetSpawnPosition()));
             
         }
 

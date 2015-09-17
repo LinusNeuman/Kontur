@@ -42,7 +42,7 @@
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
-    <DevInstrumentationEnabled>False</DevInstrumentationEnabled>
+    <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -177,7 +177,6 @@
     <AndroidAsset Include="Assets\Content\Particles\LaserBig.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\gridBackground.xnb" />
     <AndroidAsset Include="Assets\Content\Enemies\Wanderer.xnb" />
-    <AndroidAsset Include="Assets\Content\Graphics\ScoreBar.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\Loading.xnb" />
     <AndroidAsset Include="Assets\Content\Graphics\About.xnb" />
     <AndroidAsset Include="Assets\Content\Upgrades\PlayUpg.xnb" />
@@ -210,6 +209,7 @@
     <AndroidAsset Include="Assets\Content\PowerUps\Outlines\Player_Shield.xnb" />
     <AndroidAsset Include="Assets\Content\PowerUps\Icons\Bad_HalfSpeed.xnb" />
     <AndroidAsset Include="Assets\Content\Fonts\MessageFont.xnb" />
+    <AndroidAsset Include="Assets\Content\Graphics\ScoreBar.xnb" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

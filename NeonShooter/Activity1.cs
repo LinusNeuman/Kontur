@@ -47,6 +47,8 @@ namespace NeonShooter
         public static GoogleAnalytics analytics;
         public static Tracker tracker;
 
+  
+
         // Aribitrary numbers just used for identifying requests to the Google services.
         public static int REQUEST_CODE_RESOLVE_ERR = 9000;
         public static int REQUEST_LEADERBOARD = 9001;
@@ -68,6 +70,8 @@ namespace NeonShooter
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
+         
 
             System.Console.WriteLine("started builder");
             // Create the interface used to interact with Google Play.
@@ -99,15 +103,19 @@ namespace NeonShooter
                 //.SetAccountName("Pelle")
                 ;
                 //.Build();
-            
+
+
 
             
-            //builder.SetViewForPopups(getApiClient(), getWindow().getDecorView().findViewById(android.R.id.content));
 
-            
-            mGooglePlayClient = builder.Build();
+        //builder.SetViewForPopups(getApiClient(), getWindow().getDecorView().findViewById(android.R.id.content));
+
+
+        mGooglePlayClient = builder.Build();
             //mGooglePlayClient.Connect();
-            
+
+           
+
 
             //builder.SetViewForPopups(view);
             //pGooglePlayClient.RegisterConnectionCallbacks (this);
@@ -118,6 +126,8 @@ namespace NeonShooter
             SetContentView(g.Window);
             g.Run();
         }
+
+
 
         protected void OnPause()
         {

@@ -3,8 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
+using Android.Content;
 
 using BloomPostprocess;
+
 
 // test for google play services
 using Android.Gms;
@@ -27,10 +29,13 @@ namespace NeonShooter
 
         public static bool hasStartedGameLoad;
 
+        private static readonly int RC_SAVED_GAMES = 9009;
+
         public static int timer = 0;
 
         public LoadingScreen()
         {
+
         }
 
 
@@ -101,6 +106,10 @@ namespace NeonShooter
                 .SetAction("Started the game")
                 .SetLabel("submit")
                 .Build());
+
+
+           
+
         }
 
         public static void Update(ContentManager Content)

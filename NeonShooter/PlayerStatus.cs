@@ -56,6 +56,7 @@ namespace NeonShooter
         public static int HighScore { get; private set; }
         public static bool IsGameOver { get { return Lives == 0; } }
 
+        public static int VCredits;
         private static float multiplierTimeLeft;
         private static int scoreForExtraLife;
 
