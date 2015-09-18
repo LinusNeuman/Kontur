@@ -101,7 +101,7 @@ namespace NeonShooter
             
         }
 
-        public static void Reload()
+        public static void ConnectToServices()
         {
 
         }
@@ -172,7 +172,7 @@ namespace NeonShooter
                         {
                             NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
 
-                            var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("https://www.facebook.com/KonturGame"));
+                            var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("https://m.facebook.com/KonturGame"));
                             activity.StartActivity(intent);
                             
                         }
@@ -181,8 +181,23 @@ namespace NeonShooter
                         {
                             NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
                             if (activity.pGooglePlayClient.IsConnected)
-                                activity.StartActivityForResult(GamesClass.Leaderboards.GetLeaderboardIntent(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ"), Activity1.REQUEST_LEADERBOARD);
-                                //activity.StartActivityForResult(GamesClass.Leaderboards.GetAllLeaderboardsIntent(activity.pGooglePlayClient), Activity1.REQUEST_LEADERBOARD);
+                            {
+                                try
+                                {
+                                    activity.StartActivityForResult(GamesClass.Leaderboards.GetLeaderboardIntent(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ"), Activity1.REQUEST_LEADERBOARD);
+                                    //activity.StartActivityForResult(GamesClass.Leaderboards.GetAllLeaderboardsIntent(activity.pGooglePlayClient), Activity1.REQUEST_LEADERBOARD);
+                                }
+                                catch (Exception e)
+                                {
+                                    Toast.MakeText(activity, "You must be connected! " + e.ToString(), ToastLength.Short).Show();
+                                    throw;
+                                }
+                                
+                            }
+                            else
+                            {
+                                activity.ConnectP();
+                            }
                         }
                     }
                     else

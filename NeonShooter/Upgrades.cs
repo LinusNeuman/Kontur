@@ -71,6 +71,9 @@ namespace NeonShooter
 
         public static int selectedShip = 2;
 
+
+        bool hasPressedBuy = false;
+
         public static void ReloadButtons()
         {
             buttonList.Clear();
@@ -163,6 +166,15 @@ namespace NeonShooter
             previewShip.modelRotation += (float)gameTime.ElapsedGameTime.TotalMilliseconds *
                 MathHelper.ToRadians(0.05f);
 
+            //if(connectedToServices != true)
+            //{
+            //    NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+            //    if (activity.pGooglePlayClient.IsConnected)
+            //        activity.ConnectIAB();
+
+            //    connectedToServices = true;
+            //}
+
             HandleTouchInput(Content);
         }
 
@@ -204,21 +216,8 @@ namespace NeonShooter
                             int f = Array.FindIndex(BloomSettings.PresetSettings, row => row.Name == "Default");
                             GameRoot.Instance.bloom.Settings = BloomSettings.PresetSettings[f];
 
-                            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
-                            activity.ConnectP();
-                            if (activity.pGooglePlayClient.IsConnected)
-                                activity.ConnectIAB();
-                            GoogleAnalytics analytics = GoogleAnalytics.GetInstance(activity);
-                            Tracker tracker = analytics.NewTracker("UA-39772266-5");
 
-                            tracker.SetScreenName("In-Game");
-
-                            tracker.Send(new HitBuilders.EventBuilder()
-                                .SetCategory("UX")
-                                .SetAction("Started playing")
-                                .SetLabel("submit")
-                                .Build());
-
+                           
 
                             
                             Menu.gameState = Menu.GameState.ingame;
@@ -272,6 +271,16 @@ namespace NeonShooter
                                 };
 
                                 GameRoot.ParticleManager2.CreateParticle(Art.LineParticle, gesture.Position * GameRoot.tempScale, color, 190, new Vector2(1f, 1f), state);
+                            }
+                        }
+                        if (gesture.GestureType == GestureType.Tap && gesture.Position.X < 100 && gesture.Position.Y < 100 && hasPressedBuy == false)
+                        {
+                            NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
+                            if (activity.pGooglePlayClient.IsConnected)
+                            {
+                                activity.BuyProduct();
+                                //activity.StartActivityForResult(GamesClass.Achievements.GetAchievementsIntent(activity.pGooglePlayClient), Activity1.REQUEST_ACHIEVEMENTS);
+                                hasPressedBuy = true;
                             }
                         }
                     }

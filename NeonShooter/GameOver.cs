@@ -43,6 +43,8 @@ namespace NeonShooter
 
         static Random rand = new Random();
 
+        bool readyForInput = false;
+
         List<Button> buttonList = new List<Button>();
 
         public GameOver()
@@ -71,7 +73,18 @@ namespace NeonShooter
 
         public void Update(ContentManager Content)
         {
-            HandleTouchInput(Content);
+            if (readyForInput == true)
+            {
+                HandleTouchInput(Content);
+            }
+            else
+            {
+                while(!TouchPanel.IsGestureAvailable)
+                {
+                    readyForInput = true;
+                    break;
+                }
+            }
         }
 
         public static void TransmitScore()
@@ -110,7 +123,7 @@ namespace NeonShooter
 
                             Menu.gameState = Menu.GameState.menu;
 
-
+                            readyForInput = false;
                         }
 
                         if (buttonList[i].bgameState == Button.bGameState.ingame)
@@ -137,7 +150,7 @@ namespace NeonShooter
                             MediaPlayer.IsRepeating = true;
 
 
-
+                            readyForInput = false;
                             Menu.gameState = Menu.GameState.ingame;
                         }
                     }

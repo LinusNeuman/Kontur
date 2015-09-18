@@ -56,7 +56,6 @@ namespace NeonShooter
 
         // The main interface for GooglePlay services.
         private IGoogleApiClient mGooglePlayClient;
-        private IInAppBillingHandler mAppBilling;
         private InAppBillingServiceConnection _serviceConnection;
 
         // Connection to the Google Play billing service.
@@ -212,6 +211,18 @@ namespace NeonShooter
                 return;
             }
 
+            if (requestCode == REQUEST_LEADERBOARD)
+            {
+                mGooglePlayClient.Disconnect();
+                return;
+            }
+
+            if (requestCode == REQUEST_ACHIEVEMENTS)
+            {
+                mGooglePlayClient.Disconnect();
+                return;
+            }
+
             if (_serviceConnection != null)
             {
                 if (_serviceConnection.Connected)
@@ -229,6 +240,8 @@ namespace NeonShooter
         public void OnConnected(Bundle bundle) 
         {
             System.Console.WriteLine("Connected-ish");
+
+            ConnectIAB();
 
         }
 
@@ -266,6 +279,14 @@ namespace NeonShooter
             get
             {
                 return mGooglePlayClient;
+            }
+        }
+
+        public InAppBillingServiceConnection pAPPB
+        {
+            get
+            {
+                return _serviceConnection;
             }
         }
 
