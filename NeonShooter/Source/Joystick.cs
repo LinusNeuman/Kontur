@@ -28,9 +28,9 @@ namespace NeonShooter
         public int x;
         public int y;
 
-        private int offsetX; // To be used together with the usual X and Y variables, but they have the coordinates equal to the center of the joystick, this will be 0 +- the finger location. 
+        private int offsetX = 0; // To be used together with the usual X and Y variables, but they have the coordinates equal to the center of the joystick, this will be 0 +- the finger location. 
                              // Will make the knob follow the finger, and be used for calculations.
-        private int offsetY;
+        private int offsetY = 0;
 
         public Vector2 direction;
 

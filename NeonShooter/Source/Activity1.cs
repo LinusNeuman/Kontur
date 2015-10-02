@@ -255,6 +255,7 @@ namespace NeonShooter
                 }
                 catch (Android.Content.IntentSender.SendIntentException e)
                 {
+                    System.Console.WriteLine("OnConnectionFailed Error: " + e);
                     mGooglePlayClient.Connect();
                 }
             }

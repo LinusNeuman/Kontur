@@ -26,7 +26,6 @@ namespace NeonShooter
 
         static Random rand = new Random();
         static float inverseSpawnChance = 60;
-        static float inverseBlackHoleChance = 600;
 
         public static void Update()
         {

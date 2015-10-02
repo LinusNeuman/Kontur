@@ -1,14 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -17,16 +8,6 @@ using Microsoft.Xna.Framework.Media;
 using BloomPostprocess;
 
 // test for google play services
-using Android.Gms;
-using Android.Gms.Common;
-using Android.Gms.Games;
-using Android.Gms.Games.LeaderBoard;
-using Android.Gms.Plus;
-using Android.Gms.Plus.Model.People;
-using Android.Gms.Common.Apis;
-using Android.Views;
-using Android.Gms.Analytics;
-using Microsoft.Xna.Framework.Content;
 // test for in app billing
 
 namespace NeonShooter

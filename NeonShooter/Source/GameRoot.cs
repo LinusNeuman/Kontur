@@ -64,9 +64,6 @@ namespace NeonShooter
         public bool loadingGame = true;
         public bool loadingLoad = true;
 
-        private FrameCounter _frameCounter = new FrameCounter();
-        private bool showFPS = true;
-
         public GameRoot()
         {
 

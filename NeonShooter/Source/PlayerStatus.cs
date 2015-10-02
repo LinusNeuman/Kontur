@@ -1,25 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using System.IO;
 
 // test for google play services
-using Android.Gms;
-using Android.Gms.Common;
 using Android.Gms.Games;
 using Android.Gms.Games.LeaderBoard;
-using Android.Gms.Plus;
-using Android.Gms.Plus.Model.People;
 using Android.Gms.Common.Apis;
-using Android.Views;
 // test for in app billing
 
 namespace NeonShooter
@@ -75,8 +60,6 @@ namespace NeonShooter
         public static bool achkilledbyblackhole;
         public static int achscore;
         public static int achlifetime;
-
-        public static int credits;
 
         public static bool FindAE(AppliedEffects ae, int id)
         {

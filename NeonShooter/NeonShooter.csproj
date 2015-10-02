@@ -68,6 +68,32 @@
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
     <DevInstrumentationEnabled>False</DevInstrumentationEnabled>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Kontur 2.0|AnyCPU'">
+    <OutputPath>bin\Kontur 2.0\</OutputPath>
+    <DefineConstants>TRACE;ANDROID</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidLinkSkip />
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
+    <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+    <Debugger>Xamarin</Debugger>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Facebook">
@@ -97,45 +123,45 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.cs" />
-    <Compile Include="AchievementManager.cs" />
-    <Compile Include="Activity1.cs" />
-    <Compile Include="Art.cs" />
-    <Compile Include="PlayerMessage.cs" />
-    <Compile Include="PlayerMessageHandler.cs" />
-    <Compile Include="PowerUpManager.cs" />
-    <Compile Include="BloomComponent.cs" />
-    <Compile Include="BloomSettings.cs" />
-    <Compile Include="Bullet.cs" />
-    <Compile Include="Button.cs" />
-    <Compile Include="ColorUtil.cs" />
-    <Compile Include="Enemy.cs" />
-    <Compile Include="EnemySpawner.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="EntityManager.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="FramCounter.cs" />
-    <Compile Include="GameOver.cs" />
-    <Compile Include="GameRoot.cs" />
-    <Compile Include="Input.cs" />
-    <Compile Include="Joystick.cs" />
-    <Compile Include="JoystickKnob.cs" />
-    <Compile Include="JoystickManager.cs" />
-    <Compile Include="LoadingScreen.cs" />
-    <Compile Include="MathUtil.cs" />
-    <Compile Include="Menu.cs" />
-    <Compile Include="ParticleManager.cs" />
-    <Compile Include="ParticleState.cs" />
-    <Compile Include="Pause.cs" />
-    <Compile Include="PlayerShip.cs" />
-    <Compile Include="PlayerStatus.cs" />
-    <Compile Include="PowerUp.cs" />
-    <Compile Include="PowerUpSpawner.cs" />
+    <Compile Include="Source\About.cs" />
+    <Compile Include="Source\AchievementManager.cs" />
+    <Compile Include="Source\Activity1.cs" />
+    <Compile Include="Source\Art.cs" />
+    <Compile Include="Source\PlayerMessage.cs" />
+    <Compile Include="Source\PlayerMessageHandler.cs" />
+    <Compile Include="Source\PowerUpManager.cs" />
+    <Compile Include="Source\BloomComponent.cs" />
+    <Compile Include="Source\BloomSettings.cs" />
+    <Compile Include="Source\Bullet.cs" />
+    <Compile Include="Source\Button.cs" />
+    <Compile Include="Source\ColorUtil.cs" />
+    <Compile Include="Source\Enemy.cs" />
+    <Compile Include="Source\EnemySpawner.cs" />
+    <Compile Include="Source\Entity.cs" />
+    <Compile Include="Source\EntityManager.cs" />
+    <Compile Include="Source\Extensions.cs" />
+    <Compile Include="Source\FramCounter.cs" />
+    <Compile Include="Source\GameOver.cs" />
+    <Compile Include="Source\GameRoot.cs" />
+    <Compile Include="Source\Input.cs" />
+    <Compile Include="Source\Joystick.cs" />
+    <Compile Include="Source\JoystickKnob.cs" />
+    <Compile Include="Source\JoystickManager.cs" />
+    <Compile Include="Source\LoadingScreen.cs" />
+    <Compile Include="Source\MathUtil.cs" />
+    <Compile Include="Source\Menu.cs" />
+    <Compile Include="Source\ParticleManager.cs" />
+    <Compile Include="Source\ParticleState.cs" />
+    <Compile Include="Source\Pause.cs" />
+    <Compile Include="Source\PlayerShip.cs" />
+    <Compile Include="Source\PlayerStatus.cs" />
+    <Compile Include="Source\PowerUp.cs" />
+    <Compile Include="Source\PowerUpSpawner.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="Sound.cs" />
-    <Compile Include="Upgrades.cs" />
+    <Compile Include="Source\Settings.cs" />
+    <Compile Include="Source\Sound.cs" />
+    <Compile Include="Source\Upgrades.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Content\Fonts\spriteFont1.xnb" />
