@@ -361,7 +361,10 @@ namespace NeonShooter
                             EntityManager.Draw(spriteBatch);
 
                             ParticleManager.Draw(spriteBatch);
-                            PlayerShip.Instance.joystickMgr.DrawSight(spriteBatch);
+                            if (!PlayerStatus.appliedEffects.Exists(ae => PlayerStatus.FindAE(ae, 0)))
+                            {
+                                PlayerShip.Instance.joystickMgr.DrawSight(spriteBatch);
+                            }
                             PlayerMessageHandler.Draw(spriteBatch);
                         }
                         break;
