@@ -10,7 +10,7 @@ using Android.App;
 [assembly: AssemblyProduct("Kontur")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("BICE")]
+[assembly: AssemblyCompany("Drawline Studio Handelsbolag")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

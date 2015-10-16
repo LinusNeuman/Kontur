@@ -61,10 +61,9 @@ namespace NeonShooter
             }
             else
             {
-                while(!TouchPanel.IsGestureAvailable)
+                if(!TouchPanel.IsGestureAvailable)
                 {
                     readyForInput = true;
-                    break;
                 }
             }
         }
