@@ -99,8 +99,14 @@ namespace NeonShooter
 
                             PowerUpManager.ResetGame();
 
+
+                            if (GameRoot.enableMusic == true)
+                            {
                             MediaPlayer.Volume = 0.8f;
                             MediaPlayer.Play(Sound.MainTheme);
+
+                                MediaPlayer.IsRepeating = true;
+                            }
 
                             Menu.gameState = Menu.GameState.menu;
 
@@ -123,8 +129,13 @@ namespace NeonShooter
 
                             PowerUpManager.ResetGame();
 
+                            if (GameRoot.enableMusic == true)
+                            {
                             MediaPlayer.Volume = 0.8f;
                             MediaPlayer.Play(Sound.Music);
+
+                                MediaPlayer.IsRepeating = true;
+                            }
 
                             
 

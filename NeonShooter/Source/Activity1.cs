@@ -211,18 +211,6 @@ namespace NeonShooter
                 return;
             }
 
-            if (requestCode == REQUEST_LEADERBOARD)
-            {
-                mGooglePlayClient.Disconnect();
-                return;
-            }
-
-            if (requestCode == REQUEST_ACHIEVEMENTS)
-            {
-                mGooglePlayClient.Disconnect();
-                return;
-            }
-
             if (_serviceConnection != null)
             {
                 if (_serviceConnection.Connected)
