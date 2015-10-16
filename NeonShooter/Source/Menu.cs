@@ -168,17 +168,8 @@ namespace NeonShooter
                             NeonShooter.Activity1 activity = GameRoot.Activity as NeonShooter.Activity1;
                             if (activity.pGooglePlayClient.IsConnected)
                             {
-                                try
-                                {
-                                    activity.StartActivityForResult(GamesClass.Leaderboards.GetLeaderboardIntent(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ"), Activity1.REQUEST_LEADERBOARD);
-                                    //activity.StartActivityForResult(GamesClass.Leaderboards.GetAllLeaderboardsIntent(activity.pGooglePlayClient), Activity1.REQUEST_LEADERBOARD);
-                                }
-                                catch (Exception e)
-                                {
-                                    Toast.MakeText(activity, "You must be connected! " + e.ToString(), ToastLength.Short).Show();
-                                    throw;
-                                }
-                                
+                                activity.StartActivityForResult(GamesClass.Leaderboards.GetLeaderboardIntent(activity.pGooglePlayClient, "CgkI3bWJ_OoVEAIQCQ"), Activity1.REQUEST_LEADERBOARD);
+                                //activity.StartActivityForResult(GamesClass.Leaderboards.GetAllLeaderboardsIntent(activity.pGooglePlayClient), Activity1.REQUEST_LEADERBOARD);
                             }
                             else
                             {

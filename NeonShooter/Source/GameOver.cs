@@ -55,18 +55,18 @@ namespace NeonShooter
 
         public void Update(ContentManager Content)
         {
-            if (readyForInput == true)
-            {
+            //if (readyForInput == true)
+            //{
                 HandleTouchInput(Content);
-            }
-            else
-            {
-                while(!TouchPanel.IsGestureAvailable)
-                {
-                    readyForInput = true;
-                    break;
-                }
-            }
+            //}
+            //else
+            //{
+            //    while(!TouchPanel.IsGestureAvailable)
+            //    {
+            //        readyForInput = true;
+            //        break;
+            //    }
+            //}
         }
 
         public static void TransmitScore()
