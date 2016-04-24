@@ -130,9 +130,9 @@ namespace NeonShooter
             //pGooglePlayClient.RegisterConnectionCallbacks (this);
             //pGooglePlayClient.IsConnectionFailedListenerRegistered (this);;
 
-            GameRoot.Activity = this;
+            //GameRoot.Activity = this;
             var g = new GameRoot();
-            SetContentView(g.Window);
+            SetContentView(g.Services.GetService<View>());
             g.Run();
         }
 

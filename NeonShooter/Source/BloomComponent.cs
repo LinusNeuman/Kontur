@@ -30,7 +30,7 @@ namespace BloomPostprocess
         RenderTarget2D renderTarget1;
         RenderTarget2D renderTarget2;
 
-
+        EffectParameter bloomBase;
 
 
         // Choose what display settings the bloom should use.
@@ -157,6 +157,9 @@ namespace BloomPostprocess
 
             renderTarget1 = new RenderTarget2D(GraphicsDevice, width, height, false, format, DepthFormat.None);
             renderTarget2 = new RenderTarget2D(GraphicsDevice, width, height, false, format, DepthFormat.None);
+
+            bloomCombineEffect.Parameters["BaseTexture"].SetValue(sceneRenderTarget);
+            bloomBase = bloomCombineEffect.Parameters["BaseTexture"];
         }
 
 
@@ -196,6 +199,8 @@ namespace BloomPostprocess
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
+            bloomBase.SetValue(sceneRenderTarget);
+
             GraphicsDevice.SamplerStates[1] = SamplerState.LinearClamp;
 
             // Pass 1: draw the scene into rendertarget 1, using a

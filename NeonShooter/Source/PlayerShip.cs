@@ -356,7 +356,7 @@ namespace NeonShooter
         //            new ParticleState(vel1, ParticleType.Enemy));
         //        GameRoot.ParticleManager.CreateParticle(Art.Glow, pos, sideColor * alpha, 60f, new Vector2(0.5f, 1),
         //            new ParticleState(vel2, ParticleType.Enemy));
-        //    }       
+        //    }
         //}
 
         public override void Draw(SpriteBatch spriteBatch)
